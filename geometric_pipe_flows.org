@@ -1,2 +1,5 @@
-* Notes
-
+* Notes								   :noexport:
+* Introduction
+* Pipe Domain and Divergence Theorem
+* Cross Section Averaged Equations
+* Continuum Mechanics on Riemannian Manifolds
