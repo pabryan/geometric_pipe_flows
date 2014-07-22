@@ -1,0 +1,94 @@
+% Numbering
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% Basic quantities such as density, pressure etc.
+\DeclareMathOperator{\bodyforce}{F}
+\DeclareMathOperator{\pressure}{P}
+\DeclareMathOperator{\density}{\rho}
+\DeclareMathOperator{\velocity}{U}
+\DeclareMathOperator{\position}{R}
+\DeclareMathOperator{\potential}{\phi}
+\DeclareMathOperator{\energydensity}{\mathcal{E}}
+\renewcommand{\nor}{\mathop{N}}
+\DeclareMathOperator{\kinetic}{kinetic}
+\DeclareMathOperator{\internal}{internal}
+\DeclareMathOperator{\fsvelocity}{V}
+\DeclareMathOperator{\relvelocity}{W}
+\newcommand{\norvec}[1]{\vec{#1}_{\nor}}
+
+% Domains
+\DeclareMathOperator{\domain}{M}
+\newcommand{\domainxsec}[1]{\ensuremath{\domain_{#1}}}
+\DeclareMathOperator{\domainaxis}{\mathcal{C}}
+\DeclareMathOperator{\curvelength}{L}
+\DeclareMathOperator{\domaincurve}{(0,\curvelength)}
+\DeclareMathOperator{\pipe}{P}
+\DeclareMathOperator{\pipearea}{A_{\pipe}}
+\DeclareMathOperator{\indicator}{I}
+\DeclareMathOperator{\body}{B}
+\DeclareMathOperator{\smooth}{sm}
+\DeclareMathOperator{\sing}{sing}
+\DeclareMathOperator{\disc}{D}
+\DeclareMathOperator{\interval}{I}
+
+% Time parameters
+\DeclareMathOperator{\timeinterval}{[0, T)}
+
+% Cross sections
+\newcommand{\xsec}{\Omega}
+\newcommand{\xsecbdry}{\bdry{\xsec}}
+\newcommand{\xsecarea}{A}
+\newcommand{\xsecmom}{Q}
+
+% Coordinates
+\newcommand{\xcoord}{x}
+\newcommand{\ycoord}{y}
+\newcommand{\zcoord}{z}
+\newcommand{\tcoord}{t}
+
+% Vector components
+\newcommand{\coordvec}[1]{(\veccomp{#1}{\xcoord}, \veccomp{#1}{\ycoord}, \veccomp{#1}{\zcoord})}
+\newcommand{\twocoordvec}[1]{(\veccomp{#1}{\ycoord}, \veccomp{#1}{\zcoord})}
+\newcommand{\xvec}[1]{\veccomp{#1}{\xcoord}}
+\newcommand{\yvec}[1]{\veccomp{#1}{\ycoord}}
+\newcommand{\zvec}[1]{\veccomp{#1}{\zcoord}}
+\newcommand{\twovec}[1]{\vec{#1}'}
+
+% Derivatives
+\newcommand{\tpd}[1][\empty]{\pd[#1]{\tcoord}}
+\newcommand{\xpd}[1][\empty]{\pd[#1]{\xcoord}}
+\newcommand{\tdd}[1][\empty]{\dd[#1]{\tcoord}}
+\newcommand{\xdd}[1][\empty]{\dd[#1]{\xcoord}}
+
+\newcommand{\twodiv}{\div_2}
+
+\renewcommand{\grad}{\mathop{\text{grad}}}
+
+% Notation for general quantities
+\newcommand{\genfunc}{f} 
+\newcommand{\genfunca}{g} 
+\newcommand{\genfuncb}{h} 
+\newcommand{\genvec}{V}
+
+% Surface
+\DeclareMathOperator{\is}{IS}
+\DeclareMathOperator{\fs}{FS}
+\DeclareMathOperator{\eq}{eq}
+
+% Constants
+\newcommand{\gravity}{g}
+
+% disc quantities
+\newcommand{\discvec}[1]{\vec{#1}_{\disc}}
+
+% Notes to myself
+\newcommand{\note}[1]{
+\fbox{\parbox{\linewidth}{\textbf{NOTE:} #1}}
+}
+\newenvironment{mnote}
+{\fbox{\parbox{\linewidth}{\textbf{NOTE:}}
+{}}}
+
+
+% Should go somewhere else like algebra commands etc.
+\DeclareMathOperator{\deformation}{D}
