@@ -1,4 +1,1029 @@
 * Notes								   :noexport:
+\section{Introduction}
+\label{sec:intro}
+
+\note{
+This describes a geometric approach broadening the technique described in \cite{MR2384375}.
+}
+
+
+\section{Geometric Approach To Continuum Mechanics}
+\label{sec:geometry}
+
+Recall that the basic equations of continuum mechanics are the conservation of mass, momentum and energy.  The basic quantities of interest describing the continuum are
+\begin{itemize}
+\item $\density$ - the density of matter,
+\item $\vec{\velocity}$ - the velocity vector field,
+\item $\energydensity_{\kinetic} = \frac{1}{2} \|\vec{\velocity}\|^2$ - the kinetic energy density,
+\item $\energydensity_{\internal}$ - the internal energy density,
+\item $\energydensity = \energydensity_{\kinetic}  + \energydensity_{\internal}$ - the total energy density,
+\item $\cauchystress$ - the Cauchy stress tensor, a symmetric $(0,2)$-tensor,
+\item $\vec{\bodyforce}$ - the external or ``body'' forces.
+\end{itemize}
+
+\subsection{The Euclidean Setting}
+\label{sec:geometry_euclidean}
+
+\note{Energy equation?}
+
+The differential equations expressing the conservation of mass, momentum and energy are
+\begin{align*}
+\pd[\density]{t} + \div(\density\vec{\velocity}) &= 0 & & \text{Conservation of Mass} \\
+\pd{t} \left(\density\vec{\velocity}\right) + \div\left(\vec{\velocity} \tensor \density\vec{\velocity}\right) &= \div \cauchystress + \vec{\bodyforce} & & \text{Conservation of Momentum} \\
+\pd[\energydensity]{t} &= ... & & \text{Conservation of Energy}
+\end{align*}
+
+These equations may be thought of as the infinitessimal versions of the integral laws which for any family of open subset $\Omega(t)\subset \RR^3$ with smooth boundary, moving with the flow are given by
+\begin{align*}
+\pd{t} \int_{\Omega} \density &= 0 & & \text{Conservation of Mass} \\
+\pd{t} \int_{\Omega} \density\vec{\velocity} &= \int_{\bdry{\Omega}} \ip{\cauchystress}{\nor} + \int_{\Omega} \vec{\bodyforce} = \int_{\Omega} \div \cauchystress + \int_{\Omega} \vec{\bodyforce} & & \text{Conservation of Momentum} \\
+\pd{t} \int_{\Omega} \energydensity \density &= \text{work} ... & & \text{Conservation of Energy} 
+\end{align*}
+Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$.
+
+\subsection{The Riemannian Setting}
+\label{subsec:geometry_riemann}
+
+We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake or beach or a closed container.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply the Riemannian geometry just developed to derive the conservation laws in the Riemannian setting using the tools just described.  This serves as a nice warmup for what comes later.  See the appendix for a review of the Riemannian geometry needed.
+
+\begin{ex}
+In the case of $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ induces the \emph{pull-back metric} $\metric$ on $\domain$
+\[
+\metric = \phi^{\star} \ip{-}{-}
+\]
+
+Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star} \div_{\RR^3}$, the differential conservation equations ``pull back'' to $M$,
+\begin{align*}
+\pd{t} \density + \div_{\metric} (\density \vec{\velocity}) &= 0 \\
+\pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce} \\
+\pd{t} \energydensity \density &= ...
+\end{align*}
+abusing notation by writing $\cauchystress$ for $\phi^{\star}\cauchystress$ and $\vec{\bodyforce}$ for $\phi^{\star}\vec{\bodyforce}$.  
+\end{ex}
+
+\begin{remark}
+This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for conservation of momentum doesn't make sense since in general there is no way to integrate vector fields ``component-wise''.
+\end{remark}
+
+Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
+
+\note{Maybe just say smooth on $\body \times \timeinterval$ and piecewise smooth on $\bdry{\body}\times \timeinterval$}
+
+\begin{defn}
+A \emph{motion} of a body in $M$ is a smooth one parameter family of embeddings
+\[
+\phi : \body \times \timeinterval \to M
+\]
+for some $T>0$ and $\body$ a smooth manifold with piecewise smooth boundary $\bdry{\body}$.  That is, $\phi$ is continuous on $\clsr{\body} \times \timeinterval$, smooth on $\body \times \timeinterval$ and piecewise smooth on $\bdry{\body}_{\smooth} \times \timeinterval$.  For each $t\in\timeinterval$ the map $\phi_t(-) = \phi(-, t) : \clsr{\body} \to M$ is a homemorhpism with it's image and is a diffeomorphism of $\body$ with it's image.
+
+We write $\body_t = \phi_t(\body) \subset M$ and define the velocity vector field
+\[
+\vec{\velocity}(t) = \phi_{\star} \pd{t}
+\]
+which is a smooth time dependent family of vector fields on $\body_t$ since each $\phi_t: \body \to \body_t$ is a diffeomorphism.
+\end{defn}
+
+\begin{remark}
+Notice that $\body_t \subset M$ is a smooth one-parameter family of submanifolds of $M$.  We fix the If we change parametrisation so that $\body_t = \psi_t(\body)$ then
+\end{remark}
+
+\begin{remark}
+The \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics writes the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will phrase most of our work in the Eulerian formulation, but make some use of the Lagrangian formulation to deal with the moving domain.
+\end{remark}
+
+The main point here is that we have a density $\density \metricmeasure{\metric}$ and we want to compute the evolution of various quantities \emph{on $M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
+\[
+(\phi_t^{\star} (\density\metricmeasure{\metric})) (x) = (\density \metricmeasure{\metric})(\phi_t(x)) = (\density\metricmeasure{\metric}) (x, 0)
+\]
+for all $x\in \body$.  Since $\vec{\velocity} = \phi_{\star}\pd{t}$ is a time dependent family of vector fields on $M$ and $\metricmeasure{\metric}$ is independent of time, the infinitessemal conservation of mass can now be written
+\[
+\label{eq:consv_mass_riemann}
+0 = \pd{t} \phi_t^{\star} (\density\metricmeasure{\metric}) = \phi_t^{\star} \left(\pd[\density]{t} \metricmeasure{\metric} + \lie_{\vec{\velocity}} (\density \metricmeasure{\metric})\right) = \phi_t^{\star} \left(\pd[\density]{t}\metricmeasure{\metric} + \div(\density\vec{\velocity}) \metricmeasure{\metric}\right)
+\]
+which is equivalent, since $\phi_t$ is a diffeomorphism, to
+\[
+0 = \pd[\density]{t}\metricmeasure{\metric} + \div(\density\vec{\velocity}) \metricmeasure{\metric}.
+\]
+In the literature, the time derivative moving with the flow is known as the material derivative $\md{t}$.
+\begin{defn}
+For a smooth function $f: \body(t) \to \RR$, the \emph{material derivative} is defined as
+\[
+\md[f]{t} = \pd[f]{t} + \div(f\vec{\velocity}).
+\]
+\end{defn}
+The material derivatve is related to the Lie derivative $\lie_{\vec{\velocity}}$ by
+\[
+\md[f]{t} \metricmeasure{\metric} = \lie_{\vec{\velocity}} (f \metricmeasure{\metric})
+\]
+Thus we may also write the conservation of mass as
+\[
+\md[\rho]{t} = 0
+\]
+since $\metricmeasure{\metric}(x) \ne 0$ for all $x\in M$.
+
+The balance of momentum is obtained from Newton's second law stating that the change in momentum is equal to the forces applied.  We divide the applied forces into external or \emph{body} forces $\vec{\bodyforce}$ arising externally to the continuum (e.g. gravity) and those arising from the influence of the continuum on itself, i.e. internal stresses such as pressure.  Cauchy's theorem states that the internel forces of stress are of the form $\div \cauchystress$ for a symmetric $(2,0)$ tensor $\cauchystress$, the so-called Cauchy stress tensor.  Balance of momentum may be expressed as
+\[
+\pd{t} \phi_t^{\star}(\vec{\velocity} \tensor \density\metricmeasure{\metric}) = \phi_t^{\star}\left((\vec{\bodyforce} + \div \cauchystress) \tensor \density\metricmeasure{\metric}\right).
+\]
+Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independent of time, balance of momentum then reads
+
+\note{Need to sort out the div and Lie terms here}
+
+\[
+\label{eq:consv_mom_riemann}
+\begin{split}
+\phi_t^{\star}\left((\div \cauchystress + \vec{\bodyforce}) \tensor \density\metricmeasure{\metric}\right) &= \phi_t^{\star} \left(\pd{t} (\vec{\velocity} \tensor \density\metricmeasure{\metric}) + \lie_{\vec{\velocity}} (\vec{\velocity} \tensor \density\metricmeasure{\metric}) \right) = \phi_t^{\star} \left(\pd{t} (\density\vec{\velocity} \tensor \metricmeasure{\metric}) + \lie_{\vec{\velocity}} (\vec{\velocity} \tensor \density\metricmeasure{\metric}) \right) \\
+&= \phi_t^{\star}\left(\pd{t}(\density\vec{\velocity}) \tensor \metricmeasure{\metric} + \density \lie_{\vec{\velocity}} \vec{\velocity} \tensor \metricmeasure{\metric} + \vec{\velocity} \tensor \lie_{\vec{\velocity}} (\density\metricmeasure{\metric})\right) \\
+&= \phi_t^{\star}\left[\left(\pd{t}(\density\vec{\velocity}) + \density \lie_{\vec{\velocity}} \vec{\velocity} + \div(\density\vec{\velocity}) \vec{\velocity}\right) \tensor \metricmeasure{\metric} \right]
+\end{split}
+\]
+
+\note{Give version after conservation of mass}
+
+We also have the notion of material derivative of a vector field $X$.
+\begin{defn}
+Let $X$ be a vector field on $\body(t)$.  Then the \emph{material derivative} is defined as
+\[
+\md[X]{t} = \pd[X]{t} + \div(X \tensor \vec{\velocity})
+\]
+\end{defn}
+Again, the material derivative is related to the Lie derivative by
+\[
+\md[X]{t} \tensor \metricmeasure{\metric} = \lie_{\vec{\velocity}} (X \tensor \metricmeasure{\metric}).
+\]
+When conservation of mass holds, we may write balance of momentum as
+\[
+\md[X]{t} = \div \cauchystress + \vec{\bodyforce}
+\]
+since $\metricmeasure{\metric}(x) \ne 0$ for all $x\in M$.
+
+\begin{ex}[$M = \RR^2$]
+In Euclidean space, with global coordinates $\{x_i\}$, a global basis for the tangent space is $\{\pd{x_i}\}$ and we may write $X = X^i \pd{x_i}$ using the summation convention.  Then we may write
+\[
+X \tensor \metricmeasure{\metric} = X^i \pd{x_i} \tensor \metricmeasure{\metric}
+\]
+in component form.  In this case
+\begin{align*}
+\pd[X]{t} &= \pd[X^i]{t} \pd{x_i} \\
+\div(X \tensor \vec{\velocity}) &= \pd[(X^j \velocity^i)]{x^j} \pd{x^i}
+\end{align*}
+and we have the equation for the components
+\[
+\left(\pd[X]{t} + \div(X\tensor\vec{\velocity})\right) \tensor \metricmeasure{\metric} = \left(\pd[X^i]{t} + \pd[(X^j \velocity^i)]{x^j}\right) \pd{x^j} \tensor \metricmeasure{\metric}.
+\]
+This gives us the component form of the conservation of momentum
+\[
+\pd[(\density\velocity^i)]{t} + \pd[(\density\velocity^j \velocity^i)]{x^j} = \pd[\cauchystress^{ji}]{x^j} + \bodyforce^i.
+\]
+We may now integrate each $i$'th component to recover the integral conservation equation.
+\end{ex}
+
+In general we may define the material derivative of a tensor field $T$.
+\begin{defn}
+\[
+\md[T]{t} = \pd[T]{t} + \div(T \tensor \vec{\velocity}).
+\]
+\end{defn}
+If conservation of mass holds, $\md[T]{t}$ satisfies the relation
+\[
+\md[T]{t} \tensor \metricmeasure{\metric} = \lie_{\vec{\velocity}}(T \tensor \metricmeasure{\metric}).
+\]
+
+\note{
+Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
+}
+
+\section{Product Domain}
+\label{sec:domain}
+
+In this section, we describe a way to reduce the dimension of the the system of conservation equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
+
+To begin, let us define the domain in which we will work and prove a divergence theorem in this domain.  The divergence theorem will be our main tool in deriving the equations for the $1$-d pipe flow.  We work with embedded pipes and channels in Euclidean space $\RR^3$.  Both domains can be represented as embedded cylinders
+\[
+\domain = (0,\curvelength) \times \disc \to \RR^3
+\]
+with $\disc \subset \RR^2$ the open unit disc centred on the origin.  We also write $\clsr{\domain} = (0,\curvelength) \times \clsr{\disc}$ with $\clsr{\disc}$ the closed unit disc.  The boundary of $\domain$ is
+\[
+\bdry{\domain} = \clsr{\disc} \times \{0\} \union \clsr{\disc} \times \{1\} \union S^1 \times (0,\curvelength).
+\]
+
+We make the following assumption on the embedding $\phi$ related to the pull-back metric,
+\[
+\metric = dx^2 + \metric_{\disc}(x, (y, z))
+\]
+where $x\in (0,\curvelength)$ is the axial parameter, $(y,z) \in \clsr{\disc} \subset \RR^2$ are coordinates on $\clsr{\disc}$ and $\metric_{\disc}$ is a metric on $\clsr{\disc}$.  Thus the metric in the axial direction is independent of the cross section $\disc \times \{x\}$ and the cross section is orthogonal to the axial direction with respect to the metric $\metric$.  This simply says that the domain can by parametrised by a non-degenerate unit-speed curve $\domainaxis$, $x\mapsto \phi(x, 0, 0)$ of length $\curvelength$ which we parametrise by arc-length so that $\metric_{xx} = 1$, and with cross section $\domainxsec{x} = \phi(x, \disc)$ orthogonal in $\RR^3$ to the curve.  The matrix form of the metric is 
+\[
+\metric = \begin{pmatrix}
+1 & 0 \\
+0 & \metric_{\disc}(x)
+\end{pmatrix}.
+\]
+
+Although we work on the fixed manifold $\disc\times \{x\}$, the cross section $\domainxsec{x}$ in $\RR^3$ may vary with $x$ and this is reflected by the dependence on $x$ of the metric $\metric_{\disc}$.  The ``shape'' of the cross section $\domainxsec{x}$ also need not be circular and this is refelcted by the $(y,z)$ dependence of the metric $\metric_{\disc}$.  See figure \ref{fig:domain} for a picture of the domain illustrating the notation and these ideas.
+
+\begin{figure}
+\caption{The domain}
+\label{fig:domain}
+\end{figure}
+
+\begin{remark}
+The parametrising curve need not be what we would normally consider as the main axis of a pipe as shown in figure \ref{fig:parametrising_curve}.  The first figure shows an embedded pipe and the main axis.  The second shows the same pipe, but with a different choice of axis and hence different cross section.  The second situation is of interest when transporting water from one location to another along a pipe, but the axis of the pipe need not coincide with the direction of outflow at the source and inflow at the destination.
+
+\begin{figure}
+\caption{The parametrising curve need not be the main axis.}
+\label{fig:parametrising_curve}
+\end{figure}
+\end{remark}
+
+\note{The whole idea that $W = V - U$ may not be zero is saying that there is a boundary that is not the fluid boundary.  If we just work with the fluid, we have $V = \phi_{\star} \pd{t}$ is the normal velocity of the fluid boundary, and of course this is equal to $U = \phi_{\star} \pd{t}$.  To do deformable boundaries, then we have a seperate $U$ and $V$ and $M = M(t)$ say.  I'm not sure what boundary conditions are needed there.  Do we need to specify $U$, $V$, $W$ or perhaps two of them?}
+
+Now that we have our manifold $M = (0, \curvelength)$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinscially on $M$.  Our continuum is now a smooth time dependent family of submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$.  The continuum inherits the decomposition
+\[
+\body(t) = \union_{x\in \domaincurve} \xsec(x, t)
+\]
+from $\domain$ with 
+\[
+\xsec(x,t) = \body(t) \intersect \left(\{x\} \times \disc\right)
+\]
+possibly empty.  Assuming that $\body(t)$ is connected, let
+\begin{align*}
+x_{\min}(t) &= \inf_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset \\
+x_{\max}(t) &= \sup_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset 
+\end{align*}
+The boundary $\bdry{\body(t)}$ decomposes as
+\[
+\bdry{\body(t)} = \xsec(x_{\min}(t), t) \union \xsec(x_{\max}(t), t) \union \relbdry[\body(t)]{M}
+\]
+with $\relbdry[\body(t)]{M} = \bdry{\body(t)} \intersect \left( \domaincurve \times \clsr{\disc}\right)$.  Note that either $\xsec(x_{\min(t)}, t) \subset \disc$ or $\xsec(x_{\max(t)}, t) \subset \disc$ may well be equal to just a single point.
+
+We also decompose $\relbdry[\body(t)]{M}$ as
+\[
+\relbdry[\body(t)]{M} = \bdry{\body}_{\fs}(t) \cup \bdry{\body}_{\is}(t)
+\]
+with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface.  
+
+\begin{remark}
+If $\domain$ is a pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surface.  If $\domain$ is an open channel, then $\domaincurve \times S^1$ has an impermeable part, the bottom of the channel and an open part.  The assumption of the model is that the fluid remains strictly inside the channel, so that $\bdry{\body}_{\is}$ is really the fluid boundary at the impermeable part of the channel.  For any solution (or more usually a numerical approximation), we need to explicitly check that the fluid has remained in the channel for the solution to be valid.
+\end{remark}
+
+The density is now a function $\density: \body(t) \to \RR$ and the velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
+
+As in the previous section, we consider the differential laws on $M$.  We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
+\[
+\begin{cases}
+\density(0, (y,z), t) &= \density_0((y,z), t) \\
+\density(\curvelength, (y,z), t) &= \density_{\curvelength}((y,z), t) \\
+\vec{\velocity}(0, (y,z), t) &= \vec{\velocity}_0((y,z), t) \\
+\vec{\velocity}(\curvelength, (y,z), t) &= \vec{\velocity}_{\curvelength}((y,z), t)
+\end{cases}
+\]
+for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
+
+The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
+\[
+\norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}
+\]
+and the \emph{relative normal velocity} vector field
+\[
+\norvec{\relvelocity} = \norvec{\fsvelocity} - \norvec{\velocity}
+\]
+with $\vec{\nor}$ the normal vector to the free boundary $\relbdry[\body(t)]{M}$.  To determine the solution up to reparametrisation of the free boundary, it is is sufficient to specify $\norvec{\relvelocity}$ on $\relbdry[\body(t)]{M}$.  That is we specify
+\[
+\norvec{\relvelocity}(x, t) = W(x)
+\]
+for all $x\in \relbdry[\body(t)]{M}$ and $t\in\interval$.  From the decomposition $\relbdry[\body(t)]{M} =  \bdry{\body(t)}_{\is} \union \bdry{\body(t)}_{\fs}$, we also decompose the boundary condition
+\begin{align*}
+\norvec{\relvelocity}(x, t) &= W_{\is}(x), & & x \in \bdry{\body(t)}_{\is} \\
+\norvec{\relvelocity}(x, t) &= W_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
+\end{align*}
+
+\begin{ex}[Rigid Pipe Flows]
+For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary.  In this situation, the impermeable surface itself does not move (though a given parametrisation of the fluid may have tangential velocity on this boundary) so that $\norvec{\fsvelocity} = 0$.  Then we have the condition
+\[
+\norvec{\relvelocity}(x, t) = W_{\is}(x) = 0,  x \in \bdry{\body(t)}_{\is}.
+\]
+
+If the fluid does not completely fill the pipe, there is a free surface which is \emph{advected} by the flow, i.e. the free surface moves with the same velocity as the fluid, corresponding to the condition
+\[
+\norvec{\relvelocity}(x, t) = W_{\fs}(x) = 0,  x \in \bdry{\body(t)}_{\fs}.
+\]
+\end{ex}
+
+\begin{ex}[Blood Flow, \cite{Hughes1973161}]
+The flow of blood in arteries may be modelled by fluid flow in pipes with deformable boundary.  In this setting the radius of $M$ is the maximal radius after which the artery bursts and $\relbdry[\body(t)]{M} = \bdry{\body(t)}_{\fs}$ is entirely free surface.  In contrast to the rigid pipe flows, the fluid may pass through the arterial wall and so the boundary condition is in general
+\[
+\norvec{\relvelocity}(x, t) = W_{\fs}(x) \ne 0,  x \in \bdry{\body(t)}_{\fs}
+\]
+for some given non-zero function $W_{\fs}$ determined empirically.
+\end{ex}
+
+Ultimately we want to integrate the conservation equations over the cross section $D$ to obtain equations for the cross section average density and cross section averaged $x$-momentem.  For this, we will need a divergence theorem coming from the product structure of the domain $(\domain, \metric) = (\domaincurve \times \disc, dx^2 + \metric_D)$.  The tangent bundle of $\domain$ decomposes as
+\[
+TM \simeq T\domaincurve \oplus T\disc
+\]
+so for any vector field $\vec{X}$ on $\domain$, we have the decomposition
+\[
+\vec{X} = \xvec{X} \pd{x} + \discvec{X}
+\]
+wth $\xvec{X}$ a smooth function on $\domaincurve$ and $\discvec{X}$ a family (indexed by $x\in\domaincurve$) of vector fields on $\disc$.  The block structure on the metric implies
+\[
+\sqrt{\det \metric} = \sqrt{\det \metric_{\disc}},
+\]
+so that the measure induced by the metric is given locally with $y,z$ coordinates on $\disc$ by
+\[
+\metricmeasure{\metric} = \sqrt{\det \metric} dx \wedge dy \wedge dz = dx \wedge (\sqrt{\det \metric_{\disc}} dy \wedge dz) = dx \wedge \measure_{\disc}
+\]
+with $\measure_{\disc}(x)$ the family (indexed by $x\in\domaincurve$) of measures induced by the family of metrics $\metric_{\disc}(x)$.
+
+Let us write$\xsecarea (x) = \int_{\disc} \measure_{\disc}(x)$ and
+\[
+\avg{\genfunc}(x) = \frac{1}{\xsecarea(x)} \int_{\disc} f(x) \measure_{\disc} (x)
+\]
+for the average of $\genfunc$ over $\disc$.
+
+\begin{theorem}[Divergence Theorem]
+\label{thm:div_vec}
+For any vector field $X = \xvec{X} + \discvec{X}$ we have
+\[
+\begin{split}
+\int_{\disc} \div X \measure_{\disc} &= \pd{x} (\xsecarea \avg{\xvec{X}}) + \int_{\disc} \div_{\disc} \discvec{X} \measure_{\disc} \\
+&= \pd{x} (\xsecarea \avg{\xvec{X}}) + \int_{\bdry{\disc}} \ip{\discvec{X}}{\nor} \measure_{\bdry{\disc}}
+\end{split}
+\]
+where $\nor$ is a unit normal field to $\bdry{\disc}$ and $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$ and $\measure_{\bdry{\disc}}$ the induced ``surface'' meausure on $\bdry{\disc}$.
+\end{theorem}
+
+\begin{proof}
+In local coordinates, the assumptions on the metric imply the divergence may be written
+\[
+\begin{split}
+\div X &= \frac{1}{\sqrt{\det\metric_{\disc}}} \left[\pd{x} (\sqrt{\det \metric_{\disc}} \xvec{X}) + \pd{y} (\sqrt{\det \metric_{\disc}} \yvec{X}) + \pd{z} (\sqrt{\det \metric_{\disc}} \zvec{X})\right] \\
+&= \pd{x} \xvec{X} + \frac{\pd{x} \sqrt{\det \metric_{\disc}}}{\sqrt{\det \metric_{\disc}}} \xvec{X} + \frac{1}{\sqrt{\det\metric_{\disc}}} \left[\pd{y} (\sqrt{\det \metric_{\disc}} \yvec{X}) + \pd{z} (\sqrt{\det \metric_{\disc}} \zvec{X})\right] \\
+&= \div_{\domaincurve} \xvec{X} + \frac{\pd{x} \measure_{\disc}}{\measure_{\disc}} \xvec{X} + \div_{\disc} \discvec{X}.
+\end{split}.
+\]
+Note that the divergence doesn't quite inherit a block decomposition from the metric since the metric on $\disc$ varies with $x\in\domaincurve$.  However, by multipyling by $\measure_{\disc} = \sqrt{\det \metric_{\disc}}$, we obtain the decomposition 
+\[
+\div X \measure_{\disc} = \pd{x} (\xvec{X} \measure_{\disc}) + \div_{\disc} \discvec{X} \measure_{\disc}.
+\]
+Integrating over $\disc$ gives the first equality in the theorem and applying the ``usual'' divergence theorem gives the second.
+\end{proof}
+
+We also need to deal with the term $\div (\density\vec{\velocity} \tensor \vec{\velocity})$ for which we derive a divergence theorem.  We break up the proof into a short series of lemmas.  Consider tensors $T\in TM\tensor TM$ and we proceed similarly as for vector fields.  From the decomposition of the tangent bundle, we have the decomposition 
+\[
+T\domain \tensor T\domain \simeq (T\domaincurve \tensor T\domaincurve) \oplus (T\disc \tensor T\disc) \oplus (T\domaincurve \tensor T\disc)  \oplus (T\disc \tensor T\domaincurve) 
+\]
+Thus for any tensor $T \in T\domain \tensor T\domain$, we can write
+\[
+T = T_{xx} \pd{x} \tensor \pd{x} + T_{\disc} + \pd{x} \tensor X_{\disc}^1 + X_{\disc}^2 \tensor \pd{x}
+\]
+for $T_{xx}$ a smooth function on $\domaincurve$, $T_{\disc} \in T\disc \tensor T\disc$ and $X_{\disc}^i$ $i=1,2$ families (indexed by $x\in\domaincurve$) of vector fields on $\disc$.
+
+The divergence of such tensors also decomposes.  First, let us derive the local expression for the divergence of a tensor $T\in TM\tensor TM$.  There is a degree of ambiguity since the divergence is defined as
+\[
+\div T = \trace (\conx T)
+\]
+with $\conx T \in T^{\star}M \tensor TM \tensor TM$ and the trace taken over either the first and second component or the first and third.  In general these traces will give different vector fields $\div T$.  However, if $T$ is symmetric, the trace is unambigous (which can be seen from the local expression obtained below) and we may choose either factor.  We choose the first factor.
+
+The expression for $\div T$ in local coordinates is given by the following lemma:
+\begin{lemma}
+\label{lem:tensor_div}
+Let $T\in TM\tensor TM$ be symmetric. Then
+\[
+\div T = \left(\div (\iota_{dx^j} T) + \Gamma_{lk}^j T^{kl}\right) \pd{x^j}
+\]
+where $\iota_{dx^j} T$ is the insertion of $dx^j$ into $T$ on the second factor, given locally as
+\[
+\iota_{dx^j} \left(T^{kl} \pd{x^k} \tensor \pd{x^l}\right) = T^{kl} \pd{x^l}(dx^j) \pd{x^k} = T^{kj} \pd{x^k}
+\]
+and divergence on the right hand side is the divergence of the vector field $\iota_{dx^j} T$.
+\end{lemma}
+
+\begin{proof}
+We compute
+\[
+\begin{split}
+\div T &= \left(\div T^{ij} \pd{x_i} \tensor \pd{x_j}\right) \\
+&= \trace \left(\pd[T^{ij}]{x_k} dx_k \tensor \pd{x_i} \tensor \pd{x_j} + T^{ij} \Gamma_{ik}^l dx_k \tensor \pd{x_l} \tensor \pd{x_j} + T^{ij} \Gamma_{jk}^l dx_k \tensor \pd{x_i} \tensor \pd{x_l} \right) \\
+&= \trace \left[\left(\pd[T^{ij}]{x^k} + T^{lj}\Gamma_{lk}^i + T^{il}\Gamma_{lk}^j\right) dx_k \tensor \pd{x_i} \tensor \pd{x_j}\right] \\
+&=  \left( \pd[T^{kj}]{x^k} + \Gamma_{lk}^k T^{lj} + \Gamma_{lk}^j T^{kl}\right) \pd{x^j} \\
+&= \left( \pd[T^{kj}]{x^k} + T^{kj} \frac{\pd{x^j}\sqrt{\det \metric}}{\sqrt{\det\metric}} + \Gamma_{lk}^j T^{kl}\right) \pd{x^j} \\
+&= \left( \frac{1}{\sqrt{\det g}} \pd{x^k}(\sqrt{\det g} T^{kj}) + \Gamma_{lk}^j T^{kl}\right) \pd{x^j} \\
+&= \left(\div (\iota_{dx^j} T) + \Gamma_{lk}^j T^{kl}\right) \pd{x^j}.
+\end{split}
+\]
+\end{proof}
+
+In particular, we are interested in the component of $\div T$ tangent to $\domaincurve$, i.e. the $\pd{x}$ component, given by $(\div T)^x = \iota_{dx} \div T$.  
+
+\begin{lemma}
+\label{lem:div_insertionx_commute}
+For any symmetric tensor field $T\in TM\tensor TM$, $\iota_{dx}$ commutes with $\div$.  That is, we have
+\[
+\iota_{dx} (\div T) = \div (\iota_{dx} T) = \pd{x} \iota_{dx}^2 T + \frac{\pd{x}\measure_{\disc}}{\measure_{\disc}} \iota_{dx}^2 T + \div_{\disc} (\iota_{dx} T)_{\disc}.
+\]
+\end{lemma}
+
+\begin{proof}
+The second equality is just an application of the divergence theorem \ref{thm:div_vec} to the vector field $\iota_{dx} T$.
+
+For the first equality, let $x_1=x$ and $x_2,x_3$ be local coordinates on $\disc$.  From lemma \ref{lem:tensor_div} we have
+\[
+\iota_{dx} \div T = \div \iota_{dx} T + \Gamma_{lk}^x T^{kl}.
+\]
+
+To finish, we need to compute $\Gamma_{lk}^x$.  Recall that $\metric_{xk} = \delta_{xk}$ so that
+\[
+\begin{split}
+\Gamma_{lk}^x &= \frac{1}{2} \metric^{xi} \left(\pd{x^l} \metric_{ik} + \pd{x^k} \metric_{li} - \pd{x^i} \metric_{lk}\right) \\
+&= \frac{1}{2} \left(\pd{x^l} \delta_{xk} + \pd{x^k} \delta_{lx} - \pd{x} \metric_{lk}\right) \\
+&= -\frac{1}{2} \pd{x} \metric_{lk}.
+\end{split}
+\]
+Then we have
+\[
+\Gamma_{lk}^x T^{kl} = \trace \left(\pd[\metric]{x} \tensor T\right) = \trace \left(\pd[\metric_{\disc}]{x} \tensor T_{\disc}\right)
+\]
+where the trace here is the total contraction of $\pd[\metric]{x} \in T^{\star}M\tensor T^{\star}M$ with $T \in TM\tensor TM$ given locally by
+\[
+\trace \left(\pd[\metric]{x} \tensor T\right) = \left(\pd[\metric_{kl}]{x} dx^k \tensor dx^l \right) \cdot \left(T^{pq}\pd{x^p} \tensor \pd{x^q}\right) = \pd[\metric_{kl}]{x} T^{pq} dx^k\tensor dx^l \cdot \pd{x^p} \tensor \pd{x^q} = \pd[\metric_{kl}]{x} T^{kl}.
+\]
+
+Now while $\pd[\metric]{x} \ne 0$, the trace vanishes by metric compatibility of the Levi-Civita connection,
+\[
+\begin{split}
+\trace\left(\pd[\metric]{x} \tensor T\right) & = \left(\pd[\metric]{x}\right) \cdot \left(T^{pq}\pd{x^p}, \pd{x^q}\right) \\
+&= \pd{x}\left(\metric\left(T^{pq}\pd{x^p}, \pd{x^q}\right)\right) - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
+&= \metric\left(\conx_{\pd{x}} T^{pq}\pd{x^p}, \pd{x^q}\right) + \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
+&= 0
+\end{split}
+\]
+\end{proof}
+
+We can now give a divergence theorem for the $\pd{x}$-component of symmetric tensor fields $T\in TM\tensor TM$.
+
+\begin{theorem}[Divergence Theorem For 2-Tensors]
+\label{thm:div_2tensor}
+Let $T$ be a symmetric tensor field $T\in TM\tensor TM$.  Then
+\[
+\begin{split}
+\int_{\disc} (\iota_{dx} \div T) \measure_{\disc} &= \pd{x} (\xsecarea \avg{\iota_{dx}^2 T}) + \int_{\disc} \div_{\disc} (\iota_{dx} T)_{\disc} \measure_{\disc}  \\
+&= \pd{x} (\xsecarea \avg{\iota_{dx}^2 T}) + \int_{\bdry{\disc}} \ip{(\iota_{dx} T)_{\disc}}{\nor} \measure_{\disc}. \\
+\end{split}
+\]
+\end{theorem}
+
+\begin{proof}
+This is just the divergence theorem \ref{thm:div_vec} applied to the vector field $\iota_{dx} T$.
+\end{proof}
+
+The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$.  The formula is the same as the usual formula, but when differentiating with respect to $x$ we need to account for the fact that the metric $\metric_{\disc}$ depends on $x$.  
+
+\note{This next paragraph is perhaps not clear}
+
+We have the one-parameter family $\body(t) \subset M$.  We can parametrise this say by say $\phi: \body(0) \times \interval \to M$ with each $\phi_t(-) = \phi(-, t)$ a diffeomorphism.  We define the velocity vector field as $\vec{\velocity} = \phi_{\star} \pd{t}$.  If we change parametrisation to $\psi: \body(0) \times \interval \to M$ and define $\vec{\velocity} = \psi_{\star} \pd{t}$, then since $\phi_t(\body(0)) = \body(t) = \psi_t(\body(0))$ we have that $\vec{\velocity}$ is well defined on $\body(t)$, independent of $\phi$ and $\psi$, i.e. $\phi_{\star}\pd{t} (\phi_t(x)) = \psi_{\star}\pd{t} (\psi_t(y))$ where $\phi_t(x) = \psi_t(y)$.  In particular, we may fix a parametrisation $\phi: \body(0) \times \interval \to M$ and work on the fixed manifold $\body(0)$ with the pulled back vector fields and the metric to obtain time dependent quantities on $\body(0)$.  We have of course $\pd{t} = \phi_t^{\star} \vec{\velocity}$ and $\phi_t$ is the flow of the time dependent vector field $\vec{\velocity}$ on $M$.  This point of view allows us to prove the transport theorem:
+
+\begin{theorem}[Transport Theorem]
+\label{thm:transport}
+Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
+\[
+\pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \left(\pd[f]{t} + \div_{\disc} (f\vec{\velocity}_{\disc})\right) \measure_{\disc}.
+\]
+\end{theorem}
+
+\begin{proof}
+Keeping $x \in (0, \curvelength)$ fixed, we have that $\phi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
+\[
+\begin{split}
+\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \phi_t^{\star} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
+&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
+\end{split}
+\]
+\end{proof}
+
+We can now apply our divergence theorems and the transport theorem to deduce a formula for the cross-section averaged material derivative, which will be of great use to us.
+
+\begin{cor}
+\label{cor:xsec_md}
+Let $f: \body(t) \to \RR$ be a smooth function.  Then
+\[
+\begin{split}
+\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea\avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}} \\
+\intertext{Let $\vec{X}(t)$ be a smooth one-parameter family of vector fields on $\body(t)$.  Then}
+\int_{\xsec} \iota_{dx} \left(\pd{t} \vec{X} + \div(\vec{X} \tensor \vec{\velocity}) \right) \measure_{\disc} &= \pd{t} (\xsecarea\avg{\xvec{X}}) + \pd{x} (\xsecarea \avg{\xvec{X} \xvec{\velocity}}) - \int_{\bdry{\xsec}} \xvec{X} \norvec{W} \measure_{\bdry{\xsec}}
+\end{split}
+\]
+\end{cor}
+
+\begin{proof}
+\note{At the end I should have $<W_D,N_D>$?}
+For the first equation, by the divergence theorem \ref{thm:div_vec} for vector fields and the transport theorem \ref{thm:transport},
+\[
+\begin{split}
+\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea \avg{f}) - \int_{\xsec} \div_{\disc}(f \discvec{\fsvelocity}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) + \int_{\xsec} \div_{\disc} (f\discvec{\velocity})\measure_{\disc} \\
+&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} \div_{\disc} f(\discvec{\fsvelocity} - \discvec{\velocity}) \measure_{\bdry{\xsec}} \\
+&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}}
+\end{split}
+\]
+where $\vec{\nor}$ is the unit outer normal to $\bdry{\body}$ and $\nor_{\disc}$ is it's projection onto the cross section $\disc$ which is normal to $\bdry{\xsec}$ but generally not unit length.
+
+The second equation comes first from noting that $x$ and $t$ are commuting variables so that $\iota_{dx} \pd[\vec{X}]{t} = \pd[\iota_{dx}\vec{X}]{t} = \pd[\xvec{X}]{t}$.  Next we have
+\[
+\iota_{dx} (\vec{X}\tensor \vec{\velocity}) = \xvec{X}\vec{\velocity}
+\]
+and by lemma \ref{lem:tensor_div},
+\[
+\iota_{dx} \div \vec{X}\tensor \vec{\velocity} = \div \xvec{X}\vec{\velocity}.
+\]
+Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to handle the divergence term, we can apply the divergence theorem \ref{thm:div_2tensor} for $2$-tensors.
+\end{proof}
+
+\section{Cross Section Averaged Balance Laws}
+\label{sec:xsec}
+
+\subsection{Conservation of Mass}
+\label{subsec:xsec_mass}
+
+\note{Need boundary term $\vec{\relvelocity}$. This comes from $\ip{\vec{\velocity}}{\vec{\nor}} = \norvec{\fsvelocity} - W$ 
+so that $\xvec{\velocity}\xvec{\nor} = \norvec{\fsvelocity} - W - \ip{\discvec{\velocity}}{\discvec{\nor}}$.}
+
+Now we apply corollary \ref{cor:xsec_md} of the previous section to the conservation of mass equation \eqref{eq:consv_mass_riemann},
+\[
+\pd[\density]{t} + \div(\density\vec{\velocity}) = 0.
+\]
+Integrate this over $\disc$ to obtain
+\[
+\begin{split}
+0 &= \int_{\disc} \pd[\density]{t} + \div(\density\vec{\velocity}) \measure_{\disc} \\
+&= \pd{t} (\xsecarea \avg{\density}) + \pd{x} (\xsecarea \avg{\density\xvec{\velocity}}) + \int_{\bdry{\disc}} \density\frac{\xvec{\velocity}\xvec{\nor}}{\abs{\discvec{\nor}}}.
+\end{split}
+\]
+The appropriate boundary conditions now become
+\begin{align*}
+\avg{\density(0, t)} &= \density_0 (t) \\
+\avg{\density(\curvelength, t)} &= \density_{\curvelength} (t) \\
+\avg{\density\xvec{\velocity}(0, t)} &= (\density\xvec{\velocity})_0 (t) \\
+\avg{\density\xvec{\velocity}(\curvelength, t)} &= (\density\xvec{\velocity})_{\curvelength} (t)
+\end{align*}
+for non-negative function $\density_0, \density_{\curvelength}$ and arbitrary real valued functions $(\density\xvec{\velocity})_0, (\density\xvec{\velocity})_{\curvelength}$.
+
+
+
+\subsection{Balance of Momentum}
+\label{subsec:xsec_mom}
+
+We now have the first of our conservation equations for the cross sectional averaged values of the density and the momentum in the $x$ direction.  The second equation comes from the $x$-component of the conservation of momentum equation:
+\[
+\iota_{dx} \pd{t} (\density \vec{\velocity}) + \iota_{dx} \div (\density\vec{\velocity} \tensor \vec{\velocity}) - \iota_{dx} \div \cauchystress = \iota_{dx} \vec{\bodyforce}.
+\]
+Integrating over $\disc$ and applying corollary \ref{cor:xsec_md} and the $2$-tensor divergence theorem to the $\div\cauchystress$ term we obtain
+\[
+\pd{t} (\xsecarea \avg{\density \xvec{\velocity}}) + \pd{x} (\xsecarea \avg{\density \xvec{\velocity}^2}) - \pd{x} (\xsecarea \avg{\cauchystress^{xx}}) = \xsecarea \avg{\xvec{\bodyforce}} - \int_{\bdry{\disc}} \frac{\density\xvec{\velocity}^2\xvec{\nor}}{\abs{\discvec{\nor}}} + \int_{\bdry{\disc}} \ip{\cauchystress_{x,\disc}}{\frac{\discvec{\nor}}{\abs{\discvec{\nor}}}} \measure_{\bdry{\disc}}.
+\]
+We have written the extra terms from the divergence theorem on the right hand side since they are integrals over the boundary and so are speficied by the boundary conditions, thus we may think of them as given source terms.
+
+\note{Need to give boundary conditions}
+
+\subsection{Balance of Energy}
+\label{subsec:xsec_energy}
+
+\note{TODO}
+
+\subsection{The Cross-Sectional Model}
+\label{subsec:xsec_model}
+
+We have now derived the equations for the cross-section averaged quantites
+\begin{align}
+\label{eq:xsec_mass}
+\pd{t} (\xsecarea \avg{\density}) + \pd{x} (\xsecarea \avg{\density\xvec{\velocity}}) &= 0 \\
+\label{eq:xsec_mom}
+\pd{t} (\xsecarea \avg{\density \xvec{\velocity}^2}) + \pd{x} \left(\xsecarea \avg{\density \xvec{\velocity}^2} - \xsecarea \avg{\cauchystress^{xx}}\right) &= \xsecarea \avg{\xvec{\bodyforce}} + \text{stress term} + \text{pressure term}
+\end{align}
+with boundary conditions
+\begin{equation}
+\label{eq:xsec_bdry}
+\begin{split}
+\xsecarea\avg{\density}(0) &= \density_0 (t) \\
+\xsecarea\avg{\density}(L) &= \density_L (t) \\
+\xsecarea\avg{\xvec{\velocity}}(0) &= \velocity_0(t) \\
+\xsecarea\avg{\xvec{\velocity}}(L) &= \velocity_L(t).
+\end{split}
+\end{equation}
+
+These equations are fairly general, and as a consequence are not well-posed at this stage.  For one thing, we have too many unknowns because of the stress tensor $\cauchystress$ which we shall deal with later.  The most serious problem however, is the boundary conditions are for $\xsecarea\avg{\density}$ and $\avg{\xvec{\velocity}}$, but the equations are not equations in these variables.  To deal with this problem, we make the approximations $\avg{\density \xvec{\velocity}} \simeq \avg{\density} \avg{\velocity}$ and $\avg{\density \xvec{\velocity}^2} \simeq \avg{\density} \avg{\velocity}^2$.  Will we consider the validity of such approximations shortly, the main assumption being that the variation of $\density$ and $\xvec{\velocity}$ over $\disc$ is small.
+
+Given any functions $\genfunc, \genfunca: \disc \to \RR$ we have the decomposition into the average value and variation,
+\[
+\genfunc = \avg{\genfunc} + \var{\genfunc}
+\]
+with $\var{\genfunc} = \genfunc - \avg{\genfunc}$.  Obviously we have
+\[
+\int_{\disc} \var{\genfunc} = 0.
+\]
+This gives the following
+\[
+\xsecarea \avg{\genfunc \genfunca} = \int_{\disc} \genfunc \genfunca = \xsecarea \avg{\genfunc} \avg{\genfunca} + \xsecarea \avg{\var{\genfunc} \var{\genfunca}}
+\]
+
+We are typically intersted in the situation where the various quantities $\genfunc$ such as $\density$ and $\xvec{\velocity}$ are roughly constant over $\disc$ so that $\var{\genfunc}$ is small.  To make the approximation
+\[
+\xsecarea \avg{\density\xvec{\velocity}} \simeq \xsecarea\avg{\density} \avg{\xvec{\velocity}}
+\]
+we need to know that the variation remains small for $t>0$.  We know that
+\[
+\xsecarea(t, x) = \abs{\xsec}_{\metric} \leq \abs{\disc}_{\metric} = \xsecarea_{\max} (x)
+\]
+for all $t\geq 0$.  From Cauchy-Schwartz we have
+\[
+\abs{\int \var{\genfunc} \var{\genfuncb}}^2 \leq \int \abs{\var{\genfunc}} \int \abs{\var{\genfuncb}}
+\]
+so we need to control $\int \abs{\var{\genfunc}}$ and $\int \abs{\var{\genfuncb}}$.  Thus, we need to compute
+\[
+\pd{t} \int \abs{\var{\genfunc}}
+\]
+for $\genfunc = \density, \xvec{\velocity}$.  The transport and divergence theorems give
+\[
+\begin{split}
+\pd{t} \int_{\disc} \abs{\var{\genfunc}} d\measure_{\disc} &= \int_{\disc} \pd{t} \abs{\var{\genfunc}} d\measure_{\disc} + \int_{\disc} \div_{\disc} (\abs{\var{\genfunc}} \discvec{\velocity}) d\measure_{\disc} \\
+&= \int_{\disc} \pd{t} \abs{\var{\genfunc}} d\measure_{\disc} + \int_{\bdry{\disc}} \abs{\var{\genfunc}} \ip{\discvec{\velocity}}{\nor_{\disc}}_{\metric_{\disc}} d\measure_{\bdry{\disc}}
+\end{split}
+\]
+
+\note{The second integral should be controlled by something like $\sup \abs{\var\genfunc} \times \pd{t}\xsecarea = 0$?}
+
+Thus making the approximations $\avg{\density \xvec{\velocity}} \simeq \avg{\density} \xvec{\velocity}$ and $\avg{\density \xvec{\velocity}^2} \simeq\avg{\density} \avg{\xvec{\velocity}^2}$, the error terms are controlled by the initial error terms.  
+
+Before we can write the final form of our equations, we need to investigate $\cauchystress$ further.  Recall that $\cauchystress$ is a symmetric tensor so that in the decomposition of the tangent bundle, we have $\cauchystress^1_{\disc} = \cauchystress^2_{\disc}$ and $\cauchystress_{\disc}$ is a symmetric $(0,2)$-tensor on $\disc$.  A particularly interesting (and common) case is when $\cauchystress = \potential \metric^{-1}$ in which case $\cauchystress$ is given by the scalar potential $\potential$ so that
+\[
+\div \cauchystress = \grad \potential.
+\]
+In this case, since $\metric_{xx} = 1$, $\metric^1_{\disc} = \metric^2_{\disc} = 0$ we obtain
+\[
+\iota_{dx} \div \cauchystress = \pd{x} \potential + \frac{\pd{x}\measure_{\disc}}{\measure_{\disc}} \potential - \frac{\potential}{2} \left(\trace \left(\pd{x} \metric_{\disc} \tensor \metric_{\disc}\right) \right)
+\]
+
+From now on we will suppose that the Cauchy stress tensor is of the form $\potential \metric$, a situation referred to in fluid mechanics as that of an ideal fluid.  Thus we ignore viscous effects.  Moreover, we shall make the assmuption that the potential $\phi = - \pressure$, the pressure which we assume is a function of the density
+\[
+\pressure = \pressure(\density). 
+\]
+
+Finally we consider the approximate equations
+\begin{align}
+\label{eq:xsec_mass_approx}
+\pd{t} (\xsecarea \avg{\density}) + \pd{x} (\xsecarea \avg{\density} \avg{\xvec{\velocity}}) &= 0 \\
+\label{eq:xsec_mom_approx}
+\pd{t} (\xsecarea \avg{\density} \avg{\xvec{\velocity}}) + \pd{x} \left(\xsecarea \avg{\density} \avg{\xvec{\velocity}}^2 + \xsecarea \avg{\density}\right) &= \xsecarea \avg{\xvec{\bodyforce}} + \text{pressure term}
+\end{align}
+with boundary conditions
+\begin{equation}
+\label{eq:xsec_bdry_approx}
+\begin{split}
+\xsecarea\avg{\density}(0) &= \density_0 (t) \\
+\xsecarea\avg{\density}(L) &= \density_L (t) \\
+\xsecarea\avg{\xvec{\velocity}}(0) &= \velocity_0(t) \\
+\xsecarea\avg{\xvec{\velocity}}(L) &= \velocity_L(t).
+\end{split}
+\end{equation}
+
+
+\section{Pipe and Channel Flows}
+\label{sec:pipechannel}
+
+\subsection{Free Surface Model}
+\label{subsec:pipechannel_freesurface}
+
+\note{
+Pressure law. Formal asymptotic analysis to derive pressure law or just assume hydrostatic?
+}
+
+\subsection{Pressurised Model}
+\label{subsec:pipechannel_pressurised}
+
+
+\subsection{Dual Model}
+\label{subsec:pipechannel_dual}
+
+
+\section{Discretisation}
+\label{sec:discretisation}
+
+\note{
+Describe the semi-discrete model.
+
+
+
+State tracking.
+}
+
+\section{Implementation of Computation Model}
+\label{sec:implementation}
+
+\note{
+Describe the C code library for computing fluxes to solve the semi-discrete problem.
+}
+
+\appendix
+
+\section{Review of Riemannian Geometry}
+\label{app:reviewriemann}
+
+In this section, we recall some notions from Riemannian geometry.  Unless otherwise stated, $(M,\metric)$ will denoted an aribtrary oriented Riemannian manifold $(M^n, \metric)$ with piecewise smooth boundary $\bdry{M}$ in the sense that $\bdry{M}$ is smooth except for a set of Hausdorff dimension (with respect to the measure induced by the metric $\metric$) at most $n-1$.  This allows for singularities on the boundary such as corners as for example in the case of a square pipe.  The important point is that we may integrate over the boundary and the low Hausdorff dimension of the singular set implies that we need not distinguish between integrals over the entire boundary and integrals over the smooth part of the boundary.  Stokes' theorem still applies to integrals over $M$ in this situation.
+
+First, let us recall the notion of tensor contractions.  
+
+\begin{defn}
+The trace $\trace: TM \tensor T^{\star}M \to C^{\infty}(M)$ is defined on indecomposable elements $X \tensor \alpha \in TM \tensor T^{\star}M$ 
+\[
+\trace (X \tensor \alpha) = (x \mapsto \alpha_x (X_x))
+\]
+and then extended by bilinearity, where $\alpha_x, X_x$ are the fibres of $\alpha$ and $X$ respectively and $\alpha_x (X_x)$ is the dual pairing of $T^{\star}M$ with $TM$.  
+\end{defn}
+
+This map is \emph{natural} with respect to restrictions in that
+\[
+\trace ((X \tensor \alpha)|_V) = (\trace (X \tensor \alpha))|_V
+\]
+for $V\subset U\subset M$ open subsets and $X\tensor \alpha \in \Gamma(TM\tensor T^{\star}M, U)$ a local section over $U$.
+
+We also define the tensor contraction of any tensor $T\in T^{p+1}_{q+1} \simeq TM \tensor T^{\star}M \tensor T^p_q$ by taking the tensor product of the maps
+\begin{align*}
+\trace : TM \tensor T^{\star}M &\to C^{\infty}(M) = T^0_0 M \\
+\id : T^p_q &\to T^p_q
+\end{align*}
+so that
+\[
+\begin{split}
+\trace^1_1 = \trace \tensor \id : TM \tensor T^{\star}M \tensor T^p_q &\to C^{\infty}(M) \tensor T^p_q \simeq T^p_q \\
+X \tensor \alpha \tensor T &\mapsto \trace(X\tensor \alpha) \tensor T = \trace(X\tensor \alpha) T.
+\end{split}
+\]
+For any tensor $T\in T^p_q, p,q\geq 1$ and any $k\leq p, l\leq p$, we can define the trace $\trace^k_l T$ by taking the trace on the $k$'th contravariant position (upper index or $k$'th occurance of $TM$) with the $l$'th covariant position (lower index or $l$'th occurance of $T^{\star}M$).  Of course we may compose as many traces as we like, each time reducing each of the convariant and contravariant degrees by $1$.  In particular, given $T\in T^p_p$ we have the total trace $\trace T \in C^{\infty}(M)$ given by
+\[
+\trace T = \underbrace{\trace^1_1 \circ \dotsc \circ \trace^1_1}_{p\>\text{times}} T.
+\]
+
+Finally, by the non-degeneracy of the metric $\metric$, we have the so called ``musical'' isomorphisms
+\[
+\begin{split}
+\flat : TM &\to T^{\star}M \\
+X &\mapsto (Y \mapsto \metric(X, Y))
+\end{split}
+\]
+and $\sharp = \flat^{-1} : T^{\star}M \to TM$.  Then we may contract \emph{with respect to the metric} any tensor $T\in T^p_q$ with $p+q \geq 2$ by using $\flat, \sharp$ to take $T$ into $T^p_q$ with $p,q\geq 1$ and then taking the trace.  Of course this operation is not unique and we must specify both to which position we apply $\flat$ and $\sharp$ and to which positions we apply the trace.  This will always be made clear in context.
+
+Next, let us various ways to differentiate tensors on manifolds.  First, recall the notion of connection and covariant derivative.
+
+\begin{defn}
+A connection on a vector bundle $E \to M$ is a vector bundle derivation
+\[
+\conx: E \to T^{\star}M \tensor E,
+\]
+that is, a family of maps $\conx_U$ for each open $U\subset M$ commuting with restrictions
+\[
+\conx_V s|_V = (\conx_U s)|_V
+\]
+for each open $V \subset U$ and sections $s: U \to E \in \Gamma(U, E)$.  Each map $\conx_U$ is assumed linear on the fibres $E_x$ or equivalently linear on each local trivialisation of $E$.  To say that $\conx$ is a derivation is to say that for any $f\in C^{\infty}(U), s \in \Gamma(U, E)$ we have
+\[
+\conx_U (f s) = df \tensor s + f \conx s.
+\]
+\end{defn}
+
+By the natural isomorphism $C^{\infty}(M) \tensor E \simeq E$, $f \tensor s \mapsto fs$ and writing $\conx f = df$, we can write the derivation property suggestively as a tensor derivation
+\[
+\conx (f \tensor s) = \conx f \tensor s + f \tensor \conx s.
+\]
+
+\begin{defn}
+We define the \emph{covariant derivative} of $s$ in the direction $X$ by $\conx_X s = \trace (X \tensor\conx s) \in E$ where $\conx s \in \hom(TM, E)$ by the isomorphism
+\[
+\begin{split}
+T^{\star} M \tensor E &\to \hom(TM, E) \\
+\alpha \tensor s & \mapsto (X \mapsto \trace((X\tensor\alpha) s) = \alpha(X) s
+\end{split}
+\]
+for indecomposable elements $\alpha \tensor s$ and extended by linearity to all  and with $\alpha(X)_x = \alpha_x (X_x), x \in M$ the fibrewise dual pairing of $T^{\star}M$ with $TM$.
+\end{defn}
+
+The covariant derivative satisfies the following two properties
+\begin{align*}
+\conx_{fX + gY} s &= f\conx_X s + g\conx_Y s & & \text{Linearity of $X \mapsto \conx_X$} \\
+\conx_X fs &= X(f) s + f \conx_x s & & \text{Derivation}.
+\end{align*}
+
+By the isomorphism $T^{\star} M \tensor E \simeq \hom(TM, E)$, we may define a connection on $E$ by giving a map $X \to E$ satisying the derivation property.
+
+\begin{prop}
+A connection $\conx$ on $TM$ uniquely determines a connection of any tensor bundle $T^P_q M$
+\[
+\conx^p_q: T^P_q M \to T^{\star}M \tensor T^P_q M = T^p_{q+1} M
+\]
+by the requirements
+\begin{align*}
+(\conx^0_0)_X f &= df(X) = Xf & & \text{Definition on to $T^0_0 M = C^{\infty}(M)$} \\
+(\conx^1_0)_X Y &= \conx_x Y & & \text{Definition on $T^1_0 M$} \\
+\conx_X \trace(T) &= \trace (\conx_X T)  & & \text{Commutes with contractions} \\
+\conx_X (T \tensor S) &= (\conx_X T) \tensor S + T \tensor (\conx_X S) & & \text{Tensor derivation}
+\end{align*}
+\end{prop}
+
+\begin{theorem}[Fundamental Theorem of Riemannian Geometry]
+Let $(M,\metric)$ be a Riemannian manifold.  Then there exists a unique connection $\conx = \conx(\metric)$ such that for all vector fields $X,Y,Z$,
+\begin{align*}
+\conx_X \metric (Y, Z) &= \metric(\conx_X Y, Z) + \metric(Y, \conx_X Z) & & \text{Metric compatability} \\
+\conx_X Y - \conx_Y X &= [X, Y] & & \text{Torsion free} 
+\end{align*}
+The connection $\conx$ is referred to as either the Levi-Civita or Riemannian connection.
+\end{theorem}
+
+From now on, given a Riemannian manifold $(M,\metric)$, $\conx$ will denote the Levi-Civita connection of the metric $\metric$. 
+
+Another way to differentiate tensors on a manifold is via the Lie derivative.  This depends only on the differentiable structure of $M$ and not the Riemannian structure though the interaction between these two structures leads to many interesting ideas.
+
+\begin{defn}
+Let $X, Y$ be vector fields.  The Lie derivative of $Y$ in the direction $X$ is defined be
+\[
+\lie_X Y = [X, Y],
+\]
+the Lie bracket of $X$ and $Y$, defined as the commutater of $X$ and $Y$ thought of as derivations $C^{\infty}(M) \to C^{\infty}(M)$.
+\end{defn}
+
+Just as with connections, we can extend the Lie derivative to the tensor algebra of $M$ by requiring it to commute with contractions and to be a tensor derivation.
+
+\begin{prop}
+There is a unique derivation $T^p_q \to T^p_q$, the Lie derivative, determined by the requirements
+\begin{align*}
+\lie_X f &= df(X) = Xf & & \text{Definition on $T^0_0 M = C^{\infty}(M)$} \\
+\lie_X Y &= [X, Y] & & \text{Definition on $T^1_0 M$} \\
+\lie_X \trace(T) &= \trace (\lie_X T)  & & \text{Commutes with contractions} \\
+\lie_X (T \tensor S) &= (\lie_X T) \tensor S + T \tensor (\lie_X S) & & \text{Tensor derivation}
+\end{align*}
+\end{prop}
+
+Note that in contrast with a connection, the assignment $X \mapsto \lie_X T$ for $X$ a vector field, $T\in T^p_q$ a tensor field, does not define a tensor field in $T^p_{q+1}$ since the assignment is not $C^{\infty}(M)$ linear.
+
+There is another way to characterise the Lie derivative that we will make extensive use of; by infinitessimal flows.  Here we see the Lie derivative measures the change in a tensor field as we flow along a vector field.
+
+\begin{prop}
+Let $X$ be a vector field, and for $\lambda\in \RR$, $\phi_{\lambda} : M \to M$ the flow of $X$.  Then
+\[
+\lie_X T = \pd{\lambda}|_{\lambda=0} (\phi_{\lambda}^{\star} T)
+\]
+where $\phi_{\lambda}^{\star}$ is the pull-back of the diffeomorphism $\phi_{\lambda}$ for each $\lambda$.  Note $\phi_{\lambda}$ may not be defined on all of $\RR$, but is always defined on a neighbourhood of $0$ (which may depend on $x\in M$ also).
+\end{prop}
+
+This leads to the useful
+\begin{cor}
+Let $X$ be a vector field with local flow $\phi_{\lambda}$.  Then for any tensor field $T$,
+\[
+\pd{\lambda} (\phi_{\lambda}^{\star} T) = \phi_{\lambda}^{\star} (\lie_X T).
+\]
+\end{cor}
+
+Another usefule property is \emph{naturality} with respect to push forward by diffeomorphism.
+
+\begin{prop}
+Let $\phi : M \to N$ be a diffeomorphism and $X$ a vector field on $M$.  Then
+\[
+\lie_{\phi_{\star}X} \phi_{\star}Y = \phi_{\star} \lie_X Y.
+\]
+\end{prop}
+
+We may also take the Lie derivative of a one parameter family of tensor fields $T_{\lambda}$ with respect to a one-parameter family of vector fields $X_{\lambda}$.  Let $\phi_{\lambda, \mu}: M \to M$ be the flow of $X_{\lambda}$, i.e. for $x\in M$
+\[
+\pd[\phi_{\lambda,\mu}]{\lambda} (x) = X_{\lambda} (\phi_{\lambda,\mu}(x)).
+\]
+We have the following characterisation:
+\begin{prop}
+Let $X_{\lambda}$ be a one parameter family of vector fields with flow $\phi_{\lambda,\mu}$ and $T_{\lambda}$ a one-parameter family of tensor fields on $M$.  Then
+\[
+\pd{\lambda} \phi_{\lambda,\mu}^{\star} T_{\lambda} = \phi_{\lambda,\mu}^{\star} \lie_{X_{\lambda}} T_{\lambda} + \phi_{\lambda,\mu}^{\star} \pd[T_{\lambda}]{\lambda}.
+\]
+\end{prop}
+
+Note that in general, for one parameter families of vector fields, the pull back by the flow does not commute with the Lie derivative, i.e. 
+\[
+\phi_{\lambda,\mu}^{\star} \lie_{X_{\lambda}} T \ne \lie_{X_{\lambda}} \phi_{\lambda,\mu}^{\star} T.
+\]
+This is however true for vector fields
+\[
+\phi_{\lambda}^{\star} \lie_X T = \lie_X \phi_{\lambda}^{\star} T.
+\]
+
+The characterisation of the Lie derivative by the local flow implies that $\lie_X : \Omega^k \to \Omega^k$, i.e. $\lie_X$ maps $k$-forms to $k$-forms.  In this situation, we have the immensely useful Cartan magic formula.
+
+\begin{prop}[Cartan Magic Formula]
+The Lie derivative satisfies the relation
+\[
+\lie_X = d \circ \iota_X + \iota_X \circ d
+\]
+where $d$ is the exterior derivative and $\iota_X$ the insertion of $X$ into a $k$-form
+\[
+\iota_X \omega(X_1, \dotsc, X_{k-1}) = \omega(X, X_1, \dotsc, X_{k-1}).
+\]
+\end{prop}
+
+Now we consider Riemannian manifolds as measure spaces, in particular so that we may integrate functions on $M$.
+
+\begin{defn}
+The metric induces a measure denoted $\measure_{\metric}$ given in local coordinates $\{x^i\}$ by
+\[
+\measure_{\metric} = \sqrt{\det \metric_{ij}} dx^1 \wedge \cdots \wedge dx^n.
+\]
+The measure $\measure_{\metric}$ is a volume form, i.e. $\measure_{\metric} \in \Lambda^n T^{\star}M$ is non-vanishing.
+\end{defn}
+
+An important application of the constructions above is the divergence of a vector field and the divergence theorem.
+
+\begin{defn}
+The divergence of a vector field $X$ with respect to the metric $\metric$ is defined by
+\[
+\div_{\metric} X = \trace (\conx X).
+\]
+\end{defn}
+
+There is another notion of the divergence of a vector field.  If $\omega$ is a volume form then since it is everywhere non-vanishing, and $\Omega^n$ is a one-dimensional vector bundle, $\omega$ gives a global frame for $\Lambda^n T^{\star}M$.  Thus any section $\mu\in \Lambda^n T^{\star}M$ may be written $\mu = f \omega$ for some $f\in C^{\infty}(M)$.  In particular, $\lie_X \omega \in \Lambda^n T^{\star}M$ may be written in this form.
+
+\begin{defn}
+Let $\omega$ be a volume form.  The divergence of a vector field $X$ with respect to $\omega$ is defined by 
+\[
+(\div_{\omega} X) \omega = \lie_X \omega.
+\]
+\end{defn}
+
+Note that by Cartan's magic formula we have $\lie_X \omega = (d \circ \iota_X + \iota_X \circ d) \omega = d \circ \iota_X \omega$.  Thus by Stokes' theorem we have the divergence theorem.
+
+\begin{theorem}
+Let $X$ be a vector field and $\omega$ a volume form on a Riemannian manifold $M$ with boundary.  Then
+\[
+\int_M \div_{\omega} X \omega = \int_{\bdry{M}} \iota_X \omega.
+\]
+\end{theorem}
+
+When $\omega = \measure_{\metric}$ is the volume form induced by the metric, the two divergences defined above coincide.
+
+\begin{prop}
+Let $(M, \metric)$ be a Riemannian manifold, $\measure_{\metric}$ the induced measure and $X$ a vector field.  Then
+\[
+\div_{\metric} X = \div_{\measure_{\metric}} X.
+\]
+\end{prop}
+
+We have the easily verified lemma.
+
+\begin{lemma}
+Let $(M,\metric)$ be a manifold with boundary $\bdry{M}$.  Let $\nor$ be the smooth outer unit normal vector field along $\bdry{M}$.  Let $\measure_{\metric}$ be the induced measure on $M$ and $\areameasure_{\metric}$ the induced measure on $\bdry{M}$ (induced by the pull back metric $i^{\star}\metric$ on $\bdry{M}$ by the inclusion $i: \bdry{M} \to M$).  Then for any vector field $X$ on $M$ we have
+\[
+\iota_X \measure = \metric(X, \nor) \areameasure.
+\] 
+\end{lemma}
+
+This leads directly to the Riemannian divergence theorem.
+
+\begin{theorem}
+In the situation of the lemma we have
+\[
+\int_M \div X \measure_{\metric} = \int_{\bdry{M}} \metric(X, \nor) \areameasure_{\metric}.
+\]
+\end{theorem}
+
+We record here a useful formula for the divergence.
+
+\begin{lemma}
+Let $f : M \to \RR$ be a smooth, positive function, $X$ a vector field and $\measure$ a volume form.  Then
+\[
+\div_{f\mu} (X) f\mu = \div_{\mu} (f X)\mu
+\]
+or equivalently
+\[
+\lie_X (f\mu) = \lie_{fX} \mu.
+\]
+\end{lemma}
+
+\begin{comment}
+\begin{proof}
+We have
+\[
+\lie_X (f\mu) = (\lie_X f) \mu + f\lie_X\mu,
+\]
+whilst
+\[
+\begin{split}
+\lie_{fX} \mu &= df\wedge \iota_X \mu + f\lie_X \mu \\
+&= \iota_X df\wedge \mu + f\lie_X \mu \\
+&= (\lie_X f) \mu + f\lie_X \mu.
+\end{split}
+\]
+where the second line follows from the fact that $\iota_X$ is an anti-derivation and $\mu$ is an $n$-form so that $df \wedge \mu$ is an $n+1$ form and hence equal to zero.  This gives
+\[
+\iota_X 0 = \iota_X (df\wedge \mu) = \iota_X df \wedge \mu - df \wedge \iota_X \mu.
+\]
+\end{proof}
+\end{comment}
+
 * Introduction
 * Pipe Domain and Divergence Theorem
 * Cross Section Averaged Equations
