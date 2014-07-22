@@ -4,18 +4,18 @@
 	:publishing-directory "~/publish/geometric_pipe_flows"
 	:base-extension "org"
 	:recursive t
-	:publishing-function org-publish-org-to-pdf
+	:publishing-function org-latex-publish-to-latex
 	:export-with-tags nil
 	:headline-levels 10
-	:table-of-contents nil
-	:section-numbers nil
+	:with-toc nil
+	:section-numbers t
 ;	:sub-superscript nil
 	:todo-keywords nil
 	:author nil
 	:creator-info nil
 	:table-auto-headline t
 	:style-include-default t
-	:timestamp t
+	:timestamp f
 	:exclude-tags ("noexport")
 	:auto-preamble t)))
 
