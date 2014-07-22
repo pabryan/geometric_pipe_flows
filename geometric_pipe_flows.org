@@ -1,27 +1,82 @@
+#+TITLE: A Geometric Approach to Fluid Flows in Pipes
+#+AUTHOR: Paul Bryan
+#+SETUPFILE: ~/.emacs.d/org-templates/bibliography.org
+#+OPTIONS: toc:nil
+
+# ***  Class
+#+LATEX_CLASS: amsart
+
+# *** Macros
+#+LATEX_HEADER: \input{local_definitions}
+
+# *** For bundling
+#+LATEX_HEADER: \usepackage{snapshot}
+
+# *** Author
+#+LATEX_HEADER: \address{Department of Mathematics, University of California San Diego}
+#+LATEX_HEADER: \email{pbryan@ucsd.edu}
+
+# *** Metadata
+#+LaTeX_HEADER: \keywords{Pipe flows, Navier-Stokes, Fluid Mechanics, Continuum Mechanics, Riemannian Geometry}
+#+LATEX_HEADER: \subjclass[2010]{}
+
+# *** Other formatting settings
+#+LATEX_HEADER: \date{}
+
+\begin{abstract}
+A geometric approach to fluid flows in pipes.
+\end{abstract}
+
 * Notes								   :noexport:
-\section{Introduction}
-\label{sec:intro}
-
-\note{
+** Background
 This describes a geometric approach broadening the technique described in \cite{MR2384375}.
-}
+** Lie Derivative
+\begin{lemma}
+Let $f : M \to \RR$ be a smooth, positive function, $X$ a vector field and $\measure$ a volume form.  Then
+\[
+\div_{f\mu} (X) f\mu = \div_{\mu} (f X)\mu
+\]
+or equivalently
+\[
+\lie_X (f\mu) = \lie_{fX} \mu.
+\]
+\end{lemma}
 
+\begin{proof}
+We have
+\[
+\lie_X (f\mu) = (\lie_X f) \mu + f\lie_X\mu,
+\]
+whilst
+\[
+\begin{split}
+\lie_{fX} \mu &= df\wedge \iota_X \mu + f\lie_X \mu \\
+&= \iota_X df\wedge \mu + f\lie_X \mu \\
+&= (\lie_X f) \mu + f\lie_X \mu.
+\end{split}
+\]
+where the second line follows from the fact that $\iota_X$ is an anti-derivation and $\mu$ is an $n$-form so that $df \wedge \mu$ is an $n+1$ form and hence equal to zero.  This gives
+\[
+\iota_X 0 = \iota_X (df\wedge \mu) = \iota_X df \wedge \mu - df \wedge \iota_X \mu.
+\]
+\end{proof}
 
-\section{Geometric Approach To Continuum Mechanics}
+* Introduction
+* Geometric Approach To Continuum Mechanics
 \label{sec:geometry}
 
 Recall that the basic equations of continuum mechanics are the conservation of mass, momentum and energy.  The basic quantities of interest describing the continuum are
-\begin{itemize}
-\item $\density$ - the density of matter,
-\item $\vec{\velocity}$ - the velocity vector field,
-\item $\energydensity_{\kinetic} = \frac{1}{2} \|\vec{\velocity}\|^2$ - the kinetic energy density,
-\item $\energydensity_{\internal}$ - the internal energy density,
-\item $\energydensity = \energydensity_{\kinetic}  + \energydensity_{\internal}$ - the total energy density,
-\item $\cauchystress$ - the Cauchy stress tensor, a symmetric $(0,2)$-tensor,
-\item $\vec{\bodyforce}$ - the external or ``body'' forces.
-\end{itemize}
 
-\subsection{The Euclidean Setting}
+- $\density$ - the density of matter,
+- $\vec{\velocity}$ - the velocity vector field,
+- $\energydensity_{\kinetic} = \frac{1}{2} \|\vec{\velocity}\|^2$ - the kinetic energy density,
+- $\energydensity_{\internal}$ - the internal energy density,
+- $\energydensity = \energydensity_{\kinetic}  + \energydensity_{\internal}$ - the total energy density,
+- $\cauchystress$ - the Cauchy stress tensor, a symmetric $(0,2)$-tensor,
+- $\vec{\bodyforce}$ - the external or ``body'' forces.
+
+
+** The Euclidean Setting
 \label{sec:geometry_euclidean}
 
 \note{Energy equation?}
@@ -41,12 +96,12 @@ These equations may be thought of as the infinitessimal versions of the integral
 \end{align*}
 Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$.
 
-\subsection{The Riemannian Setting}
+** The Riemannian Setting
 \label{subsec:geometry_riemann}
 
 We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake or beach or a closed container.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply the Riemannian geometry just developed to derive the conservation laws in the Riemannian setting using the tools just described.  This serves as a nice warmup for what comes later.  See the appendix for a review of the Riemannian geometry needed.
 
-\begin{ex}
+#+BEGIN_eg
 In the case of $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ induces the \emph{pull-back metric} $\metric$ on $\domain$
 \[
 \metric = \phi^{\star} \ip{-}{-}
@@ -59,18 +114,18 @@ Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star}
 \pd{t} \energydensity \density &= ...
 \end{align*}
 abusing notation by writing $\cauchystress$ for $\phi^{\star}\cauchystress$ and $\vec{\bodyforce}$ for $\phi^{\star}\vec{\bodyforce}$.  
-\end{ex}
+#+END_eg
 
-\begin{remark}
+#+BEGIN_remark
 This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for conservation of momentum doesn't make sense since in general there is no way to integrate vector fields ``component-wise''.
-\end{remark}
+#+END_remark
 
 Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
 
-\note{Maybe just say smooth on $\body \times \timeinterval$ and piecewise smooth on $\bdry{\body}\times \timeinterval$}
+\note{Maybe just say smooth on $\body \times \timeinterval$ and piecewise smooth on $\bdry{\body} \times \timeinterval$ }
 
-\begin{defn}
-A \emph{motion} of a body in $M$ is a smooth one parameter family of embeddings
+#+BEGIN_defn
+A /motion/ of a body in $M$ is a smooth one parameter family of embeddings
 \[
 \phi : \body \times \timeinterval \to M
 \]
@@ -81,15 +136,15 @@ We write $\body_t = \phi_t(\body) \subset M$ and define the velocity vector fiel
 \vec{\velocity}(t) = \phi_{\star} \pd{t}
 \]
 which is a smooth time dependent family of vector fields on $\body_t$ since each $\phi_t: \body \to \body_t$ is a diffeomorphism.
-\end{defn}
+#+END_defn
 
-\begin{remark}
+#+BEGIN_remark
 Notice that $\body_t \subset M$ is a smooth one-parameter family of submanifolds of $M$.  We fix the If we change parametrisation so that $\body_t = \psi_t(\body)$ then
-\end{remark}
+#+END_remark
 
-\begin{remark}
+#+BEGIN_remark
 The \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics writes the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will phrase most of our work in the Eulerian formulation, but make some use of the Lagrangian formulation to deal with the moving domain.
-\end{remark}
+#+END_remark
 
 The main point here is that we have a density $\density \metricmeasure{\metric}$ and we want to compute the evolution of various quantities \emph{on $M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
 \[
@@ -125,10 +180,10 @@ The balance of momentum is obtained from Newton's second law stating that the ch
 \[
 \pd{t} \phi_t^{\star}(\vec{\velocity} \tensor \density\metricmeasure{\metric}) = \phi_t^{\star}\left((\vec{\bodyforce} + \div \cauchystress) \tensor \density\metricmeasure{\metric}\right).
 \]
-Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independent of time, balance of momentum then reads
 
 \note{Need to sort out the div and Lie terms here}
-
+Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independent of time, balance of momentum then reads
+#+BEGIN_LATEX
 \[
 \label{eq:consv_mom_riemann}
 \begin{split}
@@ -137,16 +192,18 @@ Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independe
 &= \phi_t^{\star}\left[\left(\pd{t}(\density\vec{\velocity}) + \density \lie_{\vec{\velocity}} \vec{\velocity} + \div(\density\vec{\velocity}) \vec{\velocity}\right) \tensor \metricmeasure{\metric} \right]
 \end{split}
 \]
+#+END_LATEX
 
 \note{Give version after conservation of mass}
 
 We also have the notion of material derivative of a vector field $X$.
-\begin{defn}
+#+BEGIN_defn
 Let $X$ be a vector field on $\body(t)$.  Then the \emph{material derivative} is defined as
 \[
 \md[X]{t} = \pd[X]{t} + \div(X \tensor \vec{\velocity})
 \]
-\end{defn}
+#+END_defn
+
 Again, the material derivative is related to the Lie derivative by
 \[
 \md[X]{t} \tensor \metricmeasure{\metric} = \lie_{\vec{\velocity}} (X \tensor \metricmeasure{\metric}).
@@ -157,7 +214,8 @@ When conservation of mass holds, we may write balance of momentum as
 \]
 since $\metricmeasure{\metric}(x) \ne 0$ for all $x\in M$.
 
-\begin{ex}[$M = \RR^2$]
+#+ATTR_LATEX: :options [$M = \RR^2$]
+#+BEGIN_eg
 In Euclidean space, with global coordinates $\{x_i\}$, a global basis for the tangent space is $\{\pd{x_i}\}$ and we may write $X = X^i \pd{x_i}$ using the summation convention.  Then we may write
 \[
 X \tensor \metricmeasure{\metric} = X^i \pd{x_i} \tensor \metricmeasure{\metric}
@@ -176,7 +234,7 @@ This gives us the component form of the conservation of momentum
 \pd[(\density\velocity^i)]{t} + \pd[(\density\velocity^j \velocity^i)]{x^j} = \pd[\cauchystress^{ji}]{x^j} + \bodyforce^i.
 \]
 We may now integrate each $i$'th component to recover the integral conservation equation.
-\end{ex}
+#+END_eg
 
 In general we may define the material derivative of a tensor field $T$.
 \begin{defn}
@@ -193,7 +251,7 @@ If conservation of mass holds, $\md[T]{t}$ satisfies the relation
 Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
 }
 
-\section{Product Domain}
+* Pipe Domain and Divergence Theorem
 \label{sec:domain}
 
 In this section, we describe a way to reduce the dimension of the the system of conservation equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
@@ -269,6 +327,7 @@ If $\domain$ is a pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surfac
 The density is now a function $\density: \body(t) \to \RR$ and the velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
 
 As in the previous section, we consider the differential laws on $M$.  We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
+#+BEGIN_LATEX
 \[
 \begin{cases}
 \density(0, (y,z), t) &= \density_0((y,z), t) \\
@@ -277,6 +336,7 @@ As in the previous section, we consider the differential laws on $M$.  We must a
 \vec{\velocity}(\curvelength, (y,z), t) &= \vec{\velocity}_{\curvelength}((y,z), t)
 \end{cases}
 \]
+#+END_LATEX
 for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
 
 The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
@@ -297,7 +357,7 @@ for all $x\in \relbdry[\body(t)]{M}$ and $t\in\interval$.  From the decompositio
 \norvec{\relvelocity}(x, t) &= W_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
 \end{align*}
 
-\begin{ex}[Rigid Pipe Flows]
+\begin{eg}[Rigid Pipe Flows]
 For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary.  In this situation, the impermeable surface itself does not move (though a given parametrisation of the fluid may have tangential velocity on this boundary) so that $\norvec{\fsvelocity} = 0$.  Then we have the condition
 \[
 \norvec{\relvelocity}(x, t) = W_{\is}(x) = 0,  x \in \bdry{\body(t)}_{\is}.
@@ -307,15 +367,15 @@ If the fluid does not completely fill the pipe, there is a free surface which is
 \[
 \norvec{\relvelocity}(x, t) = W_{\fs}(x) = 0,  x \in \bdry{\body(t)}_{\fs}.
 \]
-\end{ex}
+\end{eg}
 
-\begin{ex}[Blood Flow, \cite{Hughes1973161}]
+\begin{eg}[Blood Flow, \cite{Hughes1973161}]
 The flow of blood in arteries may be modelled by fluid flow in pipes with deformable boundary.  In this setting the radius of $M$ is the maximal radius after which the artery bursts and $\relbdry[\body(t)]{M} = \bdry{\body(t)}_{\fs}$ is entirely free surface.  In contrast to the rigid pipe flows, the fluid may pass through the arterial wall and so the boundary condition is in general
 \[
 \norvec{\relvelocity}(x, t) = W_{\fs}(x) \ne 0,  x \in \bdry{\body(t)}_{\fs}
 \]
 for some given non-zero function $W_{\fs}$ determined empirically.
-\end{ex}
+\end{eg}
 
 Ultimately we want to integrate the conservation equations over the cross section $D$ to obtain equations for the cross section average density and cross section averaged $x$-momentem.  For this, we will need a divergence theorem coming from the product structure of the domain $(\domain, \metric) = (\domaincurve \times \disc, dx^2 + \metric_D)$.  The tangent bundle of $\domain$ decomposes as
 \[
@@ -542,10 +602,10 @@ and by lemma \ref{lem:tensor_div},
 Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to handle the divergence term, we can apply the divergence theorem \ref{thm:div_2tensor} for $2$-tensors.
 \end{proof}
 
-\section{Cross Section Averaged Balance Laws}
+* Cross Section Averaged Equations
 \label{sec:xsec}
 
-\subsection{Conservation of Mass}
+** Conservation of Mass
 \label{subsec:xsec_mass}
 
 \note{Need boundary term $\vec{\relvelocity}$. This comes from $\ip{\vec{\velocity}}{\vec{\nor}} = \norvec{\fsvelocity} - W$ 
@@ -556,12 +616,14 @@ Now we apply corollary \ref{cor:xsec_md} of the previous section to the conserva
 \pd[\density]{t} + \div(\density\vec{\velocity}) = 0.
 \]
 Integrate this over $\disc$ to obtain
+#+BEGIN_LATEX
 \[
 \begin{split}
 0 &= \int_{\disc} \pd[\density]{t} + \div(\density\vec{\velocity}) \measure_{\disc} \\
 &= \pd{t} (\xsecarea \avg{\density}) + \pd{x} (\xsecarea \avg{\density\xvec{\velocity}}) + \int_{\bdry{\disc}} \density\frac{\xvec{\velocity}\xvec{\nor}}{\abs{\discvec{\nor}}}.
 \end{split}
 \]
+#+END_LATEX
 The appropriate boundary conditions now become
 \begin{align*}
 \avg{\density(0, t)} &= \density_0 (t) \\
@@ -573,7 +635,7 @@ for non-negative function $\density_0, \density_{\curvelength}$ and arbitrary re
 
 
 
-\subsection{Balance of Momentum}
+** Balance of Momentum
 \label{subsec:xsec_mom}
 
 We now have the first of our conservation equations for the cross sectional averaged values of the density and the momentum in the $x$ direction.  The second equation comes from the $x$-component of the conservation of momentum equation:
@@ -588,12 +650,12 @@ We have written the extra terms from the divergence theorem on the right hand si
 
 \note{Need to give boundary conditions}
 
-\subsection{Balance of Energy}
+** Balance of Energy
 \label{subsec:xsec_energy}
 
 \note{TODO}
 
-\subsection{The Cross-Sectional Model}
+** The Cross-Sectional Model
 \label{subsec:xsec_model}
 
 We have now derived the equations for the cross-section averaged quantites
@@ -646,12 +708,14 @@ so we need to control $\int \abs{\var{\genfunc}}$ and $\int \abs{\var{\genfuncb}
 \pd{t} \int \abs{\var{\genfunc}}
 \]
 for $\genfunc = \density, \xvec{\velocity}$.  The transport and divergence theorems give
+#+BEGIN_LATEX
 \[
 \begin{split}
 \pd{t} \int_{\disc} \abs{\var{\genfunc}} d\measure_{\disc} &= \int_{\disc} \pd{t} \abs{\var{\genfunc}} d\measure_{\disc} + \int_{\disc} \div_{\disc} (\abs{\var{\genfunc}} \discvec{\velocity}) d\measure_{\disc} \\
 &= \int_{\disc} \pd{t} \abs{\var{\genfunc}} d\measure_{\disc} + \int_{\bdry{\disc}} \abs{\var{\genfunc}} \ip{\discvec{\velocity}}{\nor_{\disc}}_{\metric_{\disc}} d\measure_{\bdry{\disc}}
 \end{split}
 \]
+#+END_LATEX
 
 \note{The second integral should be controlled by something like $\sup \abs{\var\genfunc} \times \pd{t}\xsecarea = 0$?}
 
@@ -689,46 +753,43 @@ with boundary conditions
 \end{split}
 \end{equation}
 
-
-\section{Pipe and Channel Flows}
+* Pipe and Channel Flows
 \label{sec:pipechannel}
 
-\subsection{Free Surface Model}
+** Free Surface Model
 \label{subsec:pipechannel_freesurface}
 
 \note{
 Pressure law. Formal asymptotic analysis to derive pressure law or just assume hydrostatic?
 }
 
-\subsection{Pressurised Model}
+** Pressurised Model
 \label{subsec:pipechannel_pressurised}
 
 
-\subsection{Dual Model}
+** Dual Model
 \label{subsec:pipechannel_dual}
 
+* Computational Techniques
+\label{sec:comptuation}
 
-\section{Discretisation}
-\label{sec:discretisation}
+** Discretisation
+\label{subsec:discretisation}
 
 \note{
 Describe the semi-discrete model.
-
-
-
 State tracking.
 }
 
-\section{Implementation of Computation Model}
-\label{sec:implementation}
+** Implementation of Computation Model
+\label{subsec:implementation}
 
 \note{
 Describe the C code library for computing fluxes to solve the semi-discrete problem.
 }
 
-\appendix
-
-\section{Review of Riemannian Geometry}
+#+LATEX: \appendix
+* Review of Riemannian Geometry
 \label{app:reviewriemann}
 
 In this section, we recall some notions from Riemannian geometry.  Unless otherwise stated, $(M,\metric)$ will denoted an aribtrary oriented Riemannian manifold $(M^n, \metric)$ with piecewise smooth boundary $\bdry{M}$ in the sense that $\bdry{M}$ is smooth except for a set of Hausdorff dimension (with respect to the measure induced by the metric $\metric$) at most $n-1$.  This allows for singularities on the boundary such as corners as for example in the case of a square pipe.  The important point is that we may integrate over the boundary and the low Hausdorff dimension of the singular set implies that we need not distinguish between integrals over the entire boundary and integrals over the smooth part of the boundary.  Stokes' theorem still applies to integrals over $M$ in this situation.
@@ -755,24 +816,28 @@ We also define the tensor contraction of any tensor $T\in T^{p+1}_{q+1} \simeq T
 \id : T^p_q &\to T^p_q
 \end{align*}
 so that
+#+BEGIN_LATEX
 \[
 \begin{split}
 \trace^1_1 = \trace \tensor \id : TM \tensor T^{\star}M \tensor T^p_q &\to C^{\infty}(M) \tensor T^p_q \simeq T^p_q \\
 X \tensor \alpha \tensor T &\mapsto \trace(X\tensor \alpha) \tensor T = \trace(X\tensor \alpha) T.
 \end{split}
 \]
+#+END_LATEX
 For any tensor $T\in T^p_q, p,q\geq 1$ and any $k\leq p, l\leq p$, we can define the trace $\trace^k_l T$ by taking the trace on the $k$'th contravariant position (upper index or $k$'th occurance of $TM$) with the $l$'th covariant position (lower index or $l$'th occurance of $T^{\star}M$).  Of course we may compose as many traces as we like, each time reducing each of the convariant and contravariant degrees by $1$.  In particular, given $T\in T^p_p$ we have the total trace $\trace T \in C^{\infty}(M)$ given by
 \[
 \trace T = \underbrace{\trace^1_1 \circ \dotsc \circ \trace^1_1}_{p\>\text{times}} T.
 \]
 
 Finally, by the non-degeneracy of the metric $\metric$, we have the so called ``musical'' isomorphisms
+#+BEGIN_LATEX
 \[
 \begin{split}
 \flat : TM &\to T^{\star}M \\
 X &\mapsto (Y \mapsto \metric(X, Y))
 \end{split}
 \]
+#+END_LATEX
 and $\sharp = \flat^{-1} : T^{\star}M \to TM$.  Then we may contract \emph{with respect to the metric} any tensor $T\in T^p_q$ with $p+q \geq 2$ by using $\flat, \sharp$ to take $T$ into $T^p_q$ with $p,q\geq 1$ and then taking the trace.  Of course this operation is not unique and we must specify both to which position we apply $\flat$ and $\sharp$ and to which positions we apply the trace.  This will always be made clear in context.
 
 Next, let us various ways to differentiate tensors on manifolds.  First, recall the notion of connection and covariant derivative.
@@ -1003,28 +1068,4 @@ or equivalently
 \]
 \end{lemma}
 
-\begin{comment}
-\begin{proof}
-We have
-\[
-\lie_X (f\mu) = (\lie_X f) \mu + f\lie_X\mu,
-\]
-whilst
-\[
-\begin{split}
-\lie_{fX} \mu &= df\wedge \iota_X \mu + f\lie_X \mu \\
-&= \iota_X df\wedge \mu + f\lie_X \mu \\
-&= (\lie_X f) \mu + f\lie_X \mu.
-\end{split}
-\]
-where the second line follows from the fact that $\iota_X$ is an anti-derivation and $\mu$ is an $n$-form so that $df \wedge \mu$ is an $n+1$ form and hence equal to zero.  This gives
-\[
-\iota_X 0 = \iota_X (df\wedge \mu) = \iota_X df \wedge \mu - df \wedge \iota_X \mu.
-\]
-\end{proof}
-\end{comment}
-
-* Introduction
-* Pipe Domain and Divergence Theorem
-* Cross Section Averaged Equations
-* Continuum Mechanics on Riemannian Manifolds
+\printbibliography
