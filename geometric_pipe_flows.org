@@ -98,7 +98,7 @@ Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\ca
 ** The Riemannian Setting
 \label{subsec:geometry_riemann}
 
-We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake or beach or a closed container.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply the Riemannian geometry just developed to derive the conservation laws in the Riemannian setting using the tools just described.  This serves as a nice warmup for what comes later.  See the appendix for a review of the Riemannian geometry needed.
+We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake or beach or a closed container.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to derive the balance laws in the Riemannian setting.  This serves as a nice warmup for what comes later.  See the appendix for a review of the Riemannian geometry needed.
 
 #+BEGIN_eg
 In the case of $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ induces the \emph{pull-back metric} $\metric$ on $\domain$
@@ -106,7 +106,7 @@ In the case of $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ i
 \metric = \phi^{\star} \ip{-}{-}
 \]
 
-Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star} \div_{\RR^3}$, the differential conservation equations ``pull back'' to $M$,
+Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star} \div_{\RR^3}$, the differential balance equations ``pull back'' to $M$,
 \begin{align*}
 \pd{t} \density + \div_{\metric} (\density \vec{\velocity}) &= 0 \\
 \pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce}
@@ -115,7 +115,7 @@ abusing notation by writing $\cauchystress$ for $\phi^{\star}\cauchystress$ and 
 #+END_eg
 
 #+BEGIN_remark
-This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for conservation of momentum doesn't make sense since in general there is no way to integrate vector fields ``component-wise''.
+This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for balance of momentum doesn't make sense since in general there is no way to integrate vector fields ``component-wise''.
 #+END_remark
 
 Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
@@ -227,11 +227,11 @@ and we have the equation for the components
 \[
 \left(\pd[X]{t} + \div(X\tensor\vec{\velocity})\right) \tensor \metricmeasure{\metric} = \left(\pd[X^i]{t} + \pd[(X^j \velocity^i)]{x^j}\right) \pd{x^j} \tensor \metricmeasure{\metric}.
 \]
-This gives us the component form of the conservation of momentum
+This gives us the component form of the balance of momentum
 \[
 \pd[(\density\velocity^i)]{t} + \pd[(\density\velocity^j \velocity^i)]{x^j} = \pd[\cauchystress^{ji}]{x^j} + \bodyforce^i.
 \]
-We may now integrate each $i$'th component to recover the integral conservation equation.
+We may now integrate each $i$'th component to recover the integral balance equation.
 #+END_eg
 
 In general we may define the material derivative of a tensor field $T$.
@@ -248,7 +248,7 @@ If conservation of mass holds, $\md[T]{t}$ satisfies the relation
 * Pipe Domain and Divergence Theorem
 \label{sec:domain}
 
-In this section, we describe a way to reduce the dimension of the the system of conservation equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
+In this section, we describe a way to reduce the dimension of the the system of balance equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
 
 To begin, let us define the domain in which we will work and prove a divergence theorem in this domain.  The divergence theorem will be our main tool in deriving the equations for the $1$-d pipe flow.  We work with embedded pipes and channels in Euclidean space $\RR^3$.  Both domains can be represented as embedded cylinders
 \[
@@ -371,7 +371,7 @@ The flow of blood in arteries may be modelled by fluid flow in pipes with deform
 for some given non-zero function $W_{\fs}$ determined empirically.
 \end{eg}
 
-Ultimately we want to integrate the conservation equations over the cross section $D$ to obtain equations for the cross section average density and cross section averaged $x$-momentem.  For this, we will need a divergence theorem coming from the product structure of the domain $(\domain, \metric) = (\domaincurve \times \disc, dx^2 + \metric_D)$.  The tangent bundle of $\domain$ decomposes as
+Ultimately we want to integrate the balance equations over the cross section $D$ to obtain equations for the cross section average density and cross section averaged $x$-momentem.  For this, we will need a divergence theorem coming from the product structure of the domain $(\domain, \metric) = (\domaincurve \times \disc, dx^2 + \metric_D)$.  The tangent bundle of $\domain$ decomposes as
 \[
 TM \simeq T\domaincurve \oplus T\disc
 \]
@@ -632,7 +632,7 @@ for non-negative function $\density_0, \density_{\curvelength}$ and arbitrary re
 ** Balance of Momentum
 \label{subsec:xsec_mom}
 
-We now have the first of our conservation equations for the cross sectional averaged values of the density and the momentum in the $x$ direction.  The second equation comes from the $x$-component of the conservation of momentum equation:
+We now have the first of our balance equations for the cross sectional averaged values of the density and the momentum in the $x$ direction.  The second equation comes from the $x$-component of the balance of momentum equation:
 \[
 \iota_{dx} \pd{t} (\density \vec{\velocity}) + \iota_{dx} \div (\density\vec{\velocity} \tensor \vec{\velocity}) - \iota_{dx} \div \cauchystress = \iota_{dx} \vec{\bodyforce}.
 \]
