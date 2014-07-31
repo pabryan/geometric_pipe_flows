@@ -61,11 +61,14 @@ where the second line follows from the fact that $\iota_X$ is an anti-derivation
 \]
 \end{proof}
 
+** Conservation of energy
+Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
+
 * Introduction
 * Geometric Approach To Continuum Mechanics
 \label{sec:geometry}
 
-Recall that the basic equations of continuum mechanics are the conservation of mass, momentum and energy.  The basic quantities of interest describing the continuum are
+Recall that the basic equations of continuum mechanics are the conservation of mass and balance of momentum. More fundamental perhaps, is the balance of energy though we will focus primarily on mass and momentum.  The basic quantities of interest describing the continuum are
 
 - $\density$ - the density of matter,
 - $\vec{\velocity}$ - the velocity vector field,
@@ -79,22 +82,18 @@ Recall that the basic equations of continuum mechanics are the conservation of m
 ** The Euclidean Setting
 \label{sec:geometry_euclidean}
 
-\note{Energy equation?}
-
-The differential equations expressing the conservation of mass, momentum and energy are
+The differential equations expressing the conservation of mass, and balance of momentum are
 \begin{align*}
 \pd[\density]{t} + \div(\density\vec{\velocity}) &= 0 & & \text{Conservation of Mass} \\
-\pd{t} \left(\density\vec{\velocity}\right) + \div\left(\vec{\velocity} \tensor \density\vec{\velocity}\right) &= \div \cauchystress + \vec{\bodyforce} & & \text{Conservation of Momentum} \\
-\pd[\energydensity]{t} &= ... & & \text{Conservation of Energy}
+\pd{t} \left(\density\vec{\velocity}\right) + \div\left(\vec{\velocity} \tensor \density\vec{\velocity}\right) &= \div \cauchystress + \vec{\bodyforce} & & \text{Balance of Momentum} 
 \end{align*}
 
 These equations may be thought of as the infinitessimal versions of the integral laws which for any family of open subset $\Omega(t)\subset \RR^3$ with smooth boundary, moving with the flow are given by
 \begin{align*}
 \pd{t} \int_{\Omega} \density &= 0 & & \text{Conservation of Mass} \\
-\pd{t} \int_{\Omega} \density\vec{\velocity} &= \int_{\bdry{\Omega}} \ip{\cauchystress}{\nor} + \int_{\Omega} \vec{\bodyforce} = \int_{\Omega} \div \cauchystress + \int_{\Omega} \vec{\bodyforce} & & \text{Conservation of Momentum} \\
-\pd{t} \int_{\Omega} \energydensity \density &= \text{work} ... & & \text{Conservation of Energy} 
+\pd{t} \int_{\Omega} \density\vec{\velocity} &= \int_{\bdry{\Omega}} \ip{\cauchystress}{\nor} + \int_{\Omega} \vec{\bodyforce} = \int_{\Omega} \div \cauchystress + \int_{\Omega} \vec{\bodyforce} & & \text{Balance of Momentum} 
 \end{align*}
-Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$.
+Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  Assuming that $\cauchystress$ is symmetric, it makes no difference in which position we contract.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$.
 
 ** The Riemannian Setting
 \label{subsec:geometry_riemann}
@@ -110,8 +109,7 @@ In the case of $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ i
 Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star} \div_{\RR^3}$, the differential conservation equations ``pull back'' to $M$,
 \begin{align*}
 \pd{t} \density + \div_{\metric} (\density \vec{\velocity}) &= 0 \\
-\pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce} \\
-\pd{t} \energydensity \density &= ...
+\pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce}
 \end{align*}
 abusing notation by writing $\cauchystress$ for $\phi^{\star}\cauchystress$ and $\vec{\bodyforce}$ for $\phi^{\star}\vec{\bodyforce}$.  
 #+END_eg
@@ -246,10 +244,6 @@ If conservation of mass holds, $\md[T]{t}$ satisfies the relation
 \[
 \md[T]{t} \tensor \metricmeasure{\metric} = \lie_{\vec{\velocity}}(T \tensor \metricmeasure{\metric}).
 \]
-
-\note{
-Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
-}
 
 * Pipe Domain and Divergence Theorem
 \label{sec:domain}
@@ -649,11 +643,6 @@ Integrating over $\disc$ and applying corollary \ref{cor:xsec_md} and the $2$-te
 We have written the extra terms from the divergence theorem on the right hand side since they are integrals over the boundary and so are speficied by the boundary conditions, thus we may think of them as given source terms.
 
 \note{Need to give boundary conditions}
-
-** Balance of Energy
-\label{subsec:xsec_energy}
-
-\note{TODO}
 
 ** The Cross-Sectional Model
 \label{subsec:xsec_model}
