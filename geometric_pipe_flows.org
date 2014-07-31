@@ -120,14 +120,12 @@ This system of equations makes sense on any Riemannian manifold $(M,\metric)$ no
 
 Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
 
-\note{Maybe just say smooth on $\body \times \timeinterval$ and piecewise smooth on $\bdry{\body} \times \timeinterval$ }
-
 #+BEGIN_defn
-A /motion/ of a body in $M$ is a smooth one parameter family of embeddings
+A /motion/ of a body in $M$ is a smooth one parameter family of embeddings, $\phi_t(\cdot) = \phi(\cdot, t)$ with
 \[
 \phi : \body \times \timeinterval \to M
 \]
-for some $T>0$ and $\body$ a smooth manifold with piecewise smooth boundary $\bdry{\body}$.  That is, $\phi$ is continuous on $\clsr{\body} \times \timeinterval$, smooth on $\body \times \timeinterval$ and piecewise smooth on $\bdry{\body}_{\smooth} \times \timeinterval$.  For each $t\in\timeinterval$ the map $\phi_t(-) = \phi(-, t) : \clsr{\body} \to M$ is a homemorhpism with it's image and is a diffeomorphism of $\body$ with it's image.
+for some $T>0$ and $\body$ a smooth manifold with piecewise smooth boundary $\bdry{\body}$.  That is, $\phi$ is continuous on $\clsr{\body} \times \timeinterval$, smooth on $\body \times \timeinterval$ and piecewise smooth on the smooth part, $\bdry{\body}_{\smooth} \times \timeinterval$, of the boundary of $B$.  For each $t\in\timeinterval$ the map $\phi_t(-) = \phi(-, t) : \clsr{\body} \to M$ is a homemorhpism with it's image and is a diffeomorphism of the interior of $\body$ with it's image.
 
 We write $\body_t = \phi_t(\body) \subset M$ and define the velocity vector field
 \[
@@ -137,18 +135,14 @@ which is a smooth time dependent family of vector fields on $\body_t$ since each
 #+END_defn
 
 #+BEGIN_remark
-Notice that $\body_t \subset M$ is a smooth one-parameter family of submanifolds of $M$.  We fix the If we change parametrisation so that $\body_t = \psi_t(\body)$ then
-#+END_remark
-
-#+BEGIN_remark
 The \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics writes the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will phrase most of our work in the Eulerian formulation, but make some use of the Lagrangian formulation to deal with the moving domain.
 #+END_remark
 
-The main point here is that we have a density $\density \metricmeasure{\metric}$ and we want to compute the evolution of various quantities \emph{on $M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
+The main point here is that we have a density $\density_t \metricmeasure{\metric}$ defined on $B_t$ where $\density_t: B_t \to \RR$ is smooth and $\metricmeasure{\metric} = \det\metric$ is the volume form on $M$ induced by the metric $\metric$. We want to compute the evolution of various quantities \emph{on $M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
 \[
 (\phi_t^{\star} (\density\metricmeasure{\metric})) (x) = (\density \metricmeasure{\metric})(\phi_t(x)) = (\density\metricmeasure{\metric}) (x, 0)
 \]
-for all $x\in \body$.  Since $\vec{\velocity} = \phi_{\star}\pd{t}$ is a time dependent family of vector fields on $M$ and $\metricmeasure{\metric}$ is independent of time, the infinitessemal conservation of mass can now be written
+for all $x\in \body$ and $t \in [0, T)$.  Since $\vec{\velocity} = \phi_{\star}\pd{t}$ is a time dependent family of vector fields on $M$ and $\metricmeasure{\metric}$ is independent of time, the infinitessemal conservation of mass can now be written
 \[
 \label{eq:consv_mass_riemann}
 0 = \pd{t} \phi_t^{\star} (\density\metricmeasure{\metric}) = \phi_t^{\star} \left(\pd[\density]{t} \metricmeasure{\metric} + \lie_{\vec{\velocity}} (\density \metricmeasure{\metric})\right) = \phi_t^{\star} \left(\pd[\density]{t}\metricmeasure{\metric} + \div(\density\vec{\velocity}) \metricmeasure{\metric}\right)
