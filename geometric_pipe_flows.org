@@ -124,11 +124,11 @@ This system of equations makes sense on any Riemannian manifold $(M,\metric)$ no
 Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
 
 #+BEGIN_defn
-A /motion/ of a body in $(M, \metric)$ is a smooth one parameter family of embeddings, $\phi_t(\cdot) = \phi(\cdot, t)$ with
+A /motion/ of a body in $(M^n, \metric)$ is a smooth one parameter family of embeddings, $\phi_t(\cdot) = \phi(\cdot, t)$ with
 \[
 \phi : \body \times \timeinterval \to M
 \]
-for some $T>0$ and $\body$ a smooth manifold with piecewise smooth boundary $\bdry{\body}$.  That is, $\phi$ is continuous on $\clsr{\body} \times \timeinterval$, smooth on $\body \times \timeinterval$ and piecewise smooth on the smooth part, $\bdry{\body}_{\smooth} \times \timeinterval$, of the boundary of $B$.  For each $t\in\timeinterval$ the map $\phi_t(-) = \phi(-, t) : \clsr{\body} \to M$ is a homemorhpism with it's image and is a diffeomorphism of the interior of $\body$ with it's image.
+for some $T>0$ and $\body^n$ a smooth $n$ dimensional manifold with piecewise smooth boundary $\bdry{\body}$, where we write $\body$ for non-boundary points and $\clsr{\body} = \body \union \bdry{\body}$.  That is, $\phi$ is continuous on $\clsr{\body} \times \timeinterval$, smooth on $\body \times \timeinterval$ and smooth on the smooth part, $\bdry{\body}_{\smooth} \times \timeinterval$, of the boundary of $B$.  For each $t\in\timeinterval$ the map $\phi_t(-) = \phi(-, t) : \clsr{\body} \to M$ is a homemorhpism with it's image and is a diffeomorphism of the interior of $\body$ with it's image.
 
 We write $\body_t = \phi_t(\body) \subset M$ and define the velocity vector field
 \[
@@ -137,56 +137,55 @@ We write $\body_t = \phi_t(\body) \subset M$ and define the velocity vector fiel
 which is a smooth time dependent family of vector fields on $\body_t$ since each $\phi_t: \body \to \body_t$ is a diffeomorphism.
 #+END_defn
 
-#+BEGIN_remark
-The \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics writes the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will phrase most of our work in the Eulerian formulation, but make some use of the Lagrangian formulation to deal with the moving domain.
-#+END_remark
-
 We assume that $B_t$ comes equipped with a smoothly varying positive measure $\measure_t$, absolutely continuous with respect to the measure $\metricmeasure{\metric_t}$ on $B_t$ induced by the Riemannian measure $\metricmeasure{\metric}$ on $(M,\metric)$. That is
 \[
-\measure_t = \density_t \phi_t^{\star} \metricmeasure{\metric}
+\measure_t = \density_t \metricmeasure{\metric}
 \]
-where $\density_t$ is a smooth family of positive smooth functions on $B$.
+where $\density_t$ is a smooth family of positive smooth functions on $B_t$.
 
-We want to compute the evolution of various quantities on \emph{the moving domains $B_t \subset M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
+We want to compute the evolution of various quantities on \emph{the moving domains $B_t \subset M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow in terms of the geometry of $M$ (i.e. in terms of tensor fields defined on open subsets of $M$ and their derivatives).  For example, one can write a vector field on $\sphere^2$ in terms of the standard frame $\{\partial_x, \partial_y, \partial_z\}$ for the tangent space to $\RR^3$ even though each vector field in the frame is not tangent to $\sphere^2$.
+
+Thus we employ the \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics, writing the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will make some use of the Lagrangian formulation implicitly in dealing with the moving domain. See the appendix for more details.
+
+On $M$, infinitesimal changes in time are measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
 \[
-\measure_t(x) = \measure_0(x)
+\measure_t(\phi_t(x)) = \measure_0(\phi_0(x))
 \]
-for all $x \in B$ and $t \in [0,T)$. That is, the density at $x$ is preserved along the flow. From the definition of $\measure_t$, we may write this as
+for all $x \in B$ and $t \in [0,T)$. That is, the density at $x$ is preserved along the flow. Pulling back to $B$, we may write this as
 \[
-\density_t(x) (\phi_t^{\star} \metricmeasure{\metric})(x) = \density_0(x) \phi_0^{\star}(\metricmeasure{\metric})(x).
+\phi_t^{\star} \measure_t = \phi_0^{\star}\measure_0.
 \]
 
-Differentiating this expression with respect to $t$, the infinitessemal conservation of mass can now be written
+Differentiating this expression with respect to $t$, using that $\vec{\velocity} = \phi_{\star} \partial_t$ is a time-dependent vector field on $B_t$ (see appendix) the infinitessemal conservation of mass can now be written
 \[
 \label{eq:consv_mass_riemann}
-0 = \pd{t} \phi_t^{\star} (\density\metricmeasure{\metric}) = \phi_t^{\star} \left(\pd[\density]{t} \metricmeasure{\metric} + \lie_{\vec{\velocity}} (\density \metricmeasure{\metric})\right) = \phi_t^{\star} \left(\pd[\density]{t}\metricmeasure{\metric} + \div(\density\vec{\velocity}) \metricmeasure{\metric}\right)
+0 = \pd{t} \phi_t^{\star} (\density_t \metricmeasure{\metric}) = \phi_t^{\star} \left(\pd[\density_t]{t} \metricmeasure{\metric} + \lie_{\vec{\velocity}} (\density_t \metricmeasure{\metric})\right) = \phi_t^{\star} \left(\pd[\density_t]{t}\metricmeasure{\metric} + \div(\density_t\vec{\velocity}) \metricmeasure{\metric}\right)
 \]
 which is equivalent, since $\phi_t$ is a diffeomorphism, to
 \[
-0 = \left(\pd[\density]{t} + \div(\density\vec{\velocity})\right) \metricmeasure{\metric},
+0 = \left(\pd[\density_t]{t} + \div(\density_t \vec{\velocity})\right) \metricmeasure{\metric},
 \]
 which is in turn equivalent to
 \[
-0 = \pd[\density]{t} + \div(\density\vec{\velocity})
+0 = \pd[\density_t]{t} + \div(\density_t\vec{\velocity})
 \]
 since $\metricmeasure{\metric} \ne 0$.
 
 In the literature, the time derivative moving with the flow is known as the material derivative $\md{t}$.
 \begin{defn}
-For a smooth function $f: \body(t) \to \RR$, the \emph{material derivative} is defined as
+For a smooth family of functions $f_t: \body(t) \to \RR$, the \emph{material derivative} is defined as
 \[
-\md[f]{t} = \pd[f]{t} + \div(f\vec{\velocity}).
+\md[f_t]{t} = \pd[f_t]{t} + \div(f_t \vec{\velocity}).
 \]
 \end{defn}
 The material derivatve is related to the Lie derivative $\lie_{\vec{\velocity}}$ by
 \[
-\md[f]{t} \metricmeasure{\metric} = \lie_{\vec{\velocity}} (f \metricmeasure{\metric})
+\md[f_t]{t} \metricmeasure{\metric} = \lie_{\vec{\velocity}} (f_t \metricmeasure{\metric})
 \]
 Thus we may also write the conservation of mass as
 \[
-\md[\rho]{t} = 0
+\md[\density_t]{t} = 0.
 \]
-since $\metricmeasure{\metric}(x) \ne 0$ for all $x\in M$.
 
 The balance of momentum is obtained from Newton's second law stating that the change in momentum is equal to the forces applied.  We divide the applied forces into external or \emph{body} forces $\vec{\bodyforce}$ arising externally to the continuum (e.g. gravity) and those arising from the influence of the continuum on itself, i.e. internal stresses such as pressure.  Cauchy's theorem states that the internel forces of stress are of the form $\div \cauchystress$ for a symmetric $(2,0)$ tensor $\cauchystress$, the so-called Cauchy stress tensor.  Balance of momentum may be expressed as
 \[
