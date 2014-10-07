@@ -12,6 +12,9 @@
 # *** For bundling
 #+LATEX_HEADER: \usepackage{snapshot}
 
+# **** Other LaTeX Packages
+#+LATEX_HEADER: \usepackage{mathtools}
+
 # *** Author
 #+LATEX_HEADER: \address{Department of Mathematics, University of California San Diego}
 #+LATEX_HEADER: \email{pbryan@ucsd.edu}
@@ -98,10 +101,10 @@ Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\ca
 ** The Riemannian Setting
 \label{subsec:geometry_riemann}
 
-We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake or beach or a closed container.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to derive the balance laws in the Riemannian setting.  This serves as a nice warmup for what comes later.  See the appendix for a review of the Riemannian geometry needed.
+We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake, a closed container, a star or a galaxy.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to derive the balance laws in the Riemannian setting.  See the appendix for a review of the Riemannian geometry needed.
 
 #+BEGIN_eg
-In the case of $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ induces the \emph{pull-back metric} $\metric$ on $\domain$
+In the case of an embedding $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ induces the \emph{pull-back metric} $\metric$ on $\domain$
 \[
 \metric = \phi^{\star} \ip{-}{-}
 \]
@@ -111,17 +114,17 @@ Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star}
 \pd{t} \density + \div_{\metric} (\density \vec{\velocity}) &= 0 \\
 \pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce}
 \end{align*}
-abusing notation by writing $\cauchystress$ for $\phi^{\star}\cauchystress$ and $\vec{\bodyforce}$ for $\phi^{\star}\vec{\bodyforce}$.  
+abusing notation by writing $\density$, $\vec{\velocity}$, $\cauchystress$ and $\vec{\bodyforce}$ for the pull-backs, $\phi^{\star}\density$, $\phi^{\star}\vec{\velocity}$, $\phi^{\star}\cauchystress$ and $\phi^{\star}\vec{\bodyforce}$ respectively.
 #+END_eg
 
 #+BEGIN_remark
-This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for balance of momentum doesn't make sense since in general there is no way to integrate vector fields ``component-wise''.
+This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for balance of momentum doesn't make sense since in general there is no way in general to integrate vector fields ``component-wise''.
 #+END_remark
 
 Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
 
 #+BEGIN_defn
-A /motion/ of a body in $M$ is a smooth one parameter family of embeddings, $\phi_t(\cdot) = \phi(\cdot, t)$ with
+A /motion/ of a body in $(M, \metric)$ is a smooth one parameter family of embeddings, $\phi_t(\cdot) = \phi(\cdot, t)$ with
 \[
 \phi : \body \times \timeinterval \to M
 \]
@@ -138,19 +141,36 @@ which is a smooth time dependent family of vector fields on $\body_t$ since each
 The \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics writes the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will phrase most of our work in the Eulerian formulation, but make some use of the Lagrangian formulation to deal with the moving domain.
 #+END_remark
 
-The main point here is that we have a density $\density_t \metricmeasure{\metric}$ defined on $B_t$ where $\density_t: B_t \to \RR$ is smooth and $\metricmeasure{\metric} = \det\metric$ is the volume form on $M$ induced by the metric $\metric$. We want to compute the evolution of various quantities \emph{on $M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
+We assume that $B_t$ comes equipped with a smoothly varying positive measure $\measure_t$, absolutely continuous with respect to the measure $\metricmeasure{\metric_t}$ on $B_t$ induced by the Riemannian measure $\metricmeasure{\metric}$ on $(M,\metric)$. That is
 \[
-(\phi_t^{\star} (\density\metricmeasure{\metric})) (x) = (\density \metricmeasure{\metric})(\phi_t(x)) = (\density\metricmeasure{\metric}) (x, 0)
+\measure_t = \density_t \phi_t^{\star} \metricmeasure{\metric}
 \]
-for all $x\in \body$ and $t \in [0, T)$.  Since $\vec{\velocity} = \phi_{\star}\pd{t}$ is a time dependent family of vector fields on $M$ and $\metricmeasure{\metric}$ is independent of time, the infinitessemal conservation of mass can now be written
+where $\density_t$ is a smooth family of positive smooth functions on $B$.
+
+We want to compute the evolution of various quantities on \emph{the moving domains $B_t \subset M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow.  On $M$, such an infinitessimal change is measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
+\[
+\measure_t(x) = \measure_0(x)
+\]
+for all $x \in B$ and $t \in [0,T)$. That is, the density at $x$ is preserved along the flow. From the definition of $\measure_t$, we may write this as
+\[
+\density_t(x) (\phi_t^{\star} \metricmeasure{\metric})(x) = \density_0(x) \phi_0^{\star}(\metricmeasure{\metric})(x).
+\]
+
+Differentiating this expression with respect to $t$, the infinitessemal conservation of mass can now be written
 \[
 \label{eq:consv_mass_riemann}
 0 = \pd{t} \phi_t^{\star} (\density\metricmeasure{\metric}) = \phi_t^{\star} \left(\pd[\density]{t} \metricmeasure{\metric} + \lie_{\vec{\velocity}} (\density \metricmeasure{\metric})\right) = \phi_t^{\star} \left(\pd[\density]{t}\metricmeasure{\metric} + \div(\density\vec{\velocity}) \metricmeasure{\metric}\right)
 \]
 which is equivalent, since $\phi_t$ is a diffeomorphism, to
 \[
-0 = \pd[\density]{t}\metricmeasure{\metric} + \div(\density\vec{\velocity}) \metricmeasure{\metric}.
+0 = \left(\pd[\density]{t} + \div(\density\vec{\velocity})\right) \metricmeasure{\metric},
 \]
+which is in turn equivalent to
+\[
+0 = \pd[\density]{t} + \div(\density\vec{\velocity})
+\]
+since $\metricmeasure{\metric} \ne 0$.
+
 In the literature, the time derivative moving with the flow is known as the material derivative $\md{t}$.
 \begin{defn}
 For a smooth function $f: \body(t) \to \RR$, the \emph{material derivative} is defined as
