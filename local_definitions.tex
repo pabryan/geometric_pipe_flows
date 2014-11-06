@@ -1,7 +1,7 @@
 % Numbering
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+%\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
-% Basic quantities such as density, pressure etc.
+% Basic quantities such as density, pressure, momenum etc.
 \DeclareMathOperator{\bodyforce}{F}
 \DeclareMathOperator{\pressure}{P}
 \DeclareMathOperator{\density}{\rho}
@@ -15,6 +15,7 @@
 \DeclareMathOperator{\fsvelocity}{V}
 \DeclareMathOperator{\relvelocity}{W}
 \newcommand{\norvec}[1]{\vec{#1}_{\nor}}
+\DeclareMathOperator{\momentum}{P}
 
 % Domains
 \DeclareMathOperator{\domain}{M}
@@ -81,6 +82,9 @@
 % disc quantities
 \newcommand{\discvec}[1]{\vec{#1}_{\disc}}
 
+% Geometry commands
+\newcommand{\gaussmap}[1]{\ensuremath{\mathcal{#1}}}
+
 % Notes to myself
 \newcommand{\note}[1]{
 \fbox{\parbox{\linewidth}{\textbf{NOTE:} #1}}
@@ -90,5 +94,7 @@
 {}}}
 
 
+
 % Should go somewhere else like algebra commands etc.
 \DeclareMathOperator{\deformation}{D}
+

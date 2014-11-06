@@ -202,43 +202,77 @@ and indeed in Euclidean space, this corresponds to usual definition of momentum 
 As we shall see below, this approach does not lead to the Navier-Stokes equation \eqref{eq:navierstokes} even in Euclidean space! The reason is that the Navier-Stokes equation is obtained by integrating the momentum componentwise, a non-geometric approach that remarkably leads to a geometrically invariant equation. The key idea here is to use a /Gauss map/.
 
 #+BEGIN_defn
-A /Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $M$ is an injective vector bundle map $\gaussmap: \tangentbundle \to M\times \RR^m$ for some $m$.
+A /Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $M^n$ is an injective vector bundle map $\gaussmap{F}: \tangentbundle \to M\times \RR^m$ for some $m$.
 
-A /Riemannian Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $(M, \metric)$ is a Gauss map $F$ that such that $\ip{F(v_1)}{F(v_2)} = \metric(v_1,v_2)$ for all $v_1,v_2 \in \tangentspace{x}$ and every $x\in M$ where $\ip{\cdot}{\cdot}$ is the standard inner-product on $\RR^m$. That is $F$ is also an isometry.
+A /Riemannian Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $(M, \metric)$ is a Gauss map $\gaussmap{F}$ that such that $\ip{F(v_1)}{F(v_2)} = \metric(v_1,v_2)$ for all $v_1,v_2 \in \tangentspace{x}$ and every $x\in M$ where $\ip{\cdot}{\cdot}$ is the standard inner-product on $\RR^m$. That is $F$ is also an isometric immersion.
 
-A /local Gauss map/ is a Gauss map defined only on an open set $U \subset M$.
+A /local Gauss map/ is a Gauss map $\gaussmap{F}_U$ defined on $\tangentbundle[U]$, the restriction of $\tangentbundle$ to a connected open set $U \subset M$.
 #+END_defn
 
-The tangent bundle of smooth manifold always admits a Gauss map \cite[Theorem 5.5, p. 32]{MR1249482}. Necessarily we must have $m \geq \text{dim}(M)$. In fact, $\tangentbundle$ admits a Gauss map with $m = \text{dim}(M)$ if and only if $\tangentbundle$ is trivial. Thus, if $\tangentbundle$ is trivial over an open set $U$, the there exists a Gauss map with $m=n$ over $U$.
+The tangent bundle of smooth manifold always admits a Gauss map \cite[Theorem 5.5, p. 32]{MR1249482}. Necessarily we must have $m \geq n = \text{dim}(M)$. In fact, $\tangentbundle$ admits a Gauss map with $m = n$ if and only if $\tangentbundle$ is trivial. In particular, $\tangentbundle$ is trivial over $U$ if and only if over $U$ there exists a local Gauss map with $m=n$.
 
 #+BEGIN_eg
-If $M = \RR^n$, then we can write any tangent vector $v \in \tangentspace[\RR^n]{x}$ as $v = v^1 \partial_1(x), \cdots, v^n \partial_n(x)$ where $\partial_i$ is the $i$'th standard basis vector field on $\RR^n$. Then a Riemannian Gauss map is 
+If $M = \RR^n$, then we can write any tangent vector $v \in \tangentspace[\RR^n]{x}$ as $v = v^1 \partial_1(x) + \cdots +  v^n \partial_n(x)$ where $\partial_i$ is the $i$'th standard basis vector field on $\RR^n$. Then a Riemannian Gauss map is 
 \[
-F(v) = (x, (v_1,\cdots, v_n).
+\gaussmap{F}(v) = (x, (v^1,\dotsc, v^n)).
 \]
 
-More generally, let $\{E_i\}_{x=1}^n$ be any /global/ frame for $\tangementbundle[\RR^n]$ so that $\{E_i(x)\}$ is a basis for $\tangentspace[\RR^n]{x}$ for each $x\in\RR^n$. Then any vector $v \in \tangentspace[\RR^n]{x}$ has a unique expansion $v = v^1(x) E_1 + \dotsc + v^n E_n(x)$ and we can define a Gauss map by
+More generally, let $\{E_i\}_{x=1}^n$ be any /global/ frame for $\tangentbundle[\RR^n]$ so that $\{E_i(x)\}$ is a basis for $\tangentspace[\RR^n]{x}$ for each $x\in\RR^n$. Then any vector $v \in \tangentspace[\RR^n]{x}$ has a unique expansion $v = v^1 E_1(x) + \cdots + v^n E_n(x)$ and we can define a Gauss map by
 \[
-F(v) = (x, (v_1,\cdots, v_n).
+\gaussmap{F}(v) = (x, (v^1,\dotsc, v^n)).
 \]
 
-This Gauss map is Riemannian if and only if $\{E_i\}$ is an orthonormal frame, i.e. $\metric(E_i, E_j) = \delta_{ij}$, $\delta_{ij}$ the Kronecker-delta function.
+This Gauss map is Riemannian if and only if $\{E_i\}$ is an orthonormal frame, i.e. $\metric(E_i, E_j) = \delta_{ij}$, the Kronecker-delta function.
 #+END_eg
 
-In general, there are infinitely many Gauss maps, so how do we choose one? We will concentrate on local Gauss maps on open sets $U$ where $\tangentbundle$ is trivial and so may restrict to $m=\text{dim}(n)$. In this situation, the issue of choosing a Riemannian Gauss map corresponds to making a choice of orthonormal frame over $U$, or more precisely, an equivalence class of orthonormal frames $[E_i]$ where $\{E_i\}$ is equivalent to $\{F_j\}$ if and only if there exists a constant section of the bundle $GL_m(U)$, the bundle of isomorphisms $U \times \RR^m$. That is, if and only if
+In general, there are infinitely many Gauss maps, so how do we choose one? We will concentrate on local Gauss maps on open sets $U$ where $\tangentbundle$ is trivial and so may restrict our attention to $m=\text{dim}(n)$, assuming that $\tangentbundle[U] = U \times \RR^{n}$. In this situation, the issue of choosing a Riemannian Gauss map corresponds to making a choice of orthonormal frame over $U$, or more precisely, an equivalence class of orthonormal frames $[E_i]$ where $\{E_i\}$ is equivalent to $\{F_j\}$ if and only if there exists a constant section of the bundle $O^n(U)$, the bundle of orthogonal transformation of $U \times \RR^m$. That is, if and only if
 \[
 \{E_i(x)\} = \{\sigma(F_j(x))\}
 \]
-where $\sigma$ is an invertible linear transformation $\RR^m \to \RR^m$.
+where $\sigma$ is an orthogonal linear transformation $\RR^m \to \RR^m$. The important point to remember is that the change of frame map $\sigma$ is a section of $U \times O^n(\RR)$, and is in general non-constant. We say two frames are equivalent of the section $\sigma$ is /constant/. Then two Gauss maps are equivalent if
+\[
+\gaussmap{G}(v(x)) = \sigma \gaussmap{F}(v(x))
+\]
+with $\sigma$ independent of $x \in U$. Thus equivalent Gauss maps/equivalent frames correspond to a change of basis preserving the standard inner product on $\RR^n$.
 
-There still remain infinitely many possible choices and to narrow the possibilities down to only one choice, inspired by the Euclidean case, we use another metric property.
+There still remain infinitely many inequivalent Riemannian Gauss maps, to narrow the possibilities down to only one choice, inspired by the Euclidean case, we use another metric property.
 
 #+BEGIN_prop
-Let $U\subset M$ be an open set on which $\tangentbundle$ is trivial. Then there exists a unique Gauss map $F: \tagentbundle \to U \times \RR^{\text{dim}(M)}$ such the frame $\{F^{-1}(e_i)\}$ is a parallel, orthonormal field where $e_i$ denotes the section of $U \times \$$^n$, $x \maptso (x, (0, \dotsc, 0, 1, 0, \dotsc, 0)$ with the $1$ in the $i$'th position.
+Let $U\subset M$ be a connected open set on which $\tangentbundle$ is trivial. Then there exists a unique Gauss map $\gaussmap{F}_U: \tangentbundle[U] \to U \times \RR^{n}$ such the frame $\{F_U^{-1}(e_i)\}$ is a parallel (with respect to the Levi-Civita connection), orthonormal field. Here $e_i$ denotes the section of $U \times \RR^n$, $x \mapsto (x, (0, \dotsc, 0, 1, 0, \dotsc, 0)$ with the $1$ in the $i$'th position.
+
+Moreover, if $\tangentbundle$ is trivial over the open set $V$ also, then $F_U = F_V$ on $U\intersect V$.
 #+END_prop
 
-#+BEGIN_proof
+Thus the proposition says that up to equivalence, there is a unique local Riemannian Gauss map over $U$ determined by the parallel orthonormal frames over $U$.
 
+#+BEGIN_remark
+The reader should be aware that just because $F_U$ agrees with $F_V$ on the overlap, we cannot in general "patch" together $\{F_{U_{\alpha}}\}$ with $\{U_{\alpha}\}$ an open cover of $M$ to obtain a Gauss map $F$ on all of $M$ with $m=n$. There are cohomological obstructions to such "patching".
+#+END_remark
+
+#+BEGIN_proof
+The existence of $F_U$ is clear, since it is equivalent to the statement that over $U$ there exists a parallel orthonormal frame. To obtain such a frame, first produce by Gram-Schmidt an orthonormal basis at a point $x\in U$. Then since $\tangentbundle[U]$ is trivial, this basis may be parallel translated over $U$ to obtain a frame. By construction, the frame is parallel and since parallel translation is an isometry, it is also orthonormal.
+
+To prove uniqueness, suppose we have two Gauss maps
+\[
+F_U, G_U: U\times \RR^n \to U\times \RR^n
+\]
+such that $\{F_i = F^{-1}(e_i)\}$ and $\{G_i = G^{-1}(e_i)\}$ are parallel orthonormal frames. In other words $F_U,G_U$ are isometries $(U \times \RR^n, \metric) \to (U \times \RR^n, \delta_{ij})$.
+
+Then there exists a smooth map $\sigma: U \to GL_n(\RR)$ such that for each $x \in U$, writing $\sigma_x = \sigma(x)$ we have
+$$
+\{F_i\} = \{\sigma_x(G_i)\} \quad \text{and} \quad \metric(\sigma_x(G_i), \sigma_x(G_j)) = \metric(G_i, G_j).
+$$
+We need to show that $\sigma$ is constant. By assumption,
+$$
+\conx_X F_i = \conx_X G_i = 0
+$$
+for each $i = 1,\dotsc, n$ and any vector field $X$ on $U$ where $\conx$ is the Levi-Civita connection of $\metric$. For convenience, since $U$ is connected and by continuity, reordering if necessary, we may assume that $F_i = \sigma(G_i)$ for every $x\in U$.
+
+Then for every $X$, using Proposition \ref{prop:tensorconnection}, we compute
+\[
+0 = \conx_X F_i = \conx_X \sigma(G_i) = (\conx \sigma)(X, G_i) + \sigma(\conx_X G_i) = (\conx \sigma)(X, G_i)
+\]
+for each $i=1\cdots, n$. Since $X$ is arbitrary and $\{G_i\}$ is a frame we conclude that $\conx \sigma = 0$ and hence $\sigma$ is constant as required.
 #+END_proof
 
 \note{Need to sort out the div and Lie terms here}
@@ -933,6 +967,7 @@ The covariant derivative satisfies the following two properties
 By the isomorphism $T^{\star} M \tensor E \simeq \hom(TM, E)$, we may define a connection on $E$ by giving a map $X \to E$ satisying the derivation property.
 
 \begin{prop}
+\label{prop:tensorconnection}
 A connection $\conx$ on $TM$ uniquely determines a connection of any tensor bundle $T^P_q M$
 \[
 \conx^p_q: T^P_q M \to T^{\star}M \tensor T^P_q M = T^p_{q+1} M
