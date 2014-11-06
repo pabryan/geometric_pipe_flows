@@ -86,10 +86,12 @@ Recall that the basic equations of continuum mechanics are the conservation of m
 \label{sec:geometry_euclidean}
 
 The differential equations expressing the conservation of mass, and balance of momentum are
-\begin{align*}
+\begin{align}
+\label{eq:euler}
 \pd[\density]{t} + \div(\density\vec{\velocity}) &= 0 & & \text{Conservation of Mass} \\
+\label{eq:navierstokes}
 \pd{t} \left(\density\vec{\velocity}\right) + \div\left(\vec{\velocity} \tensor \density\vec{\velocity}\right) &= \div \cauchystress + \vec{\bodyforce} & & \text{Balance of Momentum} 
-\end{align*}
+\end{align}
 
 These equations may be thought of as the infinitessimal versions of the integral laws which for any family of open subset $\Omega(t)\subset \RR^3$ with smooth boundary, moving with the flow are given by
 \begin{align*}
@@ -187,10 +189,57 @@ Thus we may also write the conservation of mass as
 \md[\density_t]{t} = 0.
 \]
 
-The balance of momentum is obtained from Newton's second law stating that the change in momentum is equal to the forces applied.  We divide the applied forces into external or \emph{body} forces $\vec{\bodyforce}$ arising externally to the continuum (e.g. gravity) and those arising from the influence of the continuum on itself, i.e. internal stresses such as pressure.  Cauchy's theorem states that the internel forces of stress are of the form $\div \cauchystress$ for a symmetric $(2,0)$ tensor $\cauchystress$, the so-called Cauchy stress tensor.  Balance of momentum may be expressed as
+The balance of momentum is obtained from Newton's second law stating that the change in momentum is equal to the forces applied.  We divide the applied forces into external or \emph{body} forces $\vec{\bodyforce}$ arising externally to the continuum (e.g. gravity) and those arising from the influence of the continuum on itself, i.e. internal stresses such as pressure.  Cauchy's theorem states that the internel forces of stress are of the form $\div \cauchystress$ for a symmetric $(2,0)$ tensor $\cauchystress$, the so-called Cauchy stress tensor.  
+
+The difficulty in deriving the balance of momentum is in a suitable definition for the momentum tensor $\momentum$ and how to differentiate it. A reasonable attempt would seem to be
+\[
+\momentum = \vec{\velocity} \tensor \density\metricmeasure{\metric}
+\]
+and indeed in Euclidean space, this corresponds to usual definition of momentum = mass times velocity. Then we might hope to express balance of momentum infinitesimally as 
 \[
 \pd{t} \phi_t^{\star}(\vec{\velocity} \tensor \density\metricmeasure{\metric}) = \phi_t^{\star}\left((\vec{\bodyforce} + \div \cauchystress) \tensor \density\metricmeasure{\metric}\right).
 \]
+As we shall see below, this approach does not lead to the Navier-Stokes equation \eqref{eq:navierstokes} even in Euclidean space! The reason is that the Navier-Stokes equation is obtained by integrating the momentum componentwise, a non-geometric approach that remarkably leads to a geometrically invariant equation. The key idea here is to use a /Gauss map/.
+
+#+BEGIN_defn
+A /Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $M$ is an injective vector bundle map $\gaussmap: \tangentbundle \to M\times \RR^m$ for some $m$.
+
+A /Riemannian Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $(M, \metric)$ is a Gauss map $F$ that such that $\ip{F(v_1)}{F(v_2)} = \metric(v_1,v_2)$ for all $v_1,v_2 \in \tangentspace{x}$ and every $x\in M$ where $\ip{\cdot}{\cdot}$ is the standard inner-product on $\RR^m$. That is $F$ is also an isometry.
+
+A /local Gauss map/ is a Gauss map defined only on an open set $U \subset M$.
+#+END_defn
+
+The tangent bundle of smooth manifold always admits a Gauss map \cite[Theorem 5.5, p. 32]{MR1249482}. Necessarily we must have $m \geq \text{dim}(M)$. In fact, $\tangentbundle$ admits a Gauss map with $m = \text{dim}(M)$ if and only if $\tangentbundle$ is trivial. Thus, if $\tangentbundle$ is trivial over an open set $U$, the there exists a Gauss map with $m=n$ over $U$.
+
+#+BEGIN_eg
+If $M = \RR^n$, then we can write any tangent vector $v \in \tangentspace[\RR^n]{x}$ as $v = v^1 \partial_1(x), \cdots, v^n \partial_n(x)$ where $\partial_i$ is the $i$'th standard basis vector field on $\RR^n$. Then a Riemannian Gauss map is 
+\[
+F(v) = (x, (v_1,\cdots, v_n).
+\]
+
+More generally, let $\{E_i\}_{x=1}^n$ be any /global/ frame for $\tangementbundle[\RR^n]$ so that $\{E_i(x)\}$ is a basis for $\tangentspace[\RR^n]{x}$ for each $x\in\RR^n$. Then any vector $v \in \tangentspace[\RR^n]{x}$ has a unique expansion $v = v^1(x) E_1 + \dotsc + v^n E_n(x)$ and we can define a Gauss map by
+\[
+F(v) = (x, (v_1,\cdots, v_n).
+\]
+
+This Gauss map is Riemannian if and only if $\{E_i\}$ is an orthonormal frame, i.e. $\metric(E_i, E_j) = \delta_{ij}$, $\delta_{ij}$ the Kronecker-delta function.
+#+END_eg
+
+In general, there are infinitely many Gauss maps, so how do we choose one? We will concentrate on local Gauss maps on open sets $U$ where $\tangentbundle$ is trivial and so may restrict to $m=\text{dim}(n)$. In this situation, the issue of choosing a Riemannian Gauss map corresponds to making a choice of orthonormal frame over $U$, or more precisely, an equivalence class of orthonormal frames $[E_i]$ where $\{E_i\}$ is equivalent to $\{F_j\}$ if and only if there exists a constant section of the bundle $GL_m(U)$, the bundle of isomorphisms $U \times \RR^m$. That is, if and only if
+\[
+\{E_i(x)\} = \{\sigma(F_j(x))\}
+\]
+where $\sigma$ is an invertible linear transformation $\RR^m \to \RR^m$.
+
+There still remain infinitely many possible choices and to narrow the possibilities down to only one choice, inspired by the Euclidean case, we use another metric property.
+
+#+BEGIN_prop
+Let $U\subset M$ be an open set on which $\tangentbundle$ is trivial. Then there exists a unique Gauss map $F: \tagentbundle \to U \times \RR^{\text{dim}(M)}$ such the frame $\{F^{-1}(e_i)\}$ is a parallel, orthonormal field where $e_i$ denotes the section of $U \times \$$^n$, $x \maptso (x, (0, \dotsc, 0, 1, 0, \dotsc, 0)$ with the $1$ in the $i$'th position.
+#+END_prop
+
+#+BEGIN_proof
+
+#+END_proof
 
 \note{Need to sort out the div and Lie terms here}
 Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independent of time, balance of momentum then reads
