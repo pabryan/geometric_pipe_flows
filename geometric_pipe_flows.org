@@ -103,6 +103,8 @@ Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\ca
 ** The Riemannian Setting
 \label{subsec:geometry_riemann}
 
+*** The setup
+
 We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake, a closed container, a star or a galaxy.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to derive the balance laws in the Riemannian setting.  See the appendix for a review of the Riemannian geometry needed.
 
 #+BEGIN_eg
@@ -149,6 +151,8 @@ We want to compute the evolution of various quantities on \emph{the moving domai
 
 Thus we employ the \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics, writing the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will make some use of the Lagrangian formulation implicitly in dealing with the moving domain. See the appendix for more details.
 
+*** Conservation of mass
+
 On $M$, infinitesimal changes in time are measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
 \[
 \measure_t(\phi_t(x)) = \measure_0(\phi_0(x))
@@ -188,6 +192,8 @@ Thus we may also write the conservation of mass as
 \[
 \md[\density_t]{t} = 0.
 \]
+
+*** Balance of momentum
 
 The balance of momentum is obtained from Newton's second law stating that the change in momentum is equal to the forces applied.  We divide the applied forces into external or \emph{body} forces $\vec{\bodyforce}$ arising externally to the continuum (e.g. gravity) and those arising from the influence of the continuum on itself, i.e. internal stresses such as pressure.  Cauchy's theorem states that the internel forces of stress are of the form $\div \cauchystress$ for a symmetric $(2,0)$ tensor $\cauchystress$, the so-called Cauchy stress tensor.  
 
@@ -238,7 +244,7 @@ with $\sigma$ independent of $x \in U$. Thus equivalent Gauss maps/equivalent fr
 There still remain infinitely many inequivalent Riemannian Gauss maps, to narrow the possibilities down to only one choice, inspired by the Euclidean case, we use another metric property.
 
 #+BEGIN_prop
-Let $U\subset M$ be a connected open set on which $\tangentbundle$ is trivial. Then there exists a unique Gauss map $\gaussmap{F}_U: \tangentbundle[U] \to U \times \RR^{n}$ such the frame $\{F_U^{-1}(e_i)\}$ is a parallel (with respect to the Levi-Civita connection), orthonormal field. Here $e_i$ denotes the section of $U \times \RR^n$, $x \mapsto (x, (0, \dotsc, 0, 1, 0, \dotsc, 0)$ with the $1$ in the $i$'th position.
+Let $U\subset M^n$ be a connected open set on which $\tangentbundle$ is trivial. Then there exists a unique Gauss map $\gaussmap{F}_U: \tangentbundle[U] \to U \times \RR^{n}$ ($n = \text{dim}(M)$) such the frame $\{F_U^{-1}(e_i)\}$ is a parallel (with respect to the Levi-Civita connection), orthonormal field. Here $e_i$ denotes the section of $U \times \RR^n$, $x \mapsto (x, (0, \dotsc, 0, 1, 0, \dotsc, 0)$ with the $1$ in the $i$'th position.
 
 Moreover, if $\tangentbundle$ is trivial over the open set $V$ also, then $F_U = F_V$ on $U\intersect V$.
 #+END_prop
@@ -274,6 +280,19 @@ Then for every $X$, using Proposition \ref{prop:tensorconnection}, we compute
 \]
 for each $i=1\cdots, n$. Since $X$ is arbitrary and $\{G_i\}$ is a frame we conclude that $\conx \sigma = 0$ and hence $\sigma$ is constant as required.
 #+END_proof
+
+We will call this unique Gauss map, the /parallel Riemannian Gauss map/.
+
+#+BEGIN_defn
+The /local momentum $\localmomentum{U}$ over $U$/ is the vector
+\[
+\localmomentum{U} = \left(\int_U \momentum_1, \cdots, \int_U \momentum_n \right) 
+\]
+in $\RR^n$ where $\gaussmap{F}_U(\momentum)(x) = (\momentum_1(x), \cdotsc, \momentum_n(x))$ with $\gaussmap{F}_U$ is the parallel Riemannian Gauss map.
+#+END_defn
+
+The infinitesimal balance of momentum is equivalent to the balance of local momentum. The derivation is now formally the same as in Euclidean space as described for instance in \cite[Section 8.2]{MR960687}. See also \cite{MR2352963}.
+
 
 \note{Need to sort out the div and Lie terms here}
 Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independent of time, balance of momentum then reads
