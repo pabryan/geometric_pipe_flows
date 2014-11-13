@@ -288,10 +288,17 @@ The /local momentum $\localmomentum{U}$ over $U$/ is the vector
 \[
 \localmomentum{U} = \left(\int_U \momentum_1, \cdots, \int_U \momentum_n \right) 
 \]
-in $\RR^n$ where $\gaussmap{F}_U(\momentum)(x) = (\momentum_1(x), \cdotsc, \momentum_n(x))$ with $\gaussmap{F}_U$ is the parallel Riemannian Gauss map.
+in $\RR^n$ where $\gaussmap{F}_U(\momentum)(x) = (\momentum_1(x), \dotsc, \momentum_n(x))$ with $\gaussmap{F}_U$ is the parallel Riemannian Gauss map. We may also think of the local momentum as giving a parallel section of $\tangentbundle[U]$.
 #+END_defn
 
-The infinitesimal balance of momentum is equivalent to the balance of local momentum. The derivation is now formally the same as in Euclidean space as described for instance in \cite[Section 8.2]{MR960687}. See also \cite{MR2352963}.
+The infinitesimal balance of momentum is equivalent to the balance of local momentum. The derivation is now formally the same as in Euclidean space as described for instance in \cite[Section 8.2]{MR960687}. See also \cite{MR2352963}. We apply the same technique as for the conservation of mass to each component of the local momentum.
+
+We express balance of momentum as
+\[
+\pd{t} \phi_t^{\star} (\momentum_i \density \measure) = \phi_t^{\star}\left((\vec{\bodyforce}_i + (\div \cauchystress)_i) \density \measure\right)
+\]
+where $X_i$ denotes the $i$'th component of a $\gaussmap{F}(X)$ for vector field $X$. Here we work at a point $x \in U$ and restrict $t$ to an open interval so that $\phi_t(x) \in U$.
+
 
 
 \note{Need to sort out the div and Lie terms here}
