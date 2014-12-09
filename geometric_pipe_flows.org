@@ -68,10 +68,9 @@ where the second line follows from the fact that $\iota_X$ is an anti-derivation
 Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
 
 * Introduction
-* Geometric Approach To Continuum Mechanics
-\label{sec:geometry}
+* Notation and Preliminaries
 
-Recall that the basic equations of continuum mechanics are the conservation of mass and balance of momentum. More fundamental perhaps, is the balance of energy though we will focus primarily on mass and momentum.  The basic quantities of interest describing the continuum are
+Recall that the basic equations of continuum mechanics are the conservation of mass and balance of momentum. More fundamental perhaps, is the balance of energy though we will focus primarily on mass and momentum here.  The basic quantities of interest describing the continuum are
 
 - $\density$ - the density of matter,
 - $\vec{\velocity}$ - the velocity vector field,
@@ -80,7 +79,6 @@ Recall that the basic equations of continuum mechanics are the conservation of m
 - $\energydensity = \energydensity_{\kinetic}  + \energydensity_{\internal}$ - the total energy density,
 - $\cauchystress$ - the Cauchy stress tensor, a symmetric $(0,2)$-tensor,
 - $\vec{\bodyforce}$ - the external or ``body'' forces.
-
 
 ** The Euclidean Setting
 \label{sec:geometry_euclidean}
@@ -103,11 +101,8 @@ Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\ca
 ** The Riemannian Setting
 \label{subsec:geometry_riemann}
 
-*** The setup
+We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake, a closed container, a star or a galaxy.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to adapt this problem to the geometry at hand.  See the appendix for a review of the Riemannian geometry needed.
 
-We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake, a closed container, a star or a galaxy.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to derive the balance laws in the Riemannian setting.  See the appendix for a review of the Riemannian geometry needed.
-
-#+BEGIN_eg
 In the case of an embedding $\phi: M \to \RR^3$, the standard metric $\ip{-}{-}$ on $\RR^3$ induces the \emph{pull-back metric} $\metric$ on $\domain$
 \[
 \metric = \phi^{\star} \ip{-}{-}
@@ -119,225 +114,10 @@ Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star}
 \pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce}
 \end{align*}
 abusing notation by writing $\density$, $\vec{\velocity}$, $\cauchystress$ and $\vec{\bodyforce}$ for the pull-backs, $\phi^{\star}\density$, $\phi^{\star}\vec{\velocity}$, $\phi^{\star}\cauchystress$ and $\phi^{\star}\vec{\bodyforce}$ respectively.
-#+END_eg
 
 #+BEGIN_remark
 This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for balance of momentum doesn't make sense since in general there is no way in general to integrate vector fields ``component-wise''.
 #+END_remark
-
-Let us now describe how to formulate the equations of continuum mechanics on Riemannian manifolds.  Our setting is an evolving body $\body(t)$ in a smooth manifold $M^n$ equipped with a Riemannian metric $\metric$, and with piecwise smooth boundary $\bdry{M}$.  We allow the possibility that $\bdry{M} = \emptyset$ as for example in the case of $M=\RR^n$.
-
-#+BEGIN_defn
-A /motion/ of a body in $(M^n, \metric)$ is a smooth one parameter family of embeddings, $\phi_t(\cdot) = \phi(\cdot, t)$ with
-\[
-\phi : \body \times \timeinterval \to M
-\]
-for some $T>0$ and $\body^n$ a smooth $n$ dimensional manifold with piecewise smooth boundary $\bdry{\body}$, where we write $\body$ for non-boundary points and $\clsr{\body} = \body \union \bdry{\body}$.  That is, $\phi$ is continuous on $\clsr{\body} \times \timeinterval$, smooth on $\body \times \timeinterval$ and smooth on the smooth part, $\bdry{\body}_{\smooth} \times \timeinterval$, of the boundary of $B$.  For each $t\in\timeinterval$ the map $\phi_t(-) = \phi(-, t) : \clsr{\body} \to M$ is a homemorhpism with it's image and is a diffeomorphism of the interior of $\body$ with it's image.
-
-We write $\body_t = \phi_t(\body) \subset M$ and define the velocity vector field
-\[
-\vec{\velocity}(t) = \phi_{\star} \pd{t}
-\]
-which is a smooth time dependent family of vector fields on $\body_t$ since each $\phi_t: \body \to \body_t$ is a diffeomorphism.
-#+END_defn
-
-We assume that $B_t$ comes equipped with a smoothly varying positive measure $\measure_t$, absolutely continuous with respect to the measure $\metricmeasure{\metric_t}$ on $B_t$ induced by the Riemannian measure $\metricmeasure{\metric}$ on $(M,\metric)$. That is
-\[
-\measure_t = \density_t \metricmeasure{\metric}
-\]
-where $\density_t$ is a smooth family of positive smooth functions on $B_t$.
-
-We want to compute the evolution of various quantities on \emph{the moving domains $B_t \subset M$} such as the density, momentum (computed with respect to the density), acceleration etc. moving with the flow in terms of the geometry of $M$ (i.e. in terms of tensor fields defined on open subsets of $M$ and their derivatives).  For example, one can write a vector field on $\sphere^2$ in terms of the standard frame $\{\partial_x, \partial_y, \partial_z\}$ for the tangent space to $\RR^3$ even though each vector field in the frame is not tangent to $\sphere^2$.
-
-Thus we employ the \emph{Eulerian} or \emph{extrinsic} formulation of continuum mechanics, writing the equations in terms of the fixed geometry on $M$ but on the changing domains $\body_t$.  The \emph{Lagrangian} or \emph{intrinsic} formulation works on the fixed domain $\body$, but with changing geometry induced by $\phi_t^{\star}$ the pull back at each time $t$.  We will make some use of the Lagrangian formulation implicitly in dealing with the moving domain. See the appendix for more details.
-
-*** Conservation of mass
-
-On $M$, infinitesimal changes in time are measured by the Lie derivative $\lie_{\vec{\velocity}}$.  First, conservation of mass is expressed through the relation
-\[
-\measure_t(\phi_t(x)) = \measure_0(\phi_0(x))
-\]
-for all $x \in B$ and $t \in [0,T)$. That is, the density at $x$ is preserved along the flow. Pulling back to $B$, we may write this as
-\[
-\phi_t^{\star} \measure_t = \phi_0^{\star}\measure_0.
-\]
-
-Differentiating this expression with respect to $t$, using that $\vec{\velocity} = \phi_{\star} \partial_t$ is a time-dependent vector field on $B_t$ (see appendix) the infinitessemal conservation of mass can now be written
-\[
-\label{eq:consv_mass_riemann}
-0 = \pd{t} \phi_t^{\star} (\density_t \metricmeasure{\metric}) = \phi_t^{\star} \left(\pd[\density_t]{t} \metricmeasure{\metric} + \lie_{\vec{\velocity}} (\density_t \metricmeasure{\metric})\right) = \phi_t^{\star} \left(\pd[\density_t]{t}\metricmeasure{\metric} + \div(\density_t\vec{\velocity}) \metricmeasure{\metric}\right)
-\]
-which is equivalent, since $\phi_t$ is a diffeomorphism, to
-\[
-0 = \left(\pd[\density_t]{t} + \div(\density_t \vec{\velocity})\right) \metricmeasure{\metric},
-\]
-which is in turn equivalent to
-\[
-0 = \pd[\density_t]{t} + \div(\density_t\vec{\velocity})
-\]
-since $\metricmeasure{\metric} \ne 0$.
-
-In the literature, the time derivative moving with the flow is known as the material derivative $\md{t}$.
-\begin{defn}
-For a smooth family of functions $f_t: \body(t) \to \RR$, the \emph{material derivative} is defined as
-\[
-\md[f_t]{t} = \pd[f_t]{t} + \div(f_t \vec{\velocity}).
-\]
-\end{defn}
-The material derivatve is related to the Lie derivative $\lie_{\vec{\velocity}}$ by
-\[
-\md[f_t]{t} \metricmeasure{\metric} = \lie_{\vec{\velocity}} (f_t \metricmeasure{\metric})
-\]
-Thus we may also write the conservation of mass as
-\[
-\md[\density_t]{t} = 0.
-\]
-
-*** Balance of momentum
-
-The balance of momentum is obtained from Newton's second law stating that the change in momentum is equal to the forces applied.  We divide the applied forces into external or \emph{body} forces $\vec{\bodyforce}$ arising externally to the continuum (e.g. gravity) and those arising from the influence of the continuum on itself, i.e. internal stresses such as pressure.  Cauchy's theorem states that the internel forces of stress are of the form $\div \cauchystress$ for a symmetric $(2,0)$ tensor $\cauchystress$, the so-called Cauchy stress tensor.  
-
-The difficulty in deriving the balance of momentum is in a suitable definition for the momentum tensor $\momentum$ and how to differentiate it. A reasonable attempt would seem to be
-\[
-\momentum = \vec{\velocity} \tensor \density\metricmeasure{\metric}
-\]
-and indeed in Euclidean space, this corresponds to usual definition of momentum = mass times velocity. Then we might hope to express balance of momentum infinitesimally as 
-\[
-\pd{t} \phi_t^{\star}(\vec{\velocity} \tensor \density\metricmeasure{\metric}) = \phi_t^{\star}\left((\vec{\bodyforce} + \div \cauchystress) \tensor \density\metricmeasure{\metric}\right).
-\]
-As we shall see below, this approach does not lead to the Navier-Stokes equation \eqref{eq:navierstokes} even in Euclidean space! The reason is that the Navier-Stokes equation is obtained by integrating the momentum componentwise, a non-geometric approach that remarkably leads to a geometrically invariant equation. The key idea here is to use a /Gauss map/.
-
-**** Gauss maps
-
-#+BEGIN_Latex
-\note{Need to do away with this business of local Gauss maps and just use a global Gauss map $\tangentbundle[M] \to \RR^{\infty}$}.
-#+END_Latex
-
-#+BEGIN_defn
-A /Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $M^n$ is an injective vector bundle map $\gaussmap{F}: \tangentbundle \to M\times \RR^m$ for some $m$.
-
-A /Riemannian Gauss map/ for the tangent bundle $\tangentbundle$ of a Riemannian manifold $(M, \metric)$ is a Gauss map $\gaussmap{F}$ that such that $\ip{F(v_1)}{F(v_2)} = \metric(v_1,v_2)$ for all $v_1,v_2 \in \tangentspace{x}$ and every $x\in M$ where $\ip{\cdot}{\cdot}$ is the standard inner-product on $\RR^m$. That is $F$ is also an isometric immersion.
-
-A /local Gauss map/ is a Gauss map $\gaussmap{F}_U$ defined on $\tangentbundle[U]$, the restriction of $\tangentbundle$ to a connected open set $U \subset M$.
-#+END_defn
-
-The tangent bundle of smooth manifold always admits a Gauss map \cite[Theorem 5.5, p. 32]{MR1249482}. Necessarily we must have $m \geq n = \text{dim}(M)$. In fact, $\tangentbundle$ admits a Gauss map with $m = n$ if and only if $\tangentbundle$ is trivial. In particular, $\tangentbundle$ is trivial over $U$ if and only if over $U$ there exists a local Gauss map with $m=n$.
-
-#+BEGIN_eg
-If $M = \RR^n$, then we can write any tangent vector $v \in \tangentspace[\RR^n]{x}$ as $v = v^1 \partial_1(x) + \cdots +  v^n \partial_n(x)$ where $\partial_i$ is the $i$'th standard basis vector field on $\RR^n$. Then a Riemannian Gauss map is 
-\[
-\gaussmap{F}(v) = (x, (v^1,\dotsc, v^n)).
-\]
-
-More generally, let $\{E_i\}_{x=1}^n$ be any /global/ frame for $\tangentbundle[\RR^n]$ so that $\{E_i(x)\}$ is a basis for $\tangentspace[\RR^n]{x}$ for each $x\in\RR^n$. Then any vector $v \in \tangentspace[\RR^n]{x}$ has a unique expansion $v = v^1 E_1(x) + \cdots + v^n E_n(x)$ and we can define a Gauss map by
-\[
-\gaussmap{F}(v) = (x, (v^1,\dotsc, v^n)).
-\]
-
-This Gauss map is Riemannian if and only if $\{E_i\}$ is an orthonormal frame, i.e. $\metric(E_i, E_j) = \delta_{ij}$, the Kronecker-delta function. Note that if $\{E_i\}$ is Riemannian, it need not be equivalent to $\{\partial_i\}$ since for any non-constant $\sigma: \RR^n \to \orthogonalgroup{n}$, the frame $\{E_i = \sigma \partial_i\}$ provides a Riemannian Gauss map inequivalent to $\{\partial_i\}$.
-#+END_eg
-
-In general, there are infinitely many Gauss maps, so how do we choose one? We will concentrate on local Gauss maps on open sets $U$ where $\tangentbundle$ is trivial and so may restrict our attention to $m=\text{dim}(n)$, assuming that $\tangentbundle[U] = U \times \RR^{n}$. In this situation, the issue of choosing a Riemannian Gauss map corresponds to making a choice of orthonormal frame over $U$, or more precisely, an equivalence class of orthonormal frames $[E_i]$ where $\{E_i\}$ is equivalent to $\{F_j\}$ if and only if there exists a constant section of the bundle $O^n(U)$, the bundle of orthogonal transformation of $U \times \RR^m$. That is, if and only if
-\[
-\{E_i(x)\} = \{\sigma(F_j(x))\}
-\]
-where $\sigma$ is an orthogonal linear transformation $\RR^m \to \RR^m$. The important point to remember is that the change of frame map $\sigma$ is a section of $U \times O^n(\RR)$, and is in general non-constant. We say two frames are equivalent of the section $\sigma$ is /constant/. Then two Gauss maps are equivalent if
-\[
-\gaussmap{G}(v(x)) = \sigma \gaussmap{F}(v(x))
-\]
-with $\sigma$ independent of $x \in U$. Thus equivalent Gauss maps/equivalent frames correspond to a change of basis preserving the standard inner product on $\RR^n$.
-
-There still remain infinitely many (even local!) inequivalent Riemannian Gauss maps. Any $\sigma \in \orthogonalgroup{n}$ the orthogonal transformations on $\RR^n$ gives rise to a family of equivalent Riemannian Gauss maps; $\gaussmap{F}$ is equivalent to $\sigma \gaussmap{F}$. Such transformations correspond to a change of frame on $\tangentbundle[U]$ by a parallel section of $\orthogonalbundle[U]$, the bundle of orthogonal transformations on $(\tangentbundle[U], \metric)$. Moreover, any two inequivalent frames (hence inequivalent Gauss maps) are related by a non-parallel section of $\orthogonalbundle[U]$. Thus we may parametrise the set of equivalent Gauss maps by $\orthogonalbundle[U]/\orthogonalbundle[U]_0$ where $\orthogonalbundle[U]_0$ denotes the parallel sections.
-
-#+BEGIN_remark
-The discussion above applies to all Riemannian manifolds. In particular, to Euclidean space. Thus the space of Riemannian Gauss maps on $\RR^n$ is parametrised by $\{\sigma: \RR^n \to \orthogonalgroup{n}\}/\{\text{constant maps } \sigma: \RR^n \to \orthogonalgroup{n}\}$. Typically, on $\RR^n$ one chooses the Gauss map corresponding to the standard frame $\{\partial_i\}$, which may be described as the unique (up to equivalence) parallel orthonormal frame. For a general $M$, there is no canonical such choice of a Gauss map. Indeed, the existence of a parallel frame implies that $M$ is flat. If such a frame does exists, then it is however unique up to equivalence since the change of frame from one parallel frame to another must itself be parallel.
-#+END_remark
-
-**** Balance of momentum
-
-#+BEGIN_defn
-The /local momentum $\localmomentum{U}$ over $U$/ is the vector
-\[
-\localmomentum{U} = \left(\int_U \momentum_1, \cdots, \int_U \momentum_n \right) 
-\]
-in $\RR^n$ where $\gaussmap{F}_U(\momentum)(x) = (\momentum_1(x), \dotsc, \momentum_n(x))$ with $\gaussmap{F}_U$ is the parallel Riemannian Gauss map. We may also think of the local momentum as giving a parallel section of $\tangentbundle[U]$.
-#+END_defn
-
-The infinitesimal balance of momentum is equivalent to the balance of local momentum. The derivation is now formally the same as in Euclidean space as described for instance in \cite[Section 8.2]{MR960687}. See also \cite{MR2352963}. We apply the same technique as for the conservation of mass to each component of the local momentum.
-
-We express balance of momentum as
-\[
-\pd{t} \phi_t^{\star} (\momentum_i \density \measure) = \phi_t^{\star}\left((\vec{\bodyforce}_i + (\div \cauchystress)_i) \density \measure\right)
-\]
-where $X_i$ denotes the $i$'th component of a $\gaussmap{F}(X)$ for vector field $X$. Here we work at a point $x \in U$ and restrict $t$ to an open interval so that $\phi_t(x) \in U$.
-
-
-
-\note{Need to sort out the div and Lie terms here}
-Using the Lie derivative again, and since $\metricmeasure{\metric}$ is independent of time, balance of momentum then reads
-#+BEGIN_LATEX
-\[
-\label{eq:consv_mom_riemann}
-\begin{split}
-\phi_t^{\star}\left((\div \cauchystress + \vec{\bodyforce}) \tensor \density\metricmeasure{\metric}\right) &= \phi_t^{\star} \left(\pd{t} (\vec{\velocity} \tensor \density\metricmeasure{\metric}) + \lie_{\vec{\velocity}} (\vec{\velocity} \tensor \density\metricmeasure{\metric}) \right) = \phi_t^{\star} \left(\pd{t} (\density\vec{\velocity} \tensor \metricmeasure{\metric}) + \lie_{\vec{\velocity}} (\vec{\velocity} \tensor \density\metricmeasure{\metric}) \right) \\
-&= \phi_t^{\star}\left(\pd{t}(\density\vec{\velocity}) \tensor \metricmeasure{\metric} + \density \lie_{\vec{\velocity}} \vec{\velocity} \tensor \metricmeasure{\metric} + \vec{\velocity} \tensor \lie_{\vec{\velocity}} (\density\metricmeasure{\metric})\right) \\
-&= \phi_t^{\star}\left[\left(\pd{t}(\density\vec{\velocity}) + \density \lie_{\vec{\velocity}} \vec{\velocity} + \div(\density\vec{\velocity}) \vec{\velocity}\right) \tensor \metricmeasure{\metric} \right]
-\end{split}
-\]
-#+END_LATEX
-
-\note{Give version after conservation of mass}
-
-We also have the notion of material derivative of a vector field $X$.
-#+BEGIN_defn
-Let $X$ be a vector field on $\body(t)$.  Then the \emph{material derivative} is defined as
-\[
-\md[X]{t} = \pd[X]{t} + \div(X \tensor \vec{\velocity})
-\]
-#+END_defn
-
-Again, the material derivative is related to the Lie derivative by
-\[
-\md[X]{t} \tensor \metricmeasure{\metric} = \lie_{\vec{\velocity}} (X \tensor \metricmeasure{\metric}).
-\]
-When conservation of mass holds, we may write balance of momentum as
-\[
-\md[X]{t} = \div \cauchystress + \vec{\bodyforce}
-\]
-since $\metricmeasure{\metric}(x) \ne 0$ for all $x\in M$.
-
-#+ATTR_LATEX: :options [$M = \RR^2$]
-#+BEGIN_eg
-In Euclidean space, with global coordinates $\{x_i\}$, a global basis for the tangent space is $\{\pd{x_i}\}$ and we may write $X = X^i \pd{x_i}$ using the summation convention.  Then we may write
-\[
-X \tensor \metricmeasure{\metric} = X^i \pd{x_i} \tensor \metricmeasure{\metric}
-\]
-in component form.  In this case
-\begin{align*}
-\pd[X]{t} &= \pd[X^i]{t} \pd{x_i} \\
-\div(X \tensor \vec{\velocity}) &= \pd[(X^j \velocity^i)]{x^j} \pd{x^i}
-\end{align*}
-and we have the equation for the components
-\[
-\left(\pd[X]{t} + \div(X\tensor\vec{\velocity})\right) \tensor \metricmeasure{\metric} = \left(\pd[X^i]{t} + \pd[(X^j \velocity^i)]{x^j}\right) \pd{x^j} \tensor \metricmeasure{\metric}.
-\]
-This gives us the component form of the balance of momentum
-\[
-\pd[(\density\velocity^i)]{t} + \pd[(\density\velocity^j \velocity^i)]{x^j} = \pd[\cauchystress^{ji}]{x^j} + \bodyforce^i.
-\]
-We may now integrate each $i$'th component to recover the integral balance equation.
-#+END_eg
-
-In general we may define the material derivative of a tensor field $T$.
-\begin{defn}
-\[
-\md[T]{t} = \pd[T]{t} + \div(T \tensor \vec{\velocity}).
-\]
-\end{defn}
-If conservation of mass holds, $\md[T]{t}$ satisfies the relation
-\[
-\md[T]{t} \tensor \metricmeasure{\metric} = \lie_{\vec{\velocity}}(T \tensor \metricmeasure{\metric}).
-\]
 
 * Pipe Domain and Divergence Theorem
 \label{sec:domain}
@@ -699,7 +479,7 @@ Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to h
 \note{Need boundary term $\vec{\relvelocity}$. This comes from $\ip{\vec{\velocity}}{\vec{\nor}} = \norvec{\fsvelocity} - W$ 
 so that $\xvec{\velocity}\xvec{\nor} = \norvec{\fsvelocity} - W - \ip{\discvec{\velocity}}{\discvec{\nor}}$.}
 
-Now we apply corollary \ref{cor:xsec_md} of the previous section to the conservation of mass equation \eqref{eq:consv_mass_riemann},
+Now we apply corollary \ref{cor:xsec_md} of the previous section to the conservation of mass equation \eqref{eq:euler},
 \[
 \pd[\density]{t} + \div(\density\vec{\velocity}) = 0.
 \]
@@ -836,41 +616,8 @@ with boundary conditions
 \end{split}
 \end{equation}
 
-* Pipe and Channel Flows
-\label{sec:pipechannel}
-
-** Free Surface Model
-\label{subsec:pipechannel_freesurface}
-
-\note{
-Pressure law. Formal asymptotic analysis to derive pressure law or just assume hydrostatic?
-}
-
-** Pressurised Model
-\label{subsec:pipechannel_pressurised}
-
-
-** Dual Model
-\label{subsec:pipechannel_dual}
-
-* Computational Techniques
-\label{sec:comptuation}
-
-** Discretisation
-\label{subsec:discretisation}
-
-\note{
-Describe the semi-discrete model.
-State tracking.
-}
-
-** Implementation of Computation Model
-\label{subsec:implementation}
-
-\note{
-Describe the C code library for computing fluxes to solve the semi-discrete problem.
-}
-
+* Analysis of 1D equations
+* Remarks on Computational Aspects
 #+LATEX: \appendix
 * Review of Riemannian Geometry
 \label{app:reviewriemann}
