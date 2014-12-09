@@ -81,7 +81,6 @@ Recall that the basic equations of continuum mechanics are the conservation of m
 - $\vec{\bodyforce}$ - the external or ``body'' forces.
 
 ** The Euclidean Setting
-\label{sec:geometry_euclidean}
 
 The differential equations expressing the conservation of mass, and balance of momentum are
 \begin{align}
@@ -99,7 +98,6 @@ These equations may be thought of as the infinitessimal versions of the integral
 Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  Assuming that $\cauchystress$ is symmetric, it makes no difference in which position we contract.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$.
 
 ** The Riemannian Setting
-\label{subsec:geometry_riemann}
 
 We are primarily interested in the equations of continuum mechanics constrained to an open embedded submanifold $M \overset{\phi}{\to} \RR^3$ with piecewise smooth boundary.  For instance $M$ could by a pipe or channel, a lake, a closed container, a star or a galaxy.  Often in this situation, the global coordinates are not appropriate for the problem at hand and so we work intrinsically on $M$.  For instance, we might be interested in the flow along the main axis of a pipe.  Let us then apply some Riemannian geometry to adapt this problem to the geometry at hand.  See the appendix for a review of the Riemannian geometry needed.
 
@@ -120,7 +118,6 @@ This system of equations makes sense on any Riemannian manifold $(M,\metric)$ no
 #+END_remark
 
 * Pipe Domain and Divergence Theorem
-\label{sec:domain}
 
 In this section, we describe a way to reduce the dimension of the the system of balance equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
 
@@ -416,7 +413,9 @@ for some given non-zero function $W_{\fs}$ determined empirically.
 
 The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$.  The formula is the same as the usual formula, but when differentiating with respect to $x$ we need to account for the fact that the metric $\metric_{\disc}$ depends on $x$.  
 
+#+BEGIN_LATEX
 \note{This next paragraph is perhaps not clear}
+#+END_LATEX
 
 We have the one-parameter family $\body(t) \subset M$.  We can parametrise this say by say $\phi: \body(0) \times \interval \to M$ with each $\phi_t(-) = \phi(-, t)$ a diffeomorphism.  We define the velocity vector field as $\vec{\velocity} = \phi_{\star} \pd{t}$.  If we change parametrisation to $\psi: \body(0) \times \interval \to M$ and define $\vec{\velocity} = \psi_{\star} \pd{t}$, then since $\phi_t(\body(0)) = \body(t) = \psi_t(\body(0))$ we have that $\vec{\velocity}$ is well defined on $\body(t)$, independent of $\phi$ and $\psi$, i.e. $\phi_{\star}\pd{t} (\phi_t(x)) = \psi_{\star}\pd{t} (\psi_t(y))$ where $\phi_t(x) = \psi_t(y)$.  In particular, we may fix a parametrisation $\phi: \body(0) \times \interval \to M$ and work on the fixed manifold $\body(0)$ with the pulled back vector fields and the metric to obtain time dependent quantities on $\body(0)$.  We have of course $\pd{t} = \phi_t^{\star} \vec{\velocity}$ and $\phi_t$ is the flow of the time dependent vector field $\vec{\velocity}$ on $M$.  This point of view allows us to prove the transport theorem:
 
@@ -456,8 +455,11 @@ Let $f: \body(t) \to \RR$ be a smooth function.  Then
 \]
 \end{cor}
 
-\begin{proof}
+#+BEGIN_LATEX
 \note{At the end I should have $<W_D,N_D>$?}
+#+END_LATEX
+
+\begin{proof}
 For the first equation, by the divergence theorem \ref{thm:div_vec} for vector fields and the transport theorem \ref{thm:transport},
 \[
 \begin{split}
@@ -480,12 +482,13 @@ Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to h
 \end{proof}
 
 * Cross Section Averaged Equations
-\label{sec:xsec}
-** Conservation of Mass
-\label{subsec:xsec_mass}
 
+** Conservation of Mass
+
+#+BEGIN_LATEX
 \note{Need boundary term $\vec{\relvelocity}$. This comes from $\ip{\vec{\velocity}}{\vec{\nor}} = \norvec{\fsvelocity} - W$ 
 so that $\xvec{\velocity}\xvec{\nor} = \norvec{\fsvelocity} - W - \ip{\discvec{\velocity}}{\discvec{\nor}}$.}
+#+END_LATEX
 
 Now we apply corollary \ref{cor:xsec_md} of the previous section to the conservation of mass equation \eqref{eq:euler},
 \[
@@ -510,7 +513,7 @@ The appropriate boundary conditions now become
 for non-negative function $\density_0, \density_{\curvelength}$ and arbitrary real valued functions $(\density\xvec{\velocity})_0, (\density\xvec{\velocity})_{\curvelength}$.
 
 ** Balance of Momentum
-\label{subsec:xsec_mom}
+
 
 We now have the first of our balance equations for the cross sectional averaged values of the density and the momentum in the $x$ direction.  The second equation comes from the $x$-component of the balance of momentum equation:
 \[
@@ -522,10 +525,11 @@ Integrating over $\disc$ and applying corollary \ref{cor:xsec_md} and the $2$-te
 \]
 We have written the extra terms from the divergence theorem on the right hand side since they are integrals over the boundary and so are speficied by the boundary conditions, thus we may think of them as given source terms.
 
+#+BEGIN_LATEX
 \note{Need to give boundary conditions}
+#+END_LATEX
 
 ** The Cross-Sectional Model
-\label{subsec:xsec_model}
 
 We have now derived the equations for the cross-section averaged quantites
 \begin{align}
@@ -586,7 +590,9 @@ for $\genfunc = \density, \xvec{\velocity}$.  The transport and divergence theor
 \]
 #+END_LATEX
 
+#+BEGIN_LATEX
 \note{The second integral should be controlled by something like $\sup \abs{\var\genfunc} \times \pd{t}\xsecarea = 0$?}
+#+END_LATEX
 
 Thus making the approximations $\avg{\density \xvec{\velocity}} \simeq \avg{\density} \xvec{\velocity}$ and $\avg{\density \xvec{\velocity}^2} \simeq\avg{\density} \avg{\xvec{\velocity}^2}$, the error terms are controlled by the initial error terms.  
 
