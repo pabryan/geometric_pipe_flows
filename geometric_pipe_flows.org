@@ -321,73 +321,7 @@ Let $T$ be a symmetric tensor field $T\in TM\tensor TM$.  Then
 This is just the divergence theorem \ref{thm:div_vec} applied to the vector field $\iota_{dx} T$.
 \end{proof}
 
-The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$.  The formula is the same as the usual formula, but when differentiating with respect to $x$ we need to account for the fact that the metric $\metric_{\disc}$ depends on $x$.  
-
-\note{This next paragraph is perhaps not clear}
-
-We have the one-parameter family $\body(t) \subset M$.  We can parametrise this say by say $\phi: \body(0) \times \interval \to M$ with each $\phi_t(-) = \phi(-, t)$ a diffeomorphism.  We define the velocity vector field as $\vec{\velocity} = \phi_{\star} \pd{t}$.  If we change parametrisation to $\psi: \body(0) \times \interval \to M$ and define $\vec{\velocity} = \psi_{\star} \pd{t}$, then since $\phi_t(\body(0)) = \body(t) = \psi_t(\body(0))$ we have that $\vec{\velocity}$ is well defined on $\body(t)$, independent of $\phi$ and $\psi$, i.e. $\phi_{\star}\pd{t} (\phi_t(x)) = \psi_{\star}\pd{t} (\psi_t(y))$ where $\phi_t(x) = \psi_t(y)$.  In particular, we may fix a parametrisation $\phi: \body(0) \times \interval \to M$ and work on the fixed manifold $\body(0)$ with the pulled back vector fields and the metric to obtain time dependent quantities on $\body(0)$.  We have of course $\pd{t} = \phi_t^{\star} \vec{\velocity}$ and $\phi_t$ is the flow of the time dependent vector field $\vec{\velocity}$ on $M$.  This point of view allows us to prove the transport theorem:
-
-\begin{theorem}[Transport Theorem]
-\label{thm:transport}
-Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
-\[
-\pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \left(\pd[f]{t} + \div_{\disc} (f\vec{\velocity}_{\disc})\right) \measure_{\disc}.
-\]
-\end{theorem}
-
-\begin{proof}
-Keeping $x \in (0, \curvelength)$ fixed, we have that $\phi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
-\[
-\begin{split}
-\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \phi_t^{\star} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
-&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
-\end{split}
-\]
-\end{proof}
-
-We can now apply our divergence theorems and the transport theorem to deduce a formula for the cross-section averaged material derivative, which will be of great use to us.
-
-\begin{cor}
-\label{cor:xsec_md}
-Let $f: \body(t) \to \RR$ be a smooth function.  Then
-\[
-\begin{split}
-\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea\avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}} \\
-\intertext{Let $\vec{X}(t)$ be a smooth one-parameter family of vector fields on $\body(t)$.  Then}
-\int_{\xsec} \iota_{dx} \left(\pd{t} \vec{X} + \div(\vec{X} \tensor \vec{\velocity}) \right) \measure_{\disc} &= \pd{t} (\xsecarea\avg{\xvec{X}}) + \pd{x} (\xsecarea \avg{\xvec{X} \xvec{\velocity}}) - \int_{\bdry{\xsec}} \xvec{X} \norvec{W} \measure_{\bdry{\xsec}}
-\end{split}
-\]
-\end{cor}
-
-\begin{proof}
-\note{At the end I should have $<W_D,N_D>$?}
-For the first equation, by the divergence theorem \ref{thm:div_vec} for vector fields and the transport theorem \ref{thm:transport},
-\[
-\begin{split}
-\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea \avg{f}) - \int_{\xsec} \div_{\disc}(f \discvec{\fsvelocity}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) + \int_{\xsec} \div_{\disc} (f\discvec{\velocity})\measure_{\disc} \\
-&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} \div_{\disc} f(\discvec{\fsvelocity} - \discvec{\velocity}) \measure_{\bdry{\xsec}} \\
-&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}}
-\end{split}
-\]
-where $\vec{\nor}$ is the unit outer normal to $\bdry{\body}$ and $\nor_{\disc}$ is it's projection onto the cross section $\disc$ which is normal to $\bdry{\xsec}$ but generally not unit length.
-
-The second equation comes first from noting that $x$ and $t$ are commuting variables so that $\iota_{dx} \pd[\vec{X}]{t} = \pd[\iota_{dx}\vec{X}]{t} = \pd[\xvec{X}]{t}$.  Next we have
-\[
-\iota_{dx} (\vec{X}\tensor \vec{\velocity}) = \xvec{X}\vec{\velocity}
-\]
-and by lemma \ref{lem:tensor_div},
-\[
-\iota_{dx} \div \vec{X}\tensor \vec{\velocity} = \div \xvec{X}\vec{\velocity}.
-\]
-Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to handle the divergence term, we can apply the divergence theorem \ref{thm:div_2tensor} for $2$-tensors.
-\end{proof}
-
-* Cross Section Averaged Equations
-\label{sec:xsec}
+* Bodies in Pipes
 
 ** Fluids in Pipes
 
@@ -478,6 +412,75 @@ The flow of blood in arteries may be modelled by fluid flow in pipes with deform
 for some given non-zero function $W_{\fs}$ determined empirically.
 \end{eg}
 
+** Transport Theorem
+
+The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$.  The formula is the same as the usual formula, but when differentiating with respect to $x$ we need to account for the fact that the metric $\metric_{\disc}$ depends on $x$.  
+
+\note{This next paragraph is perhaps not clear}
+
+We have the one-parameter family $\body(t) \subset M$.  We can parametrise this say by say $\phi: \body(0) \times \interval \to M$ with each $\phi_t(-) = \phi(-, t)$ a diffeomorphism.  We define the velocity vector field as $\vec{\velocity} = \phi_{\star} \pd{t}$.  If we change parametrisation to $\psi: \body(0) \times \interval \to M$ and define $\vec{\velocity} = \psi_{\star} \pd{t}$, then since $\phi_t(\body(0)) = \body(t) = \psi_t(\body(0))$ we have that $\vec{\velocity}$ is well defined on $\body(t)$, independent of $\phi$ and $\psi$, i.e. $\phi_{\star}\pd{t} (\phi_t(x)) = \psi_{\star}\pd{t} (\psi_t(y))$ where $\phi_t(x) = \psi_t(y)$.  In particular, we may fix a parametrisation $\phi: \body(0) \times \interval \to M$ and work on the fixed manifold $\body(0)$ with the pulled back vector fields and the metric to obtain time dependent quantities on $\body(0)$.  We have of course $\pd{t} = \phi_t^{\star} \vec{\velocity}$ and $\phi_t$ is the flow of the time dependent vector field $\vec{\velocity}$ on $M$.  This point of view allows us to prove the transport theorem:
+
+\begin{theorem}[Transport Theorem]
+\label{thm:transport}
+Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
+\[
+\pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \left(\pd[f]{t} + \div_{\disc} (f\vec{\velocity}_{\disc})\right) \measure_{\disc}.
+\]
+\end{theorem}
+
+\begin{proof}
+Keeping $x \in (0, \curvelength)$ fixed, we have that $\phi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
+\[
+\begin{split}
+\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \phi_t^{\star} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
+&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
+\end{split}
+\]
+\end{proof}
+
+We can now apply our divergence theorems and the transport theorem to deduce a formula for the cross-section averaged material derivative, which will be of great use to us.
+
+\begin{cor}
+\label{cor:xsec_md}
+Let $f: \body(t) \to \RR$ be a smooth function.  Then
+\[
+\begin{split}
+\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea\avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}} \\
+\intertext{Let $\vec{X}(t)$ be a smooth one-parameter family of vector fields on $\body(t)$.  Then}
+\int_{\xsec} \iota_{dx} \left(\pd{t} \vec{X} + \div(\vec{X} \tensor \vec{\velocity}) \right) \measure_{\disc} &= \pd{t} (\xsecarea\avg{\xvec{X}}) + \pd{x} (\xsecarea \avg{\xvec{X} \xvec{\velocity}}) - \int_{\bdry{\xsec}} \xvec{X} \norvec{W} \measure_{\bdry{\xsec}}
+\end{split}
+\]
+\end{cor}
+
+\begin{proof}
+\note{At the end I should have $<W_D,N_D>$?}
+For the first equation, by the divergence theorem \ref{thm:div_vec} for vector fields and the transport theorem \ref{thm:transport},
+\[
+\begin{split}
+\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea \avg{f}) - \int_{\xsec} \div_{\disc}(f \discvec{\fsvelocity}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) + \int_{\xsec} \div_{\disc} (f\discvec{\velocity})\measure_{\disc} \\
+&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} \div_{\disc} f(\discvec{\fsvelocity} - \discvec{\velocity}) \measure_{\bdry{\xsec}} \\
+&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}}
+\end{split}
+\]
+where $\vec{\nor}$ is the unit outer normal to $\bdry{\body}$ and $\nor_{\disc}$ is it's projection onto the cross section $\disc$ which is normal to $\bdry{\xsec}$ but generally not unit length.
+
+The second equation comes first from noting that $x$ and $t$ are commuting variables so that $\iota_{dx} \pd[\vec{X}]{t} = \pd[\iota_{dx}\vec{X}]{t} = \pd[\xvec{X}]{t}$.  Next we have
+\[
+\iota_{dx} (\vec{X}\tensor \vec{\velocity}) = \xvec{X}\vec{\velocity}
+\]
+and by lemma \ref{lem:tensor_div},
+\[
+\iota_{dx} \div \vec{X}\tensor \vec{\velocity} = \div \xvec{X}\vec{\velocity}.
+\]
+Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to handle the divergence term, we can apply the divergence theorem \ref{thm:div_2tensor} for $2$-tensors.
+\end{proof}
+
+* Cross Section Averaged Equations
+\label{sec:xsec}
 ** Conservation of Mass
 \label{subsec:xsec_mass}
 
@@ -505,7 +508,6 @@ The appropriate boundary conditions now become
 \avg{\density\xvec{\velocity}(\curvelength, t)} &= (\density\xvec{\velocity})_{\curvelength} (t)
 \end{align*}
 for non-negative function $\density_0, \density_{\curvelength}$ and arbitrary real valued functions $(\density\xvec{\velocity})_0, (\density\xvec{\velocity})_{\curvelength}$.
-
 
 ** Balance of Momentum
 \label{subsec:xsec_mom}
