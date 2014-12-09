@@ -68,6 +68,11 @@ where the second line follows from the fact that $\iota_X$ is an anti-derivation
 Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
 
 * Introduction
+- Argument works for arbitrary embedded pipes.
+- No boundary matching in discretisation.
+- Take in the spirit of Hughes and Lubliner: We show the ideas work more generally in much the same way as before.
+- No need to mess around with Jacobians.
+- Non-orthogonal cross-sections also.
 * Notation and Preliminaries
 
 Recall that the basic equations of continuum mechanics are the conservation of mass and balance of momentum. More fundamental perhaps, is the balance of energy though we will focus primarily on mass and momentum here.  The basic quantities of interest describing the continuum are
