@@ -161,90 +161,6 @@ The parametrising curve need not be what we would normally consider as the main 
 \end{figure}
 \end{remark}
 
-\note{The whole idea that $W = V - U$ may not be zero is saying that there is a boundary that is not the fluid boundary.  If we just work with the fluid, we have $V = \phi_{\star} \pd{t}$ is the normal velocity of the fluid boundary, and of course this is equal to $U = \phi_{\star} \pd{t}$.  To do deformable boundaries, then we have a seperate $U$ and $V$ and $M = M(t)$ say.  I'm not sure what boundary conditions are needed there.  Do we need to specify $U$, $V$, $W$ or perhaps two of them?}
-
-Now that we have our manifold $M = (0, \curvelength)$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinscially on $M$.  Our continuum is now a smooth time dependent family of submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$.  The continuum inherits the decomposition
-\[
-\body(t) = \union_{x\in \domaincurve} \xsec(x, t)
-\]
-from $\domain$ with 
-\[
-\xsec(x,t) = \body(t) \intersect \left(\{x\} \times \disc\right)
-\]
-possibly empty.  Assuming that $\body(t)$ is connected, let
-\begin{align*}
-x_{\min}(t) &= \inf_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset \\
-x_{\max}(t) &= \sup_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset 
-\end{align*}
-The boundary $\bdry{\body(t)}$ decomposes as
-\[
-\bdry{\body(t)} = \xsec(x_{\min}(t), t) \union \xsec(x_{\max}(t), t) \union \relbdry[\body(t)]{M}
-\]
-with $\relbdry[\body(t)]{M} = \bdry{\body(t)} \intersect \left( \domaincurve \times \clsr{\disc}\right)$.  Note that either $\xsec(x_{\min(t)}, t) \subset \disc$ or $\xsec(x_{\max(t)}, t) \subset \disc$ may well be equal to just a single point.
-
-We also decompose $\relbdry[\body(t)]{M}$ as
-\[
-\relbdry[\body(t)]{M} = \bdry{\body}_{\fs}(t) \cup \bdry{\body}_{\is}(t)
-\]
-with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface.  
-
-\begin{remark}
-If $\domain$ is a pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surface.  If $\domain$ is an open channel, then $\domaincurve \times S^1$ has an impermeable part, the bottom of the channel and an open part.  The assumption of the model is that the fluid remains strictly inside the channel, so that $\bdry{\body}_{\is}$ is really the fluid boundary at the impermeable part of the channel.  For any solution (or more usually a numerical approximation), we need to explicitly check that the fluid has remained in the channel for the solution to be valid.
-\end{remark}
-
-The density is now a function $\density: \body(t) \to \RR$ and the velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
-
-As in the previous section, we consider the differential laws on $M$.  We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
-#+BEGIN_LATEX
-\[
-\begin{cases}
-\density(0, (y,z), t) &= \density_0((y,z), t) \\
-\density(\curvelength, (y,z), t) &= \density_{\curvelength}((y,z), t) \\
-\vec{\velocity}(0, (y,z), t) &= \vec{\velocity}_0((y,z), t) \\
-\vec{\velocity}(\curvelength, (y,z), t) &= \vec{\velocity}_{\curvelength}((y,z), t)
-\end{cases}
-\]
-#+END_LATEX
-for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
-
-The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
-\[
-\norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}
-\]
-and the \emph{relative normal velocity} vector field
-\[
-\norvec{\relvelocity} = \norvec{\fsvelocity} - \norvec{\velocity}
-\]
-with $\vec{\nor}$ the normal vector to the free boundary $\relbdry[\body(t)]{M}$.  To determine the solution up to reparametrisation of the free boundary, it is is sufficient to specify $\norvec{\relvelocity}$ on $\relbdry[\body(t)]{M}$.  That is we specify
-\[
-\norvec{\relvelocity}(x, t) = W(x)
-\]
-for all $x\in \relbdry[\body(t)]{M}$ and $t\in\interval$.  From the decomposition $\relbdry[\body(t)]{M} =  \bdry{\body(t)}_{\is} \union \bdry{\body(t)}_{\fs}$, we also decompose the boundary condition
-\begin{align*}
-\norvec{\relvelocity}(x, t) &= W_{\is}(x), & & x \in \bdry{\body(t)}_{\is} \\
-\norvec{\relvelocity}(x, t) &= W_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
-\end{align*}
-
-\begin{eg}[Rigid Pipe Flows]
-For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary.  In this situation, the impermeable surface itself does not move (though a given parametrisation of the fluid may have tangential velocity on this boundary) so that $\norvec{\fsvelocity} = 0$.  Then we have the condition
-\[
-\norvec{\relvelocity}(x, t) = W_{\is}(x) = 0,  x \in \bdry{\body(t)}_{\is}.
-\]
-
-If the fluid does not completely fill the pipe, there is a free surface which is \emph{advected} by the flow, i.e. the free surface moves with the same velocity as the fluid, corresponding to the condition
-\[
-\norvec{\relvelocity}(x, t) = W_{\fs}(x) = 0,  x \in \bdry{\body(t)}_{\fs}.
-\]
-\end{eg}
-
-\begin{eg}[Blood Flow, \cite{Hughes1973161}]
-The flow of blood in arteries may be modelled by fluid flow in pipes with deformable boundary.  In this setting the radius of $M$ is the maximal radius after which the artery bursts and $\relbdry[\body(t)]{M} = \bdry{\body(t)}_{\fs}$ is entirely free surface.  In contrast to the rigid pipe flows, the fluid may pass through the arterial wall and so the boundary condition is in general
-\[
-\norvec{\relvelocity}(x, t) = W_{\fs}(x) \ne 0,  x \in \bdry{\body(t)}_{\fs}
-\]
-for some given non-zero function $W_{\fs}$ determined empirically.
-\end{eg}
-
 Ultimately we want to integrate the balance equations over the cross section $D$ to obtain equations for the cross section average density and cross section averaged $x$-momentem.  For this, we will need a divergence theorem coming from the product structure of the domain $(\domain, \metric) = (\domaincurve \times \disc, dx^2 + \metric_D)$.  The tangent bundle of $\domain$ decomposes as
 \[
 TM \simeq T\domaincurve \oplus T\disc
@@ -473,6 +389,95 @@ Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to h
 * Cross Section Averaged Equations
 \label{sec:xsec}
 
+** Fluids in Pipes
+
+Now that we have our manifold $M = (0, \curvelength)$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinscially on $M$.  Our continuum is now a smooth time dependent family of submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$.  The continuum inherits the decomposition
+\[
+\body(t) = \union_{x\in \domaincurve} \xsec(x, t)
+\]
+from $\domain$ with 
+\[
+\xsec(x,t) = \body(t) \intersect \left(\{x\} \times \disc\right)
+\]
+possibly empty.  Assuming that $\body(t)$ is connected, let
+\begin{align*}
+x_{\min}(t) &= \inf_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset \\
+x_{\max}(t) &= \sup_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset 
+\end{align*}
+The boundary $\bdry{\body(t)}$ decomposes as
+\[
+\bdry{\body(t)} = \xsec(x_{\min}(t), t) \union \xsec(x_{\max}(t), t) \union \relbdry[\body(t)]{M}
+\]
+with $\relbdry[\body(t)]{M} = \bdry{\body(t)} \intersect \left( \domaincurve \times \clsr{\disc}\right)$.  Note that either $\xsec(x_{\min(t)}, t) \subset \disc$ or $\xsec(x_{\max(t)}, t) \subset \disc$ may well be equal to just a single point.
+
+We also decompose $\relbdry[\body(t)]{M}$ as
+\[
+\relbdry[\body(t)]{M} = \bdry{\body}_{\fs}(t) \cup \bdry{\body}_{\is}(t)
+\]
+with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface.  
+
+\begin{remark}
+If $\domain$ is a pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surface.  If $\domain$ is an open channel, then $\domaincurve \times S^1$ has an impermeable part, the bottom of the channel and an open part.  The assumption of the model is that the fluid remains strictly inside the channel, so that $\bdry{\body}_{\is}$ is really the fluid boundary at the impermeable part of the channel.  For any solution (or more usually a numerical approximation), we need to explicitly check that the fluid has remained in the channel for the solution to be valid.
+\end{remark}
+
+The density is now a function $\density: \body(t) \to \RR$ and the velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
+
+As in the previous section, we consider the differential laws on $M$.  We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
+#+BEGIN_LATEX
+\[
+\begin{cases}
+\density(0, (y,z), t) &= \density_0((y,z), t) \\
+\density(\curvelength, (y,z), t) &= \density_{\curvelength}((y,z), t) \\
+\vec{\velocity}(0, (y,z), t) &= \vec{\velocity}_0((y,z), t) \\
+\vec{\velocity}(\curvelength, (y,z), t) &= \vec{\velocity}_{\curvelength}((y,z), t)
+\end{cases}
+\]
+#+END_LATEX
+for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
+
+#+BEGIN_LATEX
+\note{The whole idea that $W = V - U$ may not be zero is saying that there is a boundary that is not the fluid boundary.  If we just work with the fluid, we have $V = \phi_{\star} \pd{t}$ is the normal velocity of the fluid boundary, and of course this is equal to $U = \phi_{\star} \pd{t}$.  To do deformable boundaries, then we have a seperate $U$ and $V$ and $M = M(t)$ say.  I'm not sure what boundary conditions are needed there.  Do we need to specify $U$, $V$, $W$ or perhaps two of them?}
+#+END_LATEX
+
+
+The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
+\[
+\norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}
+\]
+and the \emph{relative normal velocity} vector field
+\[
+\norvec{\relvelocity} = \norvec{\fsvelocity} - \norvec{\velocity}
+\]
+with $\vec{\nor}$ the normal vector to the free boundary $\relbdry[\body(t)]{M}$.  To determine the solution up to reparametrisation of the free boundary, it is is sufficient to specify $\norvec{\relvelocity}$ on $\relbdry[\body(t)]{M}$.  That is we specify
+\[
+\norvec{\relvelocity}(x, t) = W(x)
+\]
+for all $x\in \relbdry[\body(t)]{M}$ and $t\in\interval$.  From the decomposition $\relbdry[\body(t)]{M} =  \bdry{\body(t)}_{\is} \union \bdry{\body(t)}_{\fs}$, we also decompose the boundary condition
+\begin{align*}
+\norvec{\relvelocity}(x, t) &= W_{\is}(x), & & x \in \bdry{\body(t)}_{\is} \\
+\norvec{\relvelocity}(x, t) &= W_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
+\end{align*}
+
+\begin{eg}[Rigid Pipe Flows]
+For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary.  In this situation, the impermeable surface itself does not move (though a given parametrisation of the fluid may have tangential velocity on this boundary) so that $\norvec{\fsvelocity} = 0$.  Then we have the condition
+\[
+\norvec{\relvelocity}(x, t) = W_{\is}(x) = 0,  x \in \bdry{\body(t)}_{\is}.
+\]
+
+If the fluid does not completely fill the pipe, there is a free surface which is \emph{advected} by the flow, i.e. the free surface moves with the same velocity as the fluid, corresponding to the condition
+\[
+\norvec{\relvelocity}(x, t) = W_{\fs}(x) = 0,  x \in \bdry{\body(t)}_{\fs}.
+\]
+\end{eg}
+
+\begin{eg}[Blood Flow, \cite{Hughes1973161}]
+The flow of blood in arteries may be modelled by fluid flow in pipes with deformable boundary.  In this setting the radius of $M$ is the maximal radius after which the artery bursts and $\relbdry[\body(t)]{M} = \bdry{\body(t)}_{\fs}$ is entirely free surface.  In contrast to the rigid pipe flows, the fluid may pass through the arterial wall and so the boundary condition is in general
+\[
+\norvec{\relvelocity}(x, t) = W_{\fs}(x) \ne 0,  x \in \bdry{\body(t)}_{\fs}
+\]
+for some given non-zero function $W_{\fs}$ determined empirically.
+\end{eg}
+
 ** Conservation of Mass
 \label{subsec:xsec_mass}
 
@@ -500,7 +505,6 @@ The appropriate boundary conditions now become
 \avg{\density\xvec{\velocity}(\curvelength, t)} &= (\density\xvec{\velocity})_{\curvelength} (t)
 \end{align*}
 for non-negative function $\density_0, \density_{\curvelength}$ and arbitrary real valued functions $(\density\xvec{\velocity})_0, (\density\xvec{\velocity})_{\curvelength}$.
-
 
 
 ** Balance of Momentum
