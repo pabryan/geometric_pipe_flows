@@ -72,7 +72,7 @@ Need to describe how our ``moving'' domain is defined?  Perhaps everything follo
 - No boundary matching in discretisation.
 - Take in the spirit of Hughes and Lubliner: We show the ideas work more generally in much the same way as before.
 - No need to mess around with Jacobians.
-- Non-orthogonal cross-sections also.
+- Non-orthogonal cross-sections also: moving water from one resovior to another, we probably only care about the flow in the direction parallel to the earth and so orghotongal to gravity. Give some pictures.
 * Notation and Preliminaries
 
 Recall that the basic equations of continuum mechanics are the conservation of mass and balance of momentum. More fundamental perhaps, is the balance of energy though we will focus primarily on mass and momentum here.  The basic quantities of interest describing the continuum are
@@ -123,6 +123,10 @@ This system of equations makes sense on any Riemannian manifold $(M,\metric)$ no
 #+END_remark
 
 * Pipe Domain and Divergence Theorem
+
+#+BEGIN_LATEX
+\note{Clean up definition of pipe and make it more concise. Derive equations with mimimal use of coordinates.}
+#+END_LATEX
 
 In this section, we describe a way to reduce the dimension of the the system of balance equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
 
@@ -327,7 +331,11 @@ This is just the divergence theorem \ref{thm:div_vec} applied to the vector fiel
 
 ** Fluids in Pipes
 
-Now that we have our manifold $M = (0, \curvelength)$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinscially on $M$.  Our continuum is now a smooth time dependent family of submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$.  The continuum inherits the decomposition
+#+BEGIN_LATEX
+\note{Clean up definition of body and make it more concise.}
+#+END_LATEX
+
+Now that we have our manifold $M = (0, \curvelength) \times disc$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinscially on $M$.  A /continuum/ or /body/ is a smooth time dependent family of submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$.  The continuum inherits the decomposition
 \[
 \body(t) = \union_{x\in \domaincurve} \xsec(x, t)
 \]
@@ -338,13 +346,16 @@ from $\domain$ with
 possibly empty.  Assuming that $\body(t)$ is connected, let
 \begin{align*}
 x_{\min}(t) &= \inf_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset \\
-x_{\max}(t) &= \sup_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset 
+x_{\max}(t) &= \sup_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset .
 \end{align*}
+
+Thus we have $\xsec(x,t) \ne emptyset$ precisely for $x \in (x_{\min}, x_{\max})$.
+
 The boundary $\bdry{\body(t)}$ decomposes as
 \[
 \bdry{\body(t)} = \xsec(x_{\min}(t), t) \union \xsec(x_{\max}(t), t) \union \relbdry[\body(t)]{M}
 \]
-with $\relbdry[\body(t)]{M} = \bdry{\body(t)} \intersect \left( \domaincurve \times \clsr{\disc}\right)$.  Note that either $\xsec(x_{\min(t)}, t) \subset \disc$ or $\xsec(x_{\max(t)}, t) \subset \disc$ may well be equal to just a single point.
+with $\relbdry[\body(t)]{M} = \bdry{\body(t)} \intersect \left( \domaincurve \times \clsr{\disc}\right)$.  Note that either one or both of $\xsec(x_{\min(t)}, t)$ or $\xsec(x_{\max(t)}, t) \subset \disc$ may well be equal to just a single point.
 
 We also decompose $\relbdry[\body(t)]{M}$ as
 \[
@@ -353,12 +364,28 @@ We also decompose $\relbdry[\body(t)]{M}$ as
 with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface.  
 
 \begin{remark}
-If $\domain$ is a pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surface.  If $\domain$ is an open channel, then $\domaincurve \times S^1$ has an impermeable part, the bottom of the channel and an open part.  The assumption of the model is that the fluid remains strictly inside the channel, so that $\bdry{\body}_{\is}$ is really the fluid boundary at the impermeable part of the channel.  For any solution (or more usually a numerical approximation), we need to explicitly check that the fluid has remained in the channel for the solution to be valid.
+If $\domain$ is a closed pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surface.  If $\domain$ is an open channel, then $\domaincurve \times S^1$ has an impermeable part, the bottom of the channel and an open part.  The assumption of the model is that the fluid remains strictly inside the channel, so that $\bdry{\body}_{\is}$ is really the fluid boundary at the impermeable part of the channel.  For any solution (or more usually a numerical approximation), we need to explicitly check that the fluid has remained in the channel for the solution to be valid.
 \end{remark}
 
-The density is now a function $\density: \body(t) \to \RR$ and the velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
+** Balance Laws
 
-As in the previous section, we consider the differential laws on $M$.  We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
+#+BEGIN_LATEX
+\note{Give balance laws}
+#+END_LATEX
+
+We assume that $\body(t)$ comes equipped with a density $\density: \body(t) \to \RR$. The velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
+
+#+BEGIN_LATEX
+Recall Euler and Navier/Stokes here.
+#+END_LATEX
+
+** Boundary conditions
+
+#+BEGIN_LATEX
+\note{Clean up.}
+#+END_LATEX
+
+We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
 #+BEGIN_LATEX
 \[
 \begin{cases}
@@ -415,6 +442,10 @@ for some given non-zero function $W_{\fs}$ determined empirically.
 \end{eg}
 
 ** Transport Theorem
+
+#+BEGIN_LATEX
+\note{Clean up}
+#+END_LATEX
 
 The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$.  The formula is the same as the usual formula, but when differentiating with respect to $x$ we need to account for the fact that the metric $\metric_{\disc}$ depends on $x$.  
 
@@ -488,6 +519,10 @@ Now apply the first equality to the function $f = \xvec{X}$.  Equivalently, to h
 
 * Cross Section Averaged Equations
 
+#+BEGIN_LATEX
+\note{Decide on generality. Just do ideal fluids first! Do I do free surface/pressurised?}
+#+END_LATEX
+
 ** Conservation of Mass
 
 #+BEGIN_LATEX
@@ -536,6 +571,10 @@ We have written the extra terms from the divergence theorem on the right hand si
 
 ** The Cross-Sectional Model
 
+#+BEGIN_LATEX
+\note{Probably just do ideal fluids for simplicity. Pressurised, free surface and mixed flows may all be treated here. Obtain final 1d equations}
+#+END_LATEX
+
 We have now derived the equations for the cross-section averaged quantites
 \begin{align}
 \label{eq:xsec_mass}
@@ -555,6 +594,10 @@ with boundary conditions
 \end{equation}
 
 These equations are fairly general, and as a consequence are not well-posed at this stage.  For one thing, we have too many unknowns because of the stress tensor $\cauchystress$ which we shall deal with later.  The most serious problem however, is the boundary conditions are for $\xsecarea\avg{\density}$ and $\avg{\xvec{\velocity}}$, but the equations are not equations in these variables.  To deal with this problem, we make the approximations $\avg{\density \xvec{\velocity}} \simeq \avg{\density} \avg{\velocity}$ and $\avg{\density \xvec{\velocity}^2} \simeq \avg{\density} \avg{\velocity}^2$.  Will we consider the validity of such approximations shortly, the main assumption being that the variation of $\density$ and $\xvec{\velocity}$ over $\disc$ is small.
+
+#+BEGIN_LATEX
+\note{This seems difficult and closely related to the regularity of Navier Stokes equation}
+#+END_LATEX
 
 Given any functions $\genfunc, \genfunca: \disc \to \RR$ we have the decomposition into the average value and variation,
 \[
@@ -601,6 +644,10 @@ for $\genfunc = \density, \xvec{\velocity}$.  The transport and divergence theor
 
 Thus making the approximations $\avg{\density \xvec{\velocity}} \simeq \avg{\density} \xvec{\velocity}$ and $\avg{\density \xvec{\velocity}^2} \simeq\avg{\density} \avg{\xvec{\velocity}^2}$, the error terms are controlled by the initial error terms.  
 
+#+BEGIN_LATEX
+\note{Probably just do ideal fluids and don't worry about details of Cauchystress, pressure etc.}
+#+END_LATEX
+
 Before we can write the final form of our equations, we need to investigate $\cauchystress$ further.  Recall that $\cauchystress$ is a symmetric tensor so that in the decomposition of the tangent bundle, we have $\cauchystress^1_{\disc} = \cauchystress^2_{\disc}$ and $\cauchystress_{\disc}$ is a symmetric $(0,2)$-tensor on $\disc$.  A particularly interesting (and common) case is when $\cauchystress = \potential \metric^{-1}$ in which case $\cauchystress$ is given by the scalar potential $\potential$ so that
 \[
 \div \cauchystress = \grad \potential.
@@ -633,8 +680,18 @@ with boundary conditions
 \end{split}
 \end{equation}
 
+#+BEGIN_LATEX
+\note{Discuss radial profiles etc. Focus on density, velocity approximately constant over cross sections}
+#+END_LATEX
+
 * Analysis of 1D equations
+- hyperbolicity, eigenvalues
+- anything else?
 * Remarks on Computational Aspects
+- no boundary matching needed at each cell
+- parametrize pipe once and for all (possibly computationally!) and then subsequent simulations should be quite fast because of no boundary matching required at each cell. Give some pictures of this method and boundary matching methods.
+- Computation should now be fairly standard and there are well balanced methods.
+- mention mixed flows could be treated.
 #+LATEX: \appendix
 * Review of Riemannian Geometry
 \label{app:reviewriemann}
