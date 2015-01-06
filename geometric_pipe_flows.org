@@ -369,21 +369,13 @@ If $\domain$ is a closed pipe, then $\bdry{\body}_{\is}$ truly is an impermeable
 
 ** Balance Laws
 
-#+BEGIN_LATEX
-\note{Give balance laws}
-#+END_LATEX
-
-We assume that $\body(t)$ comes equipped with a density $\density: \body(t) \to \RR$. The velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$.  
-
-#+BEGIN_LATEX
-Recall Euler and Navier/Stokes here.
-#+END_LATEX
+We assume that $\body(t)$ comes equipped with a density $\density: \body(t) \to \RR$. The velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$. Recall that $\density$ and $\vec{\velocity}$ together satisfy the system of equations,
+\begin{align*}
+\pd{t} \density + \div_{\metric} (\density \vec{\velocity}) &= 0 \\
+\pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce}.
+\end{align*}
 
 ** Boundary conditions
-
-#+BEGIN_LATEX
-\note{Clean up.}
-#+END_LATEX
 
 We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelength, t)$, the boundary conditions must be specified,
 #+BEGIN_LATEX
