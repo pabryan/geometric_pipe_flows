@@ -191,6 +191,10 @@ Let us write$\xsecarea (x) = \int_{\disc} \measure_{\disc}(x)$ and
 \]
 for the average of $\genfunc$ over $\disc$.
 
+#+BEGIN_LATEX
+I need to do this not just for $D$, but for submanifolds of $D$.
+#+END_LATEX
+
 \begin{theorem}[Divergence Theorem]
 \label{thm:div_vec}
 For any vector field $X = \xvec{X} + \discvec{X}$ we have
