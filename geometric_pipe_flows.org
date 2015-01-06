@@ -397,41 +397,22 @@ for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent ve
 
 The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
 \[
-\norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}
+\norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}.
 \]
-and the \emph{relative normal velocity} vector field
+We will assume that the fluid surface is advected by the flow, so that $\norvec{\velocity} = \norvec{\fsvelocity}$. Thus we there is no loss of energy from the fluid into it's boundary, such as for example in blood flows where the artery wall deforms from the blood flow. That is, we consider only fluid flows in rigid pipes.
+
+To determine the solution up to reparametrisation of the free boundary, it is is sufficient to specify $\norvec{\velocity}$ on $\relbdry[\body(t)]{M}$.  That is we specify
 \[
-\norvec{\relvelocity} = \norvec{\fsvelocity} - \norvec{\velocity}
-\]
-with $\vec{\nor}$ the normal vector to the free boundary $\relbdry[\body(t)]{M}$.  To determine the solution up to reparametrisation of the free boundary, it is is sufficient to specify $\norvec{\relvelocity}$ on $\relbdry[\body(t)]{M}$.  That is we specify
-\[
-\norvec{\relvelocity}(x, t) = W(x)
+\norvec{\velocity}(x, t) = U(x)
 \]
 for all $x\in \relbdry[\body(t)]{M}$ and $t\in\interval$.  From the decomposition $\relbdry[\body(t)]{M} =  \bdry{\body(t)}_{\is} \union \bdry{\body(t)}_{\fs}$, we also decompose the boundary condition
 \begin{align*}
-\norvec{\relvelocity}(x, t) &= W_{\is}(x), & & x \in \bdry{\body(t)}_{\is} \\
-\norvec{\relvelocity}(x, t) &= W_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
+\norvec{\velocity}(x, t) &= 0, & & x \in \bdry{\body(t)}_{\is} \\
+\norvec{\velocity}(x, t) &= U_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
 \end{align*}
+Here, we assume that the fluid boundary is /advected/ by the flow, that is, $\norvec{\relvelocity} (x, t) = 0$. For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary so that $\norvec{\velocity} = 0$. 
 
-\begin{eg}[Rigid Pipe Flows]
-For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary.  In this situation, the impermeable surface itself does not move (though a given parametrisation of the fluid may have tangential velocity on this boundary) so that $\norvec{\fsvelocity} = 0$.  Then we have the condition
-\[
-\norvec{\relvelocity}(x, t) = W_{\is}(x) = 0,  x \in \bdry{\body(t)}_{\is}.
-\]
-
-If the fluid does not completely fill the pipe, there is a free surface which is \emph{advected} by the flow, i.e. the free surface moves with the same velocity as the fluid, corresponding to the condition
-\[
-\norvec{\relvelocity}(x, t) = W_{\fs}(x) = 0,  x \in \bdry{\body(t)}_{\fs}.
-\]
-\end{eg}
-
-\begin{eg}[Blood Flow, \cite{Hughes1973161}]
-The flow of blood in arteries may be modelled by fluid flow in pipes with deformable boundary.  In this setting the radius of $M$ is the maximal radius after which the artery bursts and $\relbdry[\body(t)]{M} = \bdry{\body(t)}_{\fs}$ is entirely free surface.  In contrast to the rigid pipe flows, the fluid may pass through the arterial wall and so the boundary condition is in general
-\[
-\norvec{\relvelocity}(x, t) = W_{\fs}(x) \ne 0,  x \in \bdry{\body(t)}_{\fs}
-\]
-for some given non-zero function $W_{\fs}$ determined empirically.
-\end{eg}
+We leave the free surface unspecified for the moment, dealing with it when integrating over cross sections.
 
 ** Transport Theorem
 
