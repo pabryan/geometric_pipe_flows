@@ -411,11 +411,11 @@ We leave the free surface unspecified for the moment, dealing with it when integ
 
 ** Transport Theorem
 
-#+BEGIN_LATEX
-\note{This entire section needs to be check over. What do I get on the boundary?}
-#+END_LATEX
+The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  
 
-The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$ and recall the standard formula here:
+We need to be a little careful here, treating the cross section $\xsec(x,t)$ as a family of smooth domains in $(D, \metric_D(x))$ with velocity field $V_D(t)$ not in general equal to $\vec{\velocity}$ since points in $\Omega(x,t)$ come from different cross sections as $t$ varies.
+
+The assumption that the fluid is advected by the flow says that on the free surface, the normal velocity of the fluid surface, $\ip{V}{\nor} = \ip{\vec{\velocity}}{\nor}$, the normal velocity of a fluid particle. The no-leak condition says that $\ip{\vec{velocity}}{\nor} = 0$ on the impermeable surface. Let us denote the unit normal to the cross section $\xsec(x,t)$ as $\xsecnor$. Then we can write $\nor = a \partial_x + b \xsecnor$ where $a^2 + b^2 = 1$.
 
 \begin{theorem}[Transport Theorem]
 \label{thm:transport}
@@ -424,6 +424,25 @@ Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
 \pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \left(\pd[f]{t} + \div_{\disc} (f\vec{\velocity}_{\disc})\right) \measure_{\disc}.
 \]
 \end{theorem}
+
+#+BEGIN_LATEX
+\note{Need to sort out the relationship between the normal component of the velocity of the fluid and the free surface.x}
+#+END_LATEX
+
+\begin{proof}
+Keeping $x \in (0, \curvelength)$ fixed, we have that $\phi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
+\[
+\begin{split}
+\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \phi_t^{\star} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
+&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
+&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
+\end{split}
+\]
+\end{proof}
+
 
 We can now apply our divergence theorems and the transport theorem to deduce a formula for the cross-section averaged material derivative, which will be of great use to us.
 
