@@ -412,16 +412,10 @@ We leave the free surface unspecified for the moment, dealing with it when integ
 ** Transport Theorem
 
 #+BEGIN_LATEX
-\note{Clean up}
+\note{This entire section needs to be check over. What do I get on the boundary?}
 #+END_LATEX
 
-The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$.  The formula is the same as the usual formula, but when differentiating with respect to $x$ we need to account for the fact that the metric $\metric_{\disc}$ depends on $x$.  
-
-#+BEGIN_LATEX
-\note{This next paragraph is perhaps not clear}
-#+END_LATEX
-
-We have the one-parameter family $\body(t) \subset M$.  We can parametrise this say by say $\phi: \body(0) \times \interval \to M$ with each $\phi_t(-) = \phi(-, t)$ a diffeomorphism.  We define the velocity vector field as $\vec{\velocity} = \phi_{\star} \pd{t}$.  If we change parametrisation to $\psi: \body(0) \times \interval \to M$ and define $\vec{\velocity} = \psi_{\star} \pd{t}$, then since $\phi_t(\body(0)) = \body(t) = \psi_t(\body(0))$ we have that $\vec{\velocity}$ is well defined on $\body(t)$, independent of $\phi$ and $\psi$, i.e. $\phi_{\star}\pd{t} (\phi_t(x)) = \psi_{\star}\pd{t} (\psi_t(y))$ where $\phi_t(x) = \psi_t(y)$.  In particular, we may fix a parametrisation $\phi: \body(0) \times \interval \to M$ and work on the fixed manifold $\body(0)$ with the pulled back vector fields and the metric to obtain time dependent quantities on $\body(0)$.  We have of course $\pd{t} = \phi_t^{\star} \vec{\velocity}$ and $\phi_t$ is the flow of the time dependent vector field $\vec{\velocity}$ on $M$.  This point of view allows us to prove the transport theorem:
+The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  We will do this for integrals over $\disc$ and recall the standard formula here:
 
 \begin{theorem}[Transport Theorem]
 \label{thm:transport}
@@ -430,20 +424,6 @@ Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
 \pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \left(\pd[f]{t} + \div_{\disc} (f\vec{\velocity}_{\disc})\right) \measure_{\disc}.
 \]
 \end{theorem}
-
-\begin{proof}
-Keeping $x \in (0, \curvelength)$ fixed, we have that $\phi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
-\[
-\begin{split}
-\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \phi_t^{\star} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
-&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
-\end{split}
-\]
-\end{proof}
 
 We can now apply our divergence theorems and the transport theorem to deduce a formula for the cross-section averaged material derivative, which will be of great use to us.
 
@@ -458,10 +438,6 @@ Let $f: \body(t) \to \RR$ be a smooth function.  Then
 \end{split}
 \]
 \end{cor}
-
-#+BEGIN_LATEX
-\note{At the end I should have $<W_D,N_D>$?}
-#+END_LATEX
 
 \begin{proof}
 For the first equation, by the divergence theorem \ref{thm:div_vec} for vector fields and the transport theorem \ref{thm:transport},
