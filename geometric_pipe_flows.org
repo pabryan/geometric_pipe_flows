@@ -390,11 +390,6 @@ We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelen
 #+END_LATEX
 for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
 
-#+BEGIN_LATEX
-\note{The whole idea that $W = V - U$ may not be zero is saying that there is a boundary that is not the fluid boundary.  If we just work with the fluid, we have $V = \phi_{\star} \pd{t}$ is the normal velocity of the fluid boundary, and of course this is equal to $U = \phi_{\star} \pd{t}$.  To do deformable boundaries, then we have a seperate $U$ and $V$ and $M = M(t)$ say.  I'm not sure what boundary conditions are needed there.  Do we need to specify $U$, $V$, $W$ or perhaps two of them?}
-#+END_LATEX
-
-
 The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
 \[
 \norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}.
