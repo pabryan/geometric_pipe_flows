@@ -100,7 +100,7 @@ These equations may be thought of as the infinitessimal versions of the integral
 \pd{t} \int_{\Omega} \density &= 0 & & \text{Conservation of Mass} \\
 \pd{t} \int_{\Omega} \density\vec{\velocity} &= \int_{\bdry{\Omega}} \ip{\cauchystress}{\nor} + \int_{\Omega} \vec{\bodyforce} = \int_{\Omega} \div \cauchystress + \int_{\Omega} \vec{\bodyforce} & & \text{Balance of Momentum} 
 \end{align*}
-Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  Assuming that $\cauchystress$ is symmetric, it makes no difference in which position we contract.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$.
+Here $\nor$ is a smooth unit normal vector field to $\bdry{\Omega}$ and $\ip{\cauchystress}{\nor}$ is a vector field given by contracting $\cauchystress$ and $\nor$ using the metric in the first $T\RR^3$ position of $\cauchystress \in T\RR^3\tensor T\RR^3$.  Assuming that $\cauchystress$ is symmetric, it makes no difference in which position we contract.  The integrals of vector fields are given by integrating the components of the vector fields with respect to the global coordinate vector fields $\pd{x}, \pd{y}, \pd{z} \in T\RR^3$. It's a little remarkable that this construction yields a geometrically invariant differential balance law. This is because by working with respect to the canonical global frame \(\{\pd{x}, \pd{y}, \pd{z}\}\), the balance laws are invariant under Galilean transformations, and hence in particular invariant under isometries of \(\RR^3\).
 
 ** The Riemannian Setting
 
@@ -119,7 +119,7 @@ Since the divergence is pull-back invariant, i.e. $\div_{\metric} = \phi^{\star}
 abusing notation by writing $\density$, $\vec{\velocity}$, $\cauchystress$ and $\vec{\bodyforce}$ for the pull-backs, $\phi^{\star}\density$, $\phi^{\star}\vec{\velocity}$, $\phi^{\star}\cauchystress$ and $\phi^{\star}\vec{\bodyforce}$ respectively.
 
 #+BEGIN_remark
-This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$.  Howerver, the integral law for balance of momentum doesn't make sense since in general there is no way in general to integrate vector fields ``component-wise''.
+This system of equations makes sense on any Riemannian manifold $(M,\metric)$ not just embedded submanifolds of $\RR^3$. The integral form of the balance law also makes sense, and the equivalence of the differential and integral laws follows the analogous proof on \(M, \metric\) as in \cite{MR960687}. However, the integral law for balance of momentum doesn't make sense since in general there is no way in to integrate vector fields ``component-wise''. Indeed, a global frame is lacking for a general Riemannian manifold \((M, \metric)\), but even if such a frame exists, in general, the resulting differential laws will depend on the choice of frame and hence will not be geometrically invariant.
 #+END_remark
 
 * Pipe Domain and Divergence Theorem
@@ -141,9 +141,9 @@ with $\disc \subset \RR^2$ the open unit disc centred on the origin.  We also wr
 
 We make the following assumption on the embedding $\phi$ related to the pull-back metric,
 \[
-\metric = dx^2 + \metric_{\disc}(x, (y, z))
+\metric = dx^2 + \metric_{\disc}(x, \discparam)
 \]
-where $x\in (0,\curvelength)$ is the axial parameter, $(y,z) \in \clsr{\disc} \subset \RR^2$ are coordinates on $\clsr{\disc}$ and $\metric_{\disc}$ is a metric on $\clsr{\disc}$.  Thus the metric in the axial direction is independent of the cross section $\disc \times \{x\}$ and the cross section is orthogonal to the axial direction with respect to the metric $\metric$.  This simply says that the domain can by parametrised by a non-degenerate unit-speed curve $\domainaxis$, $x\mapsto \phi(x, 0, 0)$ of length $\curvelength$ which we parametrise by arc-length so that $\metric_{xx} = 1$, and with cross section $\domainxsec{x} = \phi(x, \disc)$ orthogonal in $\RR^3$ to the curve.  The matrix form of the metric is 
+where $x\in (0,\curvelength)$ is the axial parameter, $\discparam \in \clsr{\disc}$ and $\metric_{\disc}$ is a metric on $\clsr{\disc}$.  Thus the metric in the axial direction is independent of the cross section $\disc \times \{x\}$ and the cross section is orthogonal to the axial direction with respect to the metric $\metric$.  This simply says that the domain can by parametrised by a non-degenerate unit-speed curve $\domainaxis$, $x\mapsto \phi(x, \disccenter)$ (with $\disccenter \in \disc$ the center) of length $\curvelength$ which we parametrise by arc-length so that $\metric_{xx} = 1$, and with cross section $\domainxsec{x} = \phi(x, \disc)$ orthogonal in $\RR^3$ to the curve.  The matrix form of the metric is 
 \[
 \metric = \begin{pmatrix}
 1 & 0 \\
@@ -151,21 +151,12 @@ where $x\in (0,\curvelength)$ is the axial parameter, $(y,z) \in \clsr{\disc} \s
 \end{pmatrix}.
 \]
 
-Although we work on the fixed manifold $\disc\times \{x\}$, the cross section $\domainxsec{x}$ in $\RR^3$ may vary with $x$ and this is reflected by the dependence on $x$ of the metric $\metric_{\disc}$.  The ``shape'' of the cross section $\domainxsec{x}$ also need not be circular and this is refelcted by the $(y,z)$ dependence of the metric $\metric_{\disc}$.  See figure \ref{fig:domain} for a picture of the domain illustrating the notation and these ideas.
+Although we work on the fixed manifold $\disc\times \{x\}$, the cross section $\domainxsec{x}$ in $\RR^3$ may vary with $x$ and this is reflected by the dependence on $x$ of the metric $\metric_{\disc}$.  The ``shape'' of the cross section $\domainxsec{x}$ also need not be circular and this is refelcted by the $\discparam$ dependence of the metric $\metric_{\disc}$.  See figure \ref{fig:domain} for a picture of the domain illustrating the notation and these ideas.
 
 \begin{figure}
 \caption{The domain}
 \label{fig:domain}
 \end{figure}
-
-\begin{remark}
-The parametrising curve need not be what we would normally consider as the main axis of a pipe as shown in figure \ref{fig:parametrising_curve}.  The first figure shows an embedded pipe and the main axis.  The second shows the same pipe, but with a different choice of axis and hence different cross section.  The second situation is of interest when transporting water from one location to another along a pipe, but the axis of the pipe need not coincide with the direction of outflow at the source and inflow at the destination.
-
-\begin{figure}
-\caption{The parametrising curve need not be the main axis.}
-\label{fig:parametrising_curve}
-\end{figure}
-\end{remark}
 
 Ultimately we want to integrate the balance equations over the cross section $D$ to obtain equations for the cross section average density and cross section averaged $x$-momentem.  For this, we will need a divergence theorem coming from the product structure of the domain $(\domain, \metric) = (\domaincurve \times \disc, dx^2 + \metric_D)$.  The tangent bundle of $\domain$ decomposes as
 \[
@@ -175,7 +166,7 @@ so for any vector field $\vec{X}$ on $\domain$, we have the decomposition
 \[
 \vec{X} = \xvec{X} \pd{x} + \discvec{X}
 \]
-wth $\xvec{X}$ a smooth function on $\domaincurve$ and $\discvec{X}$ a family (indexed by $x\in\domaincurve$) of vector fields on $\disc$.  The block structure on the metric implies
+with $\xvec{X}$ a smooth function on $\domaincurve$ and $\discvec{X}$ a family (indexed by $x\in\domaincurve$) of vector fields on $\disc$.  The block structure on the metric implies
 \[
 \sqrt{\det \metric} = \sqrt{\det \metric_{\disc}},
 \]
@@ -185,26 +176,39 @@ so that the measure induced by the metric is given locally with $y,z$ coordinate
 \]
 with $\measure_{\disc}(x)$ the family (indexed by $x\in\domaincurve$) of measures induced by the family of metrics $\metric_{\disc}(x)$.
 
-Let us write$\xsecarea (x) = \int_{\disc} \measure_{\disc}(x)$ and
+Let us write 
 \[
-\avg{\genfunc}(x) = \frac{1}{\xsecarea(x)} \int_{\disc} f(x) \measure_{\disc} (x)
+\xsecarea (x) = \int_{\disc} \measure_{\disc}(x)
 \]
-for the average of $\genfunc$ over $\disc$.
+for the cross sectional area of \(D\) measured with the metric \(\metric_{\disc}(x)\), and
+\[
+\avg{\genfunc}(x) = \frac{1}{\xsecarea(x)} \int_{\disc} f \measure_{\disc} (x)
+\]
+for the average of $\genfunc: M \to \RR$ over $\disc$ measured with respect to \(\metric_{\disc} (x)\).
 
-#+BEGIN_LATEX
-I need to do this not just for $D$, but for submanifolds of $D$.
-#+END_LATEX
+Subsets, \(\Omega \subset M\) also inherit a decomposition into \(x\)-slices,
+\[
+\Omega = \union_{x \in \domaincurve} \Omega(x)
+\]
+where \(\Omega(x) = \Omega \intersect (\{x\} \times \disc)\). By replacing \(\disc\) with \(\Omega\) above, we also obtain 
+\[
+\xsecarea_{\Omega} (x) = \int_{\Omega(x)} \measure_{\disc} (x)
+\]
+and
+\[
+\avg{\genfunc}_{\Omega} (x) = \frac{1}{\xsecarea_{\Omega} (x)} \int_{\Omega(x)} f \measure_{\disc} (x).
+\]
 
 \begin{theorem}[Divergence Theorem]
 \label{thm:div_vec}
-For any vector field $X = \xvec{X} + \discvec{X}$ we have
+For any vector field $X = \xvec{X} + \discvec{X}$ and any \(\Omega \subset M\) with each \(\Omega(x)\) an open set with smooth enough boundary for Stokes' theorem to apply, we have
 \[
 \begin{split}
-\int_{\disc} \div X \measure_{\disc} &= \pd{x} (\xsecarea \avg{\xvec{X}}) + \int_{\disc} \div_{\disc} \discvec{X} \measure_{\disc} \\
-&= \pd{x} (\xsecarea \avg{\xvec{X}}) + \int_{\bdry{\disc}} \ip{\discvec{X}}{\nor} \measure_{\bdry{\disc}}
+\int_{\Omega(x)} \div X \measure_{\disc}(x) &= \pd{x} (\xsecarea_{\Omega(x)} \avg{\xvec{X}})_{\Omega(x)} + \int_{\Omega(x)} \div_{\disc} \discvec{X} \measure_{\disc} \\
+&= \pd{x} (\xsecarea_{\Omega(x)} \avg{\xvec{X}})_{\Omega(x)} + \int_{\bdry{\Omega(x)}} \ip{\discvec{X}}{\nor} \measure_{\bdry{\disc}}
 \end{split}
 \]
-where $\nor$ is a unit normal field to $\bdry{\disc}$ and $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$ and $\measure_{\bdry{\disc}}$ the induced ``surface'' meausure on $\bdry{\disc}$.
+where $\nor$ is a unit normal field to $\bdry{\Omega(x)}$, $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$, and $\measure_{\bdry{\disc}}$ the induced ``surface'' meausure on $\bdry{\Omega(x)}$.
 \end{theorem}
 
 \begin{proof}
@@ -220,18 +224,18 @@ Note that the divergence doesn't quite inherit a block decomposition from the me
 \[
 \div X \measure_{\disc} = \pd{x} (\xvec{X} \measure_{\disc}) + \div_{\disc} \discvec{X} \measure_{\disc}.
 \]
-Integrating over $\disc$ gives the first equality in the theorem and applying the ``usual'' divergence theorem gives the second.
+Integrating over $\Omega(x)$ gives the first equality in the theorem and applying the ``usual'' divergence theorem gives the second.
 \end{proof}
 
-We also need to deal with the term $\div (\density\vec{\velocity} \tensor \vec{\velocity})$ for which we derive a divergence theorem.  We break up the proof into a short series of lemmas.  Consider tensors $T\in TM\tensor TM$ and we proceed similarly as for vector fields.  From the decomposition of the tangent bundle, we have the decomposition 
+We also need to deal with the term $\div (\density\vec{\velocity} \tensor \vec{\velocity})$ for which we also will derive a divergence theorem.  We break up the proof into a short series of lemmas.  Consider tensors $T\in TM\tensor TM$ and we proceed similarly as for vector fields.  From the decomposition of the tangent bundle, we have the decomposition 
 \[
 T\domain \tensor T\domain \simeq (T\domaincurve \tensor T\domaincurve) \oplus (T\disc \tensor T\disc) \oplus (T\domaincurve \tensor T\disc)  \oplus (T\disc \tensor T\domaincurve) 
 \]
 Thus for any tensor $T \in T\domain \tensor T\domain$, we can write
 \[
-T = T_{xx} \pd{x} \tensor \pd{x} + T_{\disc} + \pd{x} \tensor X_{\disc}^1 + X_{\disc}^2 \tensor \pd{x}
+T = T_{xx} \pd{x} \tensor \pd{x} + T_{\disc} + \pd{x} \tensor T_{\disc}^1 + T_{\disc}^2 \tensor \pd{x}
 \]
-for $T_{xx}$ a smooth function on $\domaincurve$, $T_{\disc} \in T\disc \tensor T\disc$ and $X_{\disc}^i$ $i=1,2$ families (indexed by $x\in\domaincurve$) of vector fields on $\disc$.
+for $T_{xx}$ a smooth function on $\domaincurve$, $T_{\disc} \in T\disc \tensor T\disc$ and $T_{\disc}^i$ $i=1,2$ families (indexed by $x\in\domaincurve$) of vector fields on $\disc$.
 
 The divergence of such tensors also decomposes.  First, let us derive the local expression for the divergence of a tensor $T\in TM\tensor TM$.  There is a degree of ambiguity since the divergence is defined as
 \[
@@ -254,7 +258,7 @@ and divergence on the right hand side is the divergence of the vector field $\io
 \end{lemma}
 
 \begin{proof}
-We compute
+We compute using the summation convention to sum over repeated indices,
 \[
 \begin{split}
 \div T &= \left(\div T^{ij} \pd{x_i} \tensor \pd{x_j}\right) \\
@@ -281,7 +285,7 @@ For any symmetric tensor field $T\in TM\tensor TM$, $\iota_{dx}$ commutes with $
 \begin{proof}
 The second equality is just an application of the divergence theorem \ref{thm:div_vec} to the vector field $\iota_{dx} T$.
 
-For the first equality, let $x_1=x$ and $x_2,x_3$ be local coordinates on $\disc$.  From lemma \ref{lem:tensor_div} we have
+For the first equality, let $x_1=x$ and let $x_2,x_3$ be local coordinates on $\disc$.  From lemma \ref{lem:tensor_div} we have
 \[
 \iota_{dx} \div T = \div \iota_{dx} T + \Gamma_{lk}^x T^{kl}.
 \]
@@ -300,15 +304,19 @@ Then we have
 \]
 where the trace here is the total contraction of $\pd[\metric]{x} \in T^{\star}M\tensor T^{\star}M$ with $T \in TM\tensor TM$ given locally by
 \[
-\trace \left(\pd[\metric]{x} \tensor T\right) = \left(\pd[\metric_{kl}]{x} dx^k \tensor dx^l \right) \cdot \left(T^{pq}\pd{x^p} \tensor \pd{x^q}\right) = \pd[\metric_{kl}]{x} T^{pq} dx^k\tensor dx^l \cdot \pd{x^p} \tensor \pd{x^q} = \pd[\metric_{kl}]{x} T^{kl}.
+\begin{split}
+\trace \left(\pd[\metric]{x} \tensor T\right) &= \left(\pd[\metric_{kl}]{x} dx^k \tensor dx^l \right) \left(T^{pq}\pd{x^p} \tensor \pd{x^q}\right) \\
+&= \pd[\metric_{kl}]{x} T^{pq} dx^k\tensor dx^l \left(\pd{x^p} \tensor \pd{x^q}\right) = \pd[\metric_{kl}]{x} T^{kl}.
+\end{split}
 \]
 
 Now while $\pd[\metric]{x} \ne 0$, the trace vanishes by metric compatibility of the Levi-Civita connection,
 \[
 \begin{split}
-\trace\left(\pd[\metric]{x} \tensor T\right) & = \left(\pd[\metric]{x}\right) \cdot \left(T^{pq}\pd{x^p}, \pd{x^q}\right) \\
+\trace\left(\pd[\metric]{x} \tensor T\right) & = \left(\pd[\metric]{x}\right) \left(T^{pq}\pd{x^p}, \pd{x^q}\right) \\
 &= \pd{x}\left(\metric\left(T^{pq}\pd{x^p}, \pd{x^q}\right)\right) - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
-&= \metric\left(\conx_{\pd{x}} T^{pq}\pd{x^p}, \pd{x^q}\right) + \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
+&= \metric\left(\conx_{\pd{x}} T^{pq}\pd{x^p}, \pd{x^q}\right) + \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
+& \quad - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
 &= 0
 \end{split}
 \]
@@ -318,17 +326,17 @@ We can now give a divergence theorem for the $\pd{x}$-component of symmetric ten
 
 \begin{theorem}[Divergence Theorem For 2-Tensors]
 \label{thm:div_2tensor}
-Let $T$ be a symmetric tensor field $T\in TM\tensor TM$.  Then
+Let $T$ be a symmetric tensor field $T\in TM\tensor TM$ and \(\Omega \subset M\) on open set with boundary smooth enough for Stokes' theorem to apply.  Then
 \[
 \begin{split}
-\int_{\disc} (\iota_{dx} \div T) \measure_{\disc} &= \pd{x} (\xsecarea \avg{\iota_{dx}^2 T}) + \int_{\disc} \div_{\disc} (\iota_{dx} T)_{\disc} \measure_{\disc}  \\
-&= \pd{x} (\xsecarea \avg{\iota_{dx}^2 T}) + \int_{\bdry{\disc}} \ip{(\iota_{dx} T)_{\disc}}{\nor} \measure_{\disc}. \\
+\int_{\Omega(x)} (\iota_{dx} \div T) \measure_{\disc} &= \pd{x} (\xsecarea_{\Omega(x)} \avg{\iota_{dx}^2 T}) + \int_{\Omega(x)} \div_{\disc} (\iota_{dx} T)_{\disc} \measure_{\disc}  \\
+&= \pd{x} (\xsecarea_{\Omega(x)} \avg{\iota_{dx}^2 T}) + \int_{\bdry{\Omega(x)}} \ip{(\iota_{dx} T)_{\disc}}{\nor} \measure_{\disc}. \\
 \end{split}
 \]
 \end{theorem}
 
 \begin{proof}
-This is just the divergence theorem \ref{thm:div_vec} applied to the vector field $\iota_{dx} T$.
+This is just an application of lemma \ref{lem:div_insertionx_commute} and the divergence theorem \ref{thm:div_vec} applied to the vector field $\iota_{dx} T$.
 \end{proof}
 
 * Bodies in Pipes
