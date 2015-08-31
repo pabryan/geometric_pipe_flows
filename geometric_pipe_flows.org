@@ -398,33 +398,25 @@ We must also specify boundary conditions.  On $\xsec(0, t)$ and $\xsec(\curvelen
 #+BEGIN_LATEX
 \[
 \begin{cases}
-\density(0, (y,z), t) &= \density_0((y,z), t) \\
-\density(\curvelength, (y,z), t) &= \density_{\curvelength}((y,z), t) \\
-\vec{\velocity}(0, (y,z), t) &= \vec{\velocity}_0((y,z), t) \\
-\vec{\velocity}(\curvelength, (y,z), t) &= \vec{\velocity}_{\curvelength}((y,z), t)
+\density(0, \discparam, t) &= \density_0(\discparam, t) \\
+\density(\curvelength, \discparam, t) &= \density_{\curvelength}(\discparam, t) \\
+\vec{\velocity}(0, \discparam, t) &= \vec{\velocity}_0(\discparam, t) \\
+\vec{\velocity}(\curvelength, \discparam, t) &= \vec{\velocity}_{\curvelength}(\discparam, t)
 \end{cases}
 \]
 #+END_LATEX
-for given functions on $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
+for given functions $\density_i : \Omega(i, t) \to \RR$ and time-dependent vector fields $\vec{\velocity}_i$ on $\Omega(i, t)$ for $i=0,L$.  This just gives the flow in and out of the pipe/channel at the endpoints.  
 
-The remaining boundary is more subtle, being essentially a free boundary.  The boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation.  Changing the parametrisation only effects the tangential component of the free boundary velocity and conversely any tangential component gives rise to a reparametrisation.  We define the \emph{normal velocity} vector field
+The remaining boundary is more subtle, being composed of the boundary at the impermeable wall and a free boundary. The entire boundary itself is a surface $\relbdry[\body(t)]{M}$ with a well defined normal velocity $\norvec{\fsvelocity}$ independent of any parametrisation. Changing the parametrisation only effects the tangential component of the boundary velocity and conversely any tangential component gives rise to a reparametrisation. We define the \emph{normal velocity} vector field
 \[
 \norvec{\velocity} = \metric(\vec{\velocity}, \vec{\nor}) \vec{\nor}.
 \]
-We will assume that the fluid surface is advected by the flow, so that $\norvec{\velocity} = \norvec{\fsvelocity}$. Thus we there is no loss of energy from the fluid into it's boundary, such as for example in blood flows where the artery wall deforms from the blood flow. That is, we consider only fluid flows in rigid pipes.
 
-To determine the solution up to reparametrisation of the free boundary, it is is sufficient to specify $\norvec{\velocity}$ on $\relbdry[\body(t)]{M}$.  That is we specify
-\[
-\norvec{\velocity}(x, t) = U(x)
-\]
-for all $x\in \relbdry[\body(t)]{M}$ and $t\in\interval$.  From the decomposition $\relbdry[\body(t)]{M} =  \bdry{\body(t)}_{\is} \union \bdry{\body(t)}_{\fs}$, we also decompose the boundary condition
-\begin{align*}
-\norvec{\velocity}(x, t) &= 0, & & x \in \bdry{\body(t)}_{\is} \\
-\norvec{\velocity}(x, t) &= U_{\fs}(x), & & x \in \bdry{\body(t)}_{\fs}.
-\end{align*}
-Here, we assume that the fluid boundary is /advected/ by the flow, that is, $\norvec{\relvelocity} (x, t) = 0$. For a fluid flow in a rigid pipe, the fluid cannot pass through the impermeable boundary so that $\norvec{\velocity} = 0$. 
-
-We leave the free surface unspecified for the moment, dealing with it when integrating over cross sections.
+We will assume that the fluid free surface is advected by the flow, so that $\norvec{\velocity} = \norvec{\fsvelocity}$ along the free surface, and that the fluid cannot pass through the impermeable wall, so that \(\norvec{\velocity} = 0\) along the impermeable wall. Since the surface at the impermeable wall is stationary, we have \(\norvec{\fsvelocity} = 0\) and so the entire boundary condition may be written as the Neumann boundary condition, 
+\begin{equation}
+\label{eq:neumann}
+\norvec{\velocity} = \norvec{\fsvelocity}.
+\end{equation}
 
 ** Transport Theorem
 
