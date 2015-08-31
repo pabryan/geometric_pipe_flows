@@ -314,7 +314,8 @@ Now while $\pd[\metric]{x} \ne 0$, the trace vanishes by metric compatibility of
 \[
 \begin{split}
 \trace\left(\pd[\metric]{x} \tensor T\right) & = \left(\pd[\metric]{x}\right) \left(T^{pq}\pd{x^p}, \pd{x^q}\right) \\
-&= \pd{x}\left(\metric\left(T^{pq}\pd{x^p}, \pd{x^q}\right)\right) - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
+&= \pd{x}\left(\metric\left(T^{pq}\pd{x^p}, \pd{x^q}\right)\right) - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) \\
+& \quad - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
 &= \metric\left(\conx_{\pd{x}} T^{pq}\pd{x^p}, \pd{x^q}\right) + \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
 & \quad - \metric\left(\conx_{\pd{x}} \left(T^{pq} \pd{x^p}\right), \pd{x^q}\right) - \metric \left(T^{pq}\pd{x^p}, \conx_{\pd{x}} \pd{x^q}\right) \\
 &= 0
@@ -343,11 +344,13 @@ This is just an application of lemma \ref{lem:div_insertionx_commute} and the di
 
 ** Fluids in Pipes
 
-#+BEGIN_LATEX
-\note{Clean up definition of body and make it more concise.}
-#+END_LATEX
+Now that we have our manifold $M = (0, \curvelength) \times \disc$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinsically on $M$.  A /continuum/ or /body/ is a smooth time dependent family of connected, open submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$. We can realise \(\body(t)\) via a map,
+\[
+\phi: \body \times \interval \to M
+\]
+smooth on the interior of \(\body\), where \(\body\) is a fixed manifold and each \(\phi_t = \phi(\cdot, t): \body \to M\) is a smooth embedding on the interior of \(B\). Typically \(\body = \body(0)\) and \(\phi_t\) follows the path of a particle along the flow.
 
-Now that we have our manifold $M = (0, \curvelength) \times disc$ and the pull back metric $\metric$ with the product structure described above, we can forget about the actual embedding $\phi$ and work intrinscially on $M$.  A /continuum/ or /body/ is a smooth time dependent family of submanifolds $\body(t) \subset \domain$ with piecewise smooth boundary $\bdry{\body(t)}$ for $t\in\interval$.  The continuum inherits the decomposition
+The continuum inherits the decomposition
 \[
 \body(t) = \union_{x\in \domaincurve} \xsec(x, t)
 \]
@@ -355,13 +358,13 @@ from $\domain$ with
 \[
 \xsec(x,t) = \body(t) \intersect \left(\{x\} \times \disc\right)
 \]
-possibly empty.  Assuming that $\body(t)$ is connected, let
+possibly empty for some values \(x\in\domaincurve\).  Since $\body(t)$ is connected, let
 \begin{align*}
 x_{\min}(t) &= \inf_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset \\
 x_{\max}(t) &= \sup_{x\in (0,\curvelength)} \Omega(x,t) \ne \emptyset .
 \end{align*}
 
-Thus we have $\xsec(x,t) \ne emptyset$ precisely for $x \in (x_{\min}, x_{\max})$.
+Thus we have $\xsec(x,t) \ne \emptyset$ precisely for $x \in [x_{\min}, x_{\max}]$.
 
 The boundary $\bdry{\body(t)}$ decomposes as
 \[
@@ -373,11 +376,8 @@ We also decompose $\relbdry[\body(t)]{M}$ as
 \[
 \relbdry[\body(t)]{M} = \bdry{\body}_{\fs}(t) \cup \bdry{\body}_{\is}(t)
 \]
-with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface.  
+with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface. The impermeable surface is the part of \(\body(t)\) along the boundary of the domain \(M\), while the free surface lies in the interior of the domain \(M\).
 
-\begin{remark}
-If $\domain$ is a closed pipe, then $\bdry{\body}_{\is}$ truly is an impermeable surface.  If $\domain$ is an open channel, then $\domaincurve \times S^1$ has an impermeable part, the bottom of the channel and an open part.  The assumption of the model is that the fluid remains strictly inside the channel, so that $\bdry{\body}_{\is}$ is really the fluid boundary at the impermeable part of the channel.  For any solution (or more usually a numerical approximation), we need to explicitly check that the fluid has remained in the channel for the solution to be valid.
-\end{remark}
 
 ** Balance Laws
 
