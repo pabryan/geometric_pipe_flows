@@ -348,7 +348,7 @@ Now that we have our manifold $M = (0, \curvelength) \times \disc$ and the pull 
 \[
 \phi: \body \times \interval \to M
 \]
-smooth on the interior of \(\body\), where \(\body\) is a fixed manifold and each \(\phi_t = \phi(\cdot, t): \body \to M\) is a smooth embedding on the interior of \(B\). Typically \(\body = \body(0)\) and \(\phi_t\) follows the path of a particle along the flow.
+smooth on the interior of \(\body\), where \(\body\) is a fixed manifold and each \(\phi_t = \phi(\cdot, t): \body \to M\) is a smooth embedding on the interior of \(B\). Via \(\phi_t\) we may identify \(B\) equipped with the pull-back metric \(\pullback{\phi_t} \metric\) and \(B(t)\) equipped with the metric \(\metric\). Typically we will take \(\body = \body(0)\) and \(\phi_t\) follows the path of a particle along the flow.
 
 The continuum inherits the decomposition
 \[
@@ -378,10 +378,15 @@ We also decompose $\relbdry[\body(t)]{M}$ as
 \]
 with $\bdry{\body}_{\is}(t) = \relbdry[\body(t)]{M} \intersect \bdry{\domain}$, the impermeable surface and $\bdry{\body}_{\fs}(t) \subset \domain$ it's complement, the free surface. The impermeable surface is the part of \(\body(t)\) along the boundary of the domain \(M\), while the free surface lies in the interior of the domain \(M\).
 
-
 ** Balance Laws
 
-We assume that $\body(t)$ comes equipped with a density $\density: \body(t) \to \RR$. The velocity is a time dependent vector field $\vec{\velocity}$ on $\body(t)$ for each $t\in\interval$. Recall that $\density$ and $\vec{\velocity}$ together satisfy the system of equations,
+We assume that $\body(t)$ comes equipped with a density $\density_t: \body(t) \to \RR$. Working on the fixed parameter space, \(\body \times \interval\) we define the smooth (on the interior of \(\body\)) function
+\[
+\density ((x, \discparam), t) = \density (\phi_t(x, \discparam))
+\]
+for \((x,\discparam) \in M\). 
+
+The velocity at time \(t \in \interval\) is a vector field $\vec{\velocity}_t$ on $\body(t)$. Equivalently, via \(\phi_t\) \(\vec{\velocity}_t\) is a one-parameter family of vector fields on \(\body\). Recall that $\density$ and $\vec{\velocity}$ together satisfy the system of equations,
 \begin{align*}
 \pd{t} \density + \div_{\metric} (\density \vec{\velocity}) &= 0 \\
 \pd{t} (\density \vec{\velocity}) + \div_{\metric} (\density\vec{\velocity} \tensor \vec{\velocity}) &= \div_{\metric} \cauchystress + \vec{\bodyforce}.
