@@ -427,11 +427,13 @@ We will assume that the fluid free surface is advected by the flow, so that $\no
 
 ** Transport Theorem
 
-The last ingredient we require is a formula for differentiating under the integral sign known in the literature as the (Reynold's) Transport Theorem.  
+The last ingredient we require is a formula for differentiating under cross-sectional integrals, a "cross-sectional (Reynold's) Transport Theorem".
 
-We need to be a little careful here, treating the cross section $\xsec(x,t)$ as a family of smooth domains in $(D, \metric_D(x))$ with velocity field $V_D(t)$ not in general equal to $\vec{\velocity}$ since points in $\Omega(x,t)$ come from different cross sections as $t$ varies.
+We need to be a little careful here. If we were integrating over the entire domain \(B\), we could use \(\pushforward{\phi} \partial_t = \vec{\velocity}\). This would be using the Lagrangian point of view which is the point of view adopted so far. However, here we want to fix \(x \in \domaincurve\) and integrate over the /changing/ cross section \(\xsec(x, t) = \body(t) \intersect \left(\{x\} \times \disc\right)\). Now we have the Eulerian point of view, where we do not follow a point along the flow.
 
-The assumption that the fluid is advected by the flow says that on the free surface, the normal velocity of the fluid surface, $\ip{V}{\nor} = \ip{\vec{\velocity}}{\nor}$, the normal velocity of a fluid particle. The no-leak condition says that $\ip{\vec{velocity}}{\nor} = 0$ on the impermeable surface. Let us denote the unit normal to the cross section $\xsec(x,t)$ as $\xsecnor$. Then we can write $\nor = a \partial_x + b \xsecnor$ where $a^2 + b^2 = 1$.
+#+BEGIN_LATEX
+\note{Is the following correct? That is, can we parametrize \(\xsec(x,t)\) by say \(\psi_t : \Omega_0 \to \{x\} \times \disc\) so that \(\pushforward{\psi} \partial_t = \vec{\velocity}_{\disc}\)? Also we must relate the cross-sectional normal to the free surface normal. That is the free surface normal will have a component in the \(\partial_x\) direction also.}
+#+END_LATEX
 
 \begin{theorem}[Transport Theorem]
 \label{thm:transport}
@@ -441,19 +443,15 @@ Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
 \]
 \end{theorem}
 
-#+BEGIN_LATEX
-\note{Need to sort out the relationship between the normal component of the velocity of the fluid and the free surface.x}
-#+END_LATEX
-
 \begin{proof}
-Keeping $x \in (0, \curvelength)$ fixed, we have that $\phi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
+Keeping $x \in (0, \curvelength)$ fixed, we have that $\psi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
 \[
 \begin{split}
-\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \phi_t^{\star} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
-&= \int_{\xsec(0)} \phi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
+\pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \psi_t^{\star} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
 &= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
 \end{split}
 \]
