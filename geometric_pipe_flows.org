@@ -67,6 +67,17 @@ where the second line follows from the fact that $\iota_X$ is an anti-derivation
 ** Conservation of energy
 Need to describe how our ``moving'' domain is defined?  Perhaps everything follows from conservation of energy? It would be nice to get conservation of momentum from a scalar conservation principle.
 
+** Derivation of Euler's eqn. and Navier Stokes
+Let us just briefly recall the derivation of these equations and establish some notation in the process. Following a particle at \(x \in \Omega(0)\), we get a smooth map \(\phi : \Omega(0) \times [0, T) \to \RR^3\). The point \(\phi(x, t) \in \Omega(t)\) is the position at time \(t\) of the particle starting at \(x\) at time \(t=0\). Let us use the notation \(\phi_t(x) = \phi(x, t)\). We then of course have the relation \(\phi_0 (x) = x\) for every \(x \in \Omega\).
+
+Conservation of mass says that the mass density is constant along the flow. That is,
+\[
+\density_t (\phi_t(x)) dx = \density_0 (x) dx.
+\]
+Pulling back to \(Omega(0)\) by \(\phi_t\) this says
+\[
+\density_t (x) \measure_t = \pullback{\phi_t} \left(\density_t (\phi_t(x)) dx\right) = \pullback{\phi_0} \left(\density_0 (x) dx\right) = \density_0(x) \measure_0.
+\]
 * Introduction
 - Argument works for arbitrary embedded pipes.
 - No boundary matching in discretisation.
@@ -123,10 +134,6 @@ This system of equations makes sense on any Riemannian manifold $(M,\metric)$ no
 #+END_remark
 
 * Pipe Domain and Divergence Theorem
-
-#+BEGIN_LATEX
-\note{Clean up definition of pipe and make it more concise. Derive equations with mimimal use of coordinates.}
-#+END_LATEX
 
 In this section, we describe a way to reduce the dimension of the the system of balance equations by averaging over ``cross-sections'' in domains that $M$ that admit a product structure.  More generally, perhaps the same idea will work for regularly foliated manifolds $M$ yeilding equations for the quotient by the leaves, or perhaps for manifolds with metrics invariant under some group of isometries again giving equations on the quotient.
 
