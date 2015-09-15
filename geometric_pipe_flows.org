@@ -215,7 +215,7 @@ For any vector field $X = \xvec{X} + \discvec{X}$ and any \(\Omega \subset M\) w
 &= \pd{x} (\xsecarea_{\Omega(x)} \avg{\xvec{X}})_{\Omega(x)} + \int_{\bdry{\Omega(x)}} \ip{\discvec{X}}{\nor} \measure_{\bdry{\disc}}
 \end{split}
 \]
-where $\nor$ is a unit normal field to $\bdry{\Omega(x)}$, $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$, and $\measure_{\bdry{\disc}}$ the induced ``surface'' meausure on $\bdry{\Omega(x)}$.
+where $\nor$ is a unit normal field to $\bdry{\Omega(x)}$, $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$, and $\measure_{\bdry{\disc}}$ the induced ``surface'' measure on $\bdry{\Omega(x)}$.
 \end{theorem}
 
 \begin{proof}
@@ -429,32 +429,35 @@ We will assume that the fluid free surface is advected by the flow, so that $\no
 
 The last ingredient we require is a formula for differentiating under cross-sectional integrals, a "cross-sectional (Reynold's) Transport Theorem".
 
-We need to be a little careful here. If we were integrating over the entire domain \(B\), we could use \(\pushforward{\phi} \partial_t = \vec{\velocity}\). This would be using the Lagrangian point of view which is the point of view adopted so far. However, here we want to fix \(x \in \domaincurve\) and integrate over the /changing/ cross section \(\xsec(x, t) = \body(t) \intersect \left(\{x\} \times \disc\right)\). Now we have the Eulerian point of view, where we do not follow a point along the flow.
-
-#+BEGIN_LATEX
-\note{Is the following correct? That is, can we parametrize \(\xsec(x,t)\) by say \(\psi_t : \Omega_0 \to \{x\} \times \disc\) so that \(\pushforward{\psi} \partial_t = \vec{\velocity}_{\disc}\)? Also we must relate the cross-sectional normal to the free surface normal. That is the free surface normal will have a component in the \(\partial_x\) direction also.}
-#+END_LATEX
+We need to be a little careful here. If we were integrating over the entire domain \(B\), we could use \(\pushforward{\phi} \partial_t = \vec{\velocity}\). This would be using the Lagrangian point of view which is the point of view adopted so far. However, here we want to fix \(x \in \domaincurve\) and integrate over the /changing/ cross section \(\xsec(x, t) = \body(t) \intersect \left(\{x\} \times \disc\right)\). Now we have the Eulerian point of view, where we do not follow a point along the flow. The upshot is that we need to parametrize \(\Omega(x,t)\) by a time-dependent family of embeddings \(\psi_t : \Omega \to \disc\), but the velocity vector is not in general equal to \(\discvec{\velocity}\).
 
 \begin{theorem}[Transport Theorem]
 \label{thm:transport}
 Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
 \[
-\pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \left(\pd[f]{t} + \div_{\disc} (f\vec{\velocity}_{\disc})\right) \measure_{\disc}.
+\pd{t} \int_{\xsec(x, t)} f \measure_{\disc} = \int_{\xsec(x, t)} \pd[f]{t} \measure_{\disc} + \int_{\bdry{\xsec(t)}} f \ip{\discvec{\velocity}}{\nor} \areameasure
 \]
 \end{theorem}
 
 \begin{proof}
-Keeping $x \in (0, \curvelength)$ fixed, we have that $\psi_{\star}\pd{t} = \discvec{\velocity}$.  Using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we then compute
+Keeping $x \in (0, \curvelength)$ fixed, and assuming that \(xsec(x, t) \subset (\disc, \metric_{disc}(x))\) is a family of domains with piecewise-smooth boundary, we can parametrise \(\xsec(x, t)\) by a continuous family (smooth on the interior) of embeddings, \(\psi_t: \xsec \to \disc\) with \(\xsec\) a fixed parameter space. Letting \(\discvec{W}\) denote the velocity vector, we have that along the boundary\(\bdry{\xsec(x, t)}\), 
+\[
+\discvec{W} = \discvec{\fsvelocity} = \discvec{\velocity}.
+\]
+
+Then using the properties of the Lie derivative keeping mind that $\discvec{\velocity}$ is a time dependent vector field, we compute
 \[
 \begin{split}
 \pd{t} \int_{\xsec(t)} f \measure_{\disc} &= \int_{\xsec(0)} \pd{t} \psi_t^{\star} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \psi_t^{\star} \lie_{\discvec{\velocity}} (f \measure_{\disc}) \\
-&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{\velocity}} (f \measure_{\disc})\right) \\
-&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{\velocity}(f) \measure_{\disc} + f \div_{\disc} \discvec{\velocity} \measure_{\disc} \right) \\
-&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{\velocity}) \measure_{\disc}\right) \\
-&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{\velocity})\right) \measure_{\disc}.
+&= \int_{\xsec(0)} \psi_t^{\star} \lie_{\discvec{W}} (f \measure_{\disc}) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \lie_{\discvec{W}} (f \measure_{\disc})\right) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \discvec{W}(f) \measure_{\disc} + f \div_{\disc} \discvec{W} \measure_{\disc} \right) \\
+&= \int_{\xsec(0)} \psi_t^{\star} \left(\pd[f]{t} \measure_{\disc} + \div_{\disc}(f \discvec{W}) \measure_{\disc}\right) \\
+&= \int_{\xsec(t)} \left(\pd[f]{t} + \div_{\disc}(f \discvec{W})\right) \measure_{\disc} \\
+&= \int_{\xsec(t)} \pd[f]{t} \measure_{\disc} + \int_{\bdry{\xsec(t)}} f \ip{\discvec{\velocity}}{\nor} \areameasure
 \end{split}
 \]
+where the last line used Stokes' Theorem and the fact that \(\discvec{\fsvelocity} = \discvec{\velocity}\) along the free surface \(\bdry{\xsec(x,t)}_{\fs}\) and that \(\ip{\discvec{\velocity}}{\nor} = 0 \) along \(\bdry{\xsec(x,t)}_{\is}\).
 \end{proof}
 
 
