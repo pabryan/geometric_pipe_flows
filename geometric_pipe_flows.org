@@ -205,17 +205,22 @@ and
 \[
 \avg{\genfunc}_{\Omega} (x) = \frac{1}{\xsecarea_{\Omega} (x)} \int_{\Omega(x)} f \measure_{\disc} (x).
 \]
+We will restrict our attention to "nice" domains \(\Omega\), meaning that each \(\Omega(x)\) is an open set with smooth enough boundary for Stokes' theorem to apply.
 
 \begin{theorem}[Divergence Theorem]
 \label{thm:div_vec}
-For any vector field $X = \xvec{X} + \discvec{X}$ and any \(\Omega \subset M\) with each \(\Omega(x)\) an open set with smooth enough boundary for Stokes' theorem to apply, we have
+For any vector field $X = \xvec{X} + \discvec{X}$ we have
+\[
+\div X \measure_{\disc} = \pd{x} (\xvec{X} \measure_{\disc}) + \div_{\disc} \discvec{X} \measure_{\disc}.
+\]
+Therefore, given any nice \(\Omega \subset M\), we have
 \[
 \begin{split}
-\int_{\Omega(x)} \div X \measure_{\disc}(x) &= \pd{x} (\xsecarea_{\Omega(x)} \avg{\xvec{X}})_{\Omega(x)} + \int_{\Omega(x)} \div_{\disc} \discvec{X} \measure_{\disc} \\
-&= \pd{x} (\xsecarea_{\Omega(x)} \avg{\xvec{X}})_{\Omega(x)} + \int_{\bdry{\Omega(x)}} \ip{\discvec{X}}{\nor} \measure_{\bdry{\disc}}
+\int_{\Omega(x)} \div X \measure_{\disc}(x) &= \int_{\Omega(x)} \pd{x} (\xvec{X} \measure_{\disc}) + \int_{\Omega(x)} \div_{\disc} \discvec{X} \measure_{\disc} \\
+&= \int_{\Omega(x)} \pd{x} (\xvec{X} \measure_{\disc}) + \int_{\bdry{\Omega(x)}} \ip{\discvec{X}}{\discvec{\nor}} \measure_{\bdry{\disc}}
 \end{split}
 \]
-where $\nor$ is a unit normal field to $\bdry{\Omega(x)}$, $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$, and $\measure_{\bdry{\disc}}$ the induced ``surface'' measure on $\bdry{\Omega(x)}$.
+where $\discvec{\nor}$ is the outer unit normal field to $\bdry{\Omega(x)}$, $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$, and $\measure_{\bdry{\disc}}$ the induced ``surface'' measure on $\bdry{\Omega(x)}$.
 \end{theorem}
 
 \begin{proof}
@@ -224,12 +229,16 @@ In local coordinates, the assumptions on the metric imply the divergence may be 
 \begin{split}
 \div X &= \frac{1}{\sqrt{\det\metric_{\disc}}} \left[\pd{x} (\sqrt{\det \metric_{\disc}} \xvec{X}) + \pd{y} (\sqrt{\det \metric_{\disc}} \yvec{X}) + \pd{z} (\sqrt{\det \metric_{\disc}} \zvec{X})\right] \\
 &= \pd{x} \xvec{X} + \frac{\pd{x} \sqrt{\det \metric_{\disc}}}{\sqrt{\det \metric_{\disc}}} \xvec{X} + \frac{1}{\sqrt{\det\metric_{\disc}}} \left[\pd{y} (\sqrt{\det \metric_{\disc}} \yvec{X}) + \pd{z} (\sqrt{\det \metric_{\disc}} \zvec{X})\right] \\
-&= \div_{\domaincurve} \xvec{X} + \frac{\pd{x} \measure_{\disc}}{\measure_{\disc}} \xvec{X} + \div_{\disc} \discvec{X}.
+&= \div_{\domaincurve} \xvec{X} + \frac{\pd{x} \sqrt{\det \metric_{\disc}}}{\sqrt{\det \metric_{\disc}}} \xvec{X} + \div_{\disc} \discvec{X}.
 \end{split}.
 \]
-Note that the divergence doesn't quite inherit a block decomposition from the metric since the metric on $\disc$ varies with $x\in\domaincurve$.  However, by multipyling by $\measure_{\disc} = \sqrt{\det \metric_{\disc}}$, we obtain the decomposition 
+Note that the divergence doesn't quite inherit a block decomposition from the metric since the metric on $\disc$ varies with $x\in\domaincurve$.  However, by multiplying by $\measure_{\disc} = \sqrt{\det \metric_{\disc}} dy \wedge dz$, we obtain the decomposition
 \[
-\div X \measure_{\disc} = \pd{x} (\xvec{X} \measure_{\disc}) + \div_{\disc} \discvec{X} \measure_{\disc}.
+\div X \measure_{\disc} = \pd{x} (\xvec{X} \measure_{\disc}) + \div_{\disc} \discvec{X} \measure_{\disc}
+\]
+where we make the convention,
+\[
+\pd{x} (\measure_{\disc}) = \pd{x} \left(\sqrt{\det \metric_{\disc}}\right) dy\wedge dz
 \]
 Integrating over $\Omega(x)$ gives the first equality in the theorem and applying the ``usual'' divergence theorem gives the second.
 \end{proof}
