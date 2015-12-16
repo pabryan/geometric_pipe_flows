@@ -31,6 +31,8 @@ A geometric approach to fluid flows in pipes.
 \end{abstract}
 
 * Notes								   :noexport:
+** Refs
+- Free boundary problems: Problems on Time-Varying Domains: Formulation, Dynamics, and Challenges. E. Knobloch, R. Krechetnikov.
 ** Background
 This describes a geometric approach broadening the technique described in \cite{MR2384375}.
 ** Lie Derivative
@@ -440,7 +442,7 @@ Let $f: \body(0) \times \interval \to \RR$ be a smooth function.  Then
 \end{theorem}
 
 \begin{proof}
-Keeping $x \in (0, \curvelength)$ fixed, and assuming that \(xsec(x, t) \subset (\disc, \metric_{disc}(x))\) is a family of domains with piecewise-smooth boundary, we can parametrise \(\xsec(x, t)\) by a continuous family (smooth on the interior) of embeddings, \(\psi_t: \xsec \to \disc\) with \(\xsec\) a fixed parameter space. Letting \(\discvec{W}\) denote the velocity vector, we have that along the boundary\(\bdry{\xsec(x, t)}\), 
+Keeping $x \in (0, \curvelength)$ fixed, and assuming that \(\xsec(x, t) \subset (\disc, \metric_{\disc}(x))\) is a family of domains with piecewise-smooth boundary, we can parametrise \(\xsec(x, t)\) by a continuous family (smooth on the interior) of embeddings, \(\psi_t: \xsec \to \disc\) with \(\xsec\) a fixed parameter space. Letting \(\discvec{W}\) denote the velocity vector, we have that along the boundary\(\bdry{\xsec(x, t)}\),
 \[
 \discvec{W} = \discvec{\fsvelocity} = \discvec{\velocity}.
 \]
@@ -479,9 +481,9 @@ Let $f: \body(t) \to \RR$ be a smooth function.  Then
 For the first equation, by the divergence theorem \ref{thm:div_vec} for vector fields and the transport theorem \ref{thm:transport},
 \[
 \begin{split}
-\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea \avg{f}) - \int_{\xsec} \div_{\disc}(f \discvec{\fsvelocity}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) + \int_{\xsec} \div_{\disc} (f\discvec{\velocity})\measure_{\disc} \\
-&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} \div_{\disc} f(\discvec{\fsvelocity} - \discvec{\velocity}) \measure_{\bdry{\xsec}} \\
-&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) - \int_{\bdry{\xsec}} f \norvec{W} \measure_{\bdry{\xsec}}
+\int_{\xsec} \left(\pd[f]{t} + \div(f \vec{\velocity})\right) \measure_{\disc} &= \pd{t} (\xsecarea \avg{f}) - \int_{\bdry{\xsec}_{\fs}} \ip{f \discvec{\velocity}}{\nor} \sigma + \int_{\xsec} \pd{x} \left(f \xvec{\velocity}\right) + \div_{\disc} (f\discvec{\velocity}) \measure_{\disc} \\
+&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) + \int_{\xsec} f\xvec{\velocity} \pd{x} \measure_{\disc} + \int_{\bdry{\xsec}_{\fs}} \ip{f\discvec{\velocity}}{\nor - \nor_{\disc}} \areameasure \\
+&= \pd{t} (\xsecarea \avg{f}) + \pd{x} (\xsecarea \avg{f \xvec{\velocity}}) + \cdots
 \end{split}
 \]
 where $\vec{\nor}$ is the unit outer normal to $\bdry{\body}$ and $\nor_{\disc}$ is it's projection onto the cross section $\disc$ which is normal to $\bdry{\xsec}$ but generally not unit length.
