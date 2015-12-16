@@ -243,6 +243,24 @@ where we make the convention,
 Integrating over $\Omega(x)$ gives the first equality in the theorem and applying the ``usual'' divergence theorem gives the second.
 \end{proof}
 
+We will also need to differentiate under the integral sign with respect to \(x\). Note that here the cross-sections of the pipe are varying (as expressed by the \(x\)-dependence of \(\measure_{\disc}\)) and the cross-sections of the domain also vary \(\xsec = \xsec(x)\).
+
+\begin{theorem}[Axial Differentiation Under The Integral]
+\label{thm:div_vec}
+For any function \(f : \Omega \to \RR\) where \(\Omega \subset M\) is a nice domain we have
+\[
+\begin{split}
+\pd{x} \left(\int_{\Omega(x)} f \measure_{\disc}(x)\right) &= \int_{\Omega(x)} \pd[f]{x} \measure_{\disc} + \int_{\Omega(x)} \text{what?} \measure_{\disc} \\
+&= \int_{\Omega(x)} \pd[f]{x} \measure_{\disc} + \int_{\Omega(x)} \text{what?} \measure_{\disc}
+\end{split}
+\]
+where $\discvec{\nor}$ is the outer unit normal field to $\bdry{\Omega(x)}$, $\div_{\disc}$ is the divergence with respect to $\metric_{\disc}$ on $\disc$, and $\measure_{\bdry{\disc}}$ the induced ``surface'' measure on $\bdry{\Omega(x)}$.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
 We also need to deal with the term $\div (\density\vec{\velocity} \tensor \vec{\velocity})$ for which we also will derive a divergence theorem.  We break up the proof into a short series of lemmas.  Consider tensors $T\in TM\tensor TM$ and we proceed similarly as for vector fields.  From the decomposition of the tangent bundle, we have the decomposition 
 \[
 T\domain \tensor T\domain \simeq (T\domaincurve \tensor T\domaincurve) \oplus (T\disc \tensor T\disc) \oplus (T\domaincurve \tensor T\disc)  \oplus (T\disc \tensor T\domaincurve) 
